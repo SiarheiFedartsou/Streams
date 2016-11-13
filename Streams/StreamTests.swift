@@ -12,6 +12,18 @@ import Nimble
 
 class StreamTests: XCTestCase {
     
+    func testThatForEachWorksForJustCreatedStream() {
+        // given
+        let array = [12, 4, 9, 14, 10, 3]
+        
+        // when
+        var result = [Int]()
+        array.stream.forEach({ result.append($0) })
+        
+        // then
+        expect(result).to(equal([12, 4, 9, 14, 10, 3]))
+    }
+    
     func testThatFilterWorks() {
         // given
         let array = [12, 4, 9, 14, 10, 3]
