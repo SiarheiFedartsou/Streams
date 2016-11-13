@@ -16,15 +16,17 @@ class PipelineHead<T> : PipelineStage<T, T>
         self.sourceStage = AnyConsumer(self)
     }
     
+    override func consume(_ t: T) {
+        nextStage?.consume(t)
+    }
+    
 }
 
 class PipelineStage<T, SourceElement> : ConsumerProtocol, StreamProtocol
 {
     var nextStage: AnyConsumer<T>? = nil
     
-    func consume(_ t: T) {
-        nextStage?.consume(t)
-    }
+    func consume(_ t: T) {}
     
     private var source: AnySpliterator<SourceElement>
     var sourceStage: AnyConsumer<SourceElement>? = nil
