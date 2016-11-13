@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PipelineHead<T> : PipelineStage<T, T>
+class PipelineHead<T> : PipelineStage<T, T, T>
 {
     init(source: AnySpliterator<T>)
     {
@@ -22,11 +22,11 @@ class PipelineHead<T> : PipelineStage<T, T>
     
 }
 
-class PipelineStage<T, SourceElement> : ConsumerProtocol, StreamProtocol
+class PipelineStage<In, Out, SourceElement> : ConsumerProtocol, StreamProtocol
 {
-    var nextStage: AnyConsumer<T>? = nil
+    var nextStage: AnyConsumer<Out>? = nil
     
-    func consume(_ t: T) {}
+    func consume(_ t: In) {}
     
     private var source: AnySpliterator<SourceElement>
     var sourceStage: AnyConsumer<SourceElement>? = nil
@@ -38,25 +38,25 @@ class PipelineStage<T, SourceElement> : ConsumerProtocol, StreamProtocol
         self.sourceStage = sourceStage
     }
     
-    var spliterator: AnySpliterator<T> {
-        return [T]().spliterator
+    var spliterator: AnySpliterator<Out> {
+        return [Out]().spliterator
     }
     
-    func filter(_ predicate: @escaping (T) -> Bool) -> AnyStream<T>
+    func filter(_ predicate: @escaping (Out) -> Bool) -> AnyStream<Out>
     {
         let stage = FilterPipelineStage(sourceStage: self.sourceStage!, source: source, predicate: predicate)
         self.nextStage = AnyConsumer(stage)
         return AnyStream(stage)
     }
     
-    func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R>
+    func map<R>(_ mapper: @escaping (Out) -> R) -> AnyStream<R>
     {
         let stage = MapPipelineStage(sourceStage: self.sourceStage!, source: source, mapper: mapper)
         self.nextStage = AnyConsumer(stage)
         return AnyStream(stage)
     }
     
-    func forEach(_ each: @escaping (T) -> ())
+    func forEach(_ each: @escaping (Out) -> ())
     {
         let stage = ForEachTerminalStage(each: each)
         self.nextStage = AnyConsumer(stage)
@@ -132,7 +132,7 @@ class MapPipelineStage<In, Out, SourceElement> : ConsumerProtocol, StreamProtoco
     }
 }
 
-class FilterPipelineStage<T, SourceElement> : PipelineStage<T, SourceElement>
+class FilterPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
 {
     let predicate: (T) -> Bool
     
