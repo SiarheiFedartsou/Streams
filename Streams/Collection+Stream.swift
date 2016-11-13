@@ -11,7 +11,7 @@ import Foundation
 extension Collection {
     var stream: AnyStream<Self.Iterator.Element> {
         
-        return AnyStream(PipelineStage(source: self.spliterator))
+        return AnyStream(PipelineHead(source: self.spliterator))
         
      //   return AnyStream(Stream(spliterator: self.spliterator, parallel: false))
     }

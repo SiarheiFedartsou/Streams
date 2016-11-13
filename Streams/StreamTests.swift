@@ -18,7 +18,8 @@ class StreamTests: XCTestCase {
         
         // when
         var result = [Int]()
-        array.stream.forEach({ result.append($0) })
+        array.stream
+            .forEach({ result.append($0) })
         
         // then
         expect(result).to(equal([12, 4, 9, 14, 10, 3]))
@@ -30,7 +31,9 @@ class StreamTests: XCTestCase {
         
         // when
         var result = [Int]()
-        array.stream.filter({ $0 < 10 }).forEach({ result.append($0) })
+        array.stream
+            .filter({ $0 < 10 })
+            .forEach({ result.append($0) })
         
         // then
         expect(result).to(equal([4, 9, 3]))
@@ -42,10 +45,29 @@ class StreamTests: XCTestCase {
         
         // when
         var result = [String]()
-        array.stream.filter({ $0 < 10 }).map({ "\($0)" }).forEach({ result.append($0) })
+        array.stream
+            .filter({ $0 < 10 })
+            .map({ "\($0)" })
+            .forEach({ result.append($0) })
         
         // then
         expect(result).to(equal(["4", "9", "3"]))
+    }
+    
+    func testThatMapSequenceWorks() {
+        // given
+        let array = [12, 4, 9, 14, 10, 3]
+        
+        // when
+        var result = [String]()
+        array.stream
+            .filter({ $0 < 10 })
+            .map({ $0 * 10 })
+            .map({ "\($0)" })
+            .forEach({ result.append($0) })
+        
+        // then
+        expect(result).to(equal(["40", "90", "30"]))
     }
     
 }

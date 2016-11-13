@@ -8,7 +8,17 @@
 
 import Foundation
 
-class PipelineStage<T> : ConsumerProtocol, StreamProtocol
+class PipelineHead<T> : PipelineStage<T, T>
+{
+    init(source: AnySpliterator<T>)
+    {
+        super.init(sourceStage: nil, source: source)
+        self.sourceStage = AnyConsumer(self)
+    }
+    
+}
+
+class PipelineStage<T, SourceElement> : ConsumerProtocol, StreamProtocol
 {
     var nextStage: AnyConsumer<T>? = nil
     
@@ -16,11 +26,14 @@ class PipelineStage<T> : ConsumerProtocol, StreamProtocol
         nextStage?.consume(t)
     }
     
-    private var source: AnySpliterator<T>
+    private var source: AnySpliterator<SourceElement>
+    var sourceStage: AnyConsumer<SourceElement>? = nil
     
-    init(source: AnySpliterator<T>)
+    
+    init(sourceStage: AnyConsumer<SourceElement>?, source: AnySpliterator<SourceElement>)
     {
         self.source = source
+        self.sourceStage = sourceStage
     }
     
     var spliterator: AnySpliterator<T> {
@@ -29,14 +42,14 @@ class PipelineStage<T> : ConsumerProtocol, StreamProtocol
     
     func filter(_ predicate: @escaping (T) -> Bool) -> AnyStream<T>
     {
-        let stage = FilterPipelineStage(sourceStage: AnyConsumer(self), source: source, predicate: predicate)
+        let stage = FilterPipelineStage(sourceStage: self.sourceStage!, source: source, predicate: predicate)
         self.nextStage = AnyConsumer(stage)
         return AnyStream(stage)
     }
     
     func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R>
     {
-        let stage = MapPipelineStage(sourceStage: AnyConsumer(self), source: source, mapper: mapper)
+        let stage = MapPipelineStage(sourceStage: self.sourceStage!, source: source, mapper: mapper)
         self.nextStage = AnyConsumer(stage)
         return AnyStream(stage)
     }
@@ -47,7 +60,7 @@ class PipelineStage<T> : ConsumerProtocol, StreamProtocol
         self.nextStage = AnyConsumer(stage)
         
         while let element = source.advance() {
-            self.consume(element)
+            self.sourceStage!.consume(element)
         }
     }
 }
@@ -117,56 +130,21 @@ class MapPipelineStage<In, Out, SourceElement> : ConsumerProtocol, StreamProtoco
     }
 }
 
-class FilterPipelineStage<T, SourceElement> : ConsumerProtocol, StreamProtocol
+class FilterPipelineStage<T, SourceElement> : PipelineStage<T, SourceElement>
 {
-    let sourceStage: AnyConsumer<SourceElement>
-    private var source: AnySpliterator<SourceElement>
-    
-    
-    var nextStage: AnyConsumer<T>? = nil
-    
     let predicate: (T) -> Bool
     
     init(sourceStage: AnyConsumer<SourceElement>, source: AnySpliterator<SourceElement>, predicate: @escaping (T) -> Bool)
     {
-        self.sourceStage = sourceStage
-        self.source = source
         self.predicate = predicate
+        super.init(sourceStage: sourceStage, source: source)
     }
     
-    func consume(_ t: T) {
+    override func consume(_ t: T) {
         if let nextStage = self.nextStage {
             if predicate(t) {
                 nextStage.consume(t)
             }
-        }
-    }
-    
-    var spliterator: AnySpliterator<T> {
-        return [T]().spliterator
-    }
-    
-    func filter(_ predicate: @escaping (T) -> Bool) -> AnyStream<T>
-    {
-        let stage = FilterPipelineStage(sourceStage: self.sourceStage, source: source, predicate: predicate)
-        self.nextStage = AnyConsumer(stage)
-        return AnyStream(stage)
-    }
-    
-    func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R>
-    {
-        let stage = MapPipelineStage(sourceStage: self.sourceStage, source: source, mapper: mapper)
-        self.nextStage = AnyConsumer(stage)
-        return AnyStream(stage)
-    }
-    
-    func forEach(_ each: @escaping (T) -> ())
-    {
-        let stage = ForEachTerminalStage(each: each)
-        self.nextStage = AnyConsumer(stage)
-        
-        while let element = source.advance() {
-            self.sourceStage.consume(element)
         }
     }
 }
