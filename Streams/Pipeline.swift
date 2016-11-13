@@ -8,11 +8,16 @@
 
 import Foundation
 
-class PipelineStage<T, NextStageElement> : ConsumerProtocol, StreamProtocol
+class PipelineStage<T> : ConsumerProtocol, StreamProtocol
 {
-    var nextStage: AnyConsumer<NextStageElement>? = nil
-    
     func consume(_ t: T) {
+    }
+    
+    private let source: AnySpliterator<T>
+    
+    init(source: AnySpliterator<T>)
+    {
+        self.source = source
     }
     
     var spliterator: AnySpliterator<T> {
@@ -21,7 +26,8 @@ class PipelineStage<T, NextStageElement> : ConsumerProtocol, StreamProtocol
     
     func filter(_ predicate: @escaping (T) -> Bool) -> AnyStream<T>
     {
-        return AnyStream(FilterPipelineStage(predicate: predicate))
+        let stage = FilterPipelineStage(predicate: predicate)
+        return AnyStream(stage)
     }
     
     func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R>
@@ -59,12 +65,16 @@ class MapPipelineStage<In, Out> : ConsumerProtocol, StreamProtocol
     
     func filter(_ predicate: @escaping (Out) -> Bool) -> AnyStream<Out>
     {
-        return AnyStream(FilterPipelineStage(predicate: predicate))
+        let stage = FilterPipelineStage(predicate: predicate)
+        self.nextStage = AnyConsumer(stage)
+        return AnyStream(stage)
     }
     
     func map<R>(_ mapper: @escaping (Out) -> R) -> AnyStream<R>
     {
-        return AnyStream(MapPipelineStage<Out, R>(mapper: mapper))
+        let stage = MapPipelineStage<Out, R>(mapper: mapper)
+        self.nextStage = AnyConsumer(stage)
+        return AnyStream(stage)
     }
     
     func forEach(_ each: @escaping (Out) -> ())
@@ -98,12 +108,16 @@ class FilterPipelineStage<T> : ConsumerProtocol, StreamProtocol
     
     func filter(_ predicate: @escaping (T) -> Bool) -> AnyStream<T>
     {
-        return AnyStream(FilterPipelineStage(predicate: predicate))
+        let stage = FilterPipelineStage(predicate: predicate)
+        self.nextStage = AnyConsumer(stage)
+        return AnyStream(stage)
     }
     
     func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R>
     {
-        return AnyStream(MapPipelineStage(mapper: mapper))
+        let stage = MapPipelineStage(mapper: mapper)
+        self.nextStage = AnyConsumer(stage)
+        return AnyStream(stage)
     }
     
     func forEach(_ each: @escaping (T) -> ())
