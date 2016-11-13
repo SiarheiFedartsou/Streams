@@ -12,18 +12,11 @@ import Swift
 protocol StreamProtocol {
     associatedtype T
     var spliterator: AnySpliterator<T> { get }
+  
+    func filter(_ predicate: @escaping (T) -> Bool) -> AnyStream<T>
+    func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R>
     
-    var isParallel: Bool { get }
-    
-    var parallel: AnyStream<T> { get }
-    var sequential: AnyStream<T> { get }
-    var unordered: AnyStream<T> { get }
-    
-    
-    func filter(_ predicate: (T) -> Bool) -> AnyStream<T>
-    func map<R>(_ mapper: (T) -> R) -> AnyStream<R>
-    
-    func forEach(_ each: (T) -> ())
+    func forEach(_ each: @escaping (T) -> ())
 }
 
 
@@ -44,15 +37,15 @@ struct Stream<T> : StreamProtocol {
         return AnyStream(self)
     }
     
-    func filter(_ predicate: (T) -> Bool) -> AnyStream<T> {
+    func filter(_ predicate: @escaping (T) -> Bool) -> AnyStream<T> {
         return AnyStream(self)
     }
     
-    func map<R>(_ mapper: (T) -> R) -> AnyStream<R> {
+    func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R> {
         return [R]().stream
     }
     
-    func forEach(_ each: (T) -> ()) {
+    func forEach(_ each: @escaping (T) -> ()) {
         
     }
     

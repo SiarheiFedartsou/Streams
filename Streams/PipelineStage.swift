@@ -7,10 +7,10 @@
 //
 
 
-protocol PipelineStageProtocol {
-    
-}
 
-struct PipelineStage : PipelineStageProtocol {
-    
-}
+
+
+
+//class Pipeline<In, Out> {
+//    init(source: AnySpliterator<>)
+//}
