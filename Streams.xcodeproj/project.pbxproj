@@ -34,6 +34,7 @@
 		B3D0F9061DDA14100063326D /* SkipStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9051DDA14100063326D /* SkipStage.swift */; };
 		B3D0F9081DDA142B0063326D /* MapStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9071DDA142B0063326D /* MapStage.swift */; };
 		B3D0F90A1DDA14380063326D /* FilterStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9091DDA14380063326D /* FilterStage.swift */; };
+		B3D0F90C1DDA18D40063326D /* Infinite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F90B1DDA18D40063326D /* Infinite.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		B3D0F9051DDA14100063326D /* SkipStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkipStage.swift; sourceTree = "<group>"; };
 		B3D0F9071DDA142B0063326D /* MapStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapStage.swift; sourceTree = "<group>"; };
 		B3D0F9091DDA14380063326D /* FilterStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterStage.swift; sourceTree = "<group>"; };
+		B3D0F90B1DDA18D40063326D /* Infinite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Infinite.swift; sourceTree = "<group>"; };
 		E794004DCE0DBF391D0CDDB0 /* Pods-StreamsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamsTests/Pods-StreamsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,6 +161,7 @@
 				B3D0F9051DDA14100063326D /* SkipStage.swift */,
 				B3D0F9071DDA142B0063326D /* MapStage.swift */,
 				B3D0F9091DDA14380063326D /* FilterStage.swift */,
+				B3D0F90B1DDA18D40063326D /* Infinite.swift */,
 			);
 			path = Streams;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				B301CBCB1DC3D7710086E3EE /* Stream.swift in Sources */,
 				B3D0F9021DDA13D30063326D /* ForEachStage.swift in Sources */,
 				B39D3A3F1DD39BBD00AED66C /* StreamOptions.swift in Sources */,
+				B3D0F90C1DDA18D40063326D /* Infinite.swift in Sources */,
 				B3D0F90A1DDA14380063326D /* FilterStage.swift in Sources */,
 				B31AAF441DD864B3006A0617 /* Consumer.swift in Sources */,
 				B31AAF3E1DD852BA006A0617 /* Collection+Stream.swift in Sources */,
