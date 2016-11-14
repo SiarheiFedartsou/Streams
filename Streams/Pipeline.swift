@@ -13,26 +13,41 @@ class PipelineHead<T> : PipelineStage<T, T, T>
     init(source: AnySpliterator<T>)
     {
         super.init(sourceStage: nil, source: source)
-        self.sourceStage = AnyConsumer(self)
+        self.sourceStage = AnySink(self)
+    }
+    
+    override func begin(size: Int) {
+        nextStage?.begin(size: size)
     }
     
     override func consume(_ t: T) {
         nextStage?.consume(t)
     }
     
+    override func end() {
+        nextStage?.end()
+    }
+    
+    override var cancellationRequested: Bool {
+        return nextStage?.cancellationRequested ?? false
+    }
+    
 }
 
-class PipelineStage<In, Out, SourceElement> : ConsumerProtocol, StreamProtocol
+class PipelineStage<In, Out, SourceElement> : SinkProtocol, StreamProtocol
 {
-    var nextStage: AnyConsumer<Out>? = nil
+    var nextStage: AnySink<Out>? = nil
     
+    func begin(size: Int) {}
     func consume(_ t: In) {}
+    func end() {}
+    var cancellationRequested: Bool { return false }
     
     private var source: AnySpliterator<SourceElement>
-    var sourceStage: AnyConsumer<SourceElement>? = nil
+    var sourceStage: AnySink<SourceElement>? = nil
     
     
-    init(sourceStage: AnyConsumer<SourceElement>?, source: AnySpliterator<SourceElement>)
+    init(sourceStage: AnySink<SourceElement>?, source: AnySpliterator<SourceElement>)
     {
         self.source = source
         self.sourceStage = sourceStage
@@ -45,35 +60,35 @@ class PipelineStage<In, Out, SourceElement> : ConsumerProtocol, StreamProtocol
     func filter(_ predicate: @escaping (Out) -> Bool) -> AnyStream<Out>
     {
         let stage = FilterPipelineStage(sourceStage: self.sourceStage!, source: source, predicate: predicate)
-        self.nextStage = AnyConsumer(stage)
+        self.nextStage = AnySink(stage)
         return AnyStream(stage)
     }
     
     func map<R>(_ mapper: @escaping (Out) -> R) -> AnyStream<R>
     {
         let stage = MapPipelineStage(sourceStage: self.sourceStage!, source: source, mapper: mapper)
-        self.nextStage = AnyConsumer(stage)
+        self.nextStage = AnySink(stage)
         return AnyStream(stage)
     }
     
     func limit(_ size: Int) -> AnyStream<Out>
     {
         let stage = LimitPipelineStage<Out, SourceElement>(sourceStage: self.sourceStage!, source: source, size: size)
-        self.nextStage = AnyConsumer(stage)
+        self.nextStage = AnySink(stage)
         return AnyStream(stage)
     }
     
     func skip(_ size: Int) -> AnyStream<Out>
     {
         let stage = SkipPipelineStage<Out, SourceElement>(sourceStage: self.sourceStage!, source: source, size: size)
-        self.nextStage = AnyConsumer(stage)
+        self.nextStage = AnySink(stage)
         return AnyStream(stage)
     }
     
     func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out
     {
         let stage = ReduceTerminalStage(source: source, sourceStage: sourceStage!, identity: identity, accumulator: accumulator)
-        self.nextStage = AnyConsumer(stage)
+        self.nextStage = AnySink(stage)
         
         return stage.evaluate()
     }
@@ -81,7 +96,7 @@ class PipelineStage<In, Out, SourceElement> : ConsumerProtocol, StreamProtocol
     func anyMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
-        self.nextStage = AnyConsumer(stage)
+        self.nextStage = AnySink(stage)
         
         return stage.evaluate()
     }
@@ -89,7 +104,7 @@ class PipelineStage<In, Out, SourceElement> : ConsumerProtocol, StreamProtocol
     func allMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
-        self.nextStage = AnyConsumer(stage)
+        self.nextStage = AnySink(stage)
         
         return stage.evaluate()
     }
@@ -97,7 +112,7 @@ class PipelineStage<In, Out, SourceElement> : ConsumerProtocol, StreamProtocol
     func noneMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
-        self.nextStage = AnyConsumer(stage)
+        self.nextStage = AnySink(stage)
         
         return stage.evaluate()
     }
@@ -105,7 +120,7 @@ class PipelineStage<In, Out, SourceElement> : ConsumerProtocol, StreamProtocol
     func forEach(_ each: @escaping (Out) -> ())
     {
         let stage = ForEachTerminalStage(source: source, sourceStage: sourceStage!, each: each)
-        self.nextStage = AnyConsumer(stage)
+        self.nextStage = AnySink(stage)
         
         stage.evaluate()
     }

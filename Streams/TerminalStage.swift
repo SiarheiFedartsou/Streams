@@ -9,7 +9,7 @@
 import Foundation
 
 
-protocol TerminalStage : ConsumerProtocol {
+protocol TerminalStage : SinkProtocol {
     associatedtype Result
     func evaluate() -> Result
 }

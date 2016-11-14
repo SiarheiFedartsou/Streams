@@ -11,9 +11,9 @@ import Foundation
 class NoneMatchTerminalStage<T, SourceElement> : TerminalStage {
     private let predicate: (T) -> (Bool)
     private var source: AnySpliterator<SourceElement>
-    private var sourceStage: AnyConsumer<SourceElement>
+    private var sourceStage: AnySink<SourceElement>
     
-    init(source: AnySpliterator<SourceElement>, sourceStage: AnyConsumer<SourceElement>, predicate: @escaping (T) -> Bool)
+    init(source: AnySpliterator<SourceElement>, sourceStage: AnySink<SourceElement>, predicate: @escaping (T) -> Bool)
     {
         self.source = source
         self.sourceStage = sourceStage
@@ -29,9 +29,12 @@ class NoneMatchTerminalStage<T, SourceElement> : TerminalStage {
     }
     
     func evaluate() -> Bool {
-        while let element = source.advance() {
+        sourceStage.begin(size: 0)
+        while !sourceStage.cancellationRequested {
+            guard let element = source.advance() else { break }
             sourceStage.consume(element)
         }
+        sourceStage.end()
         return noneMatch
     }
 }

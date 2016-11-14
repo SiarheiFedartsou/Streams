@@ -12,9 +12,9 @@ class ForEachTerminalStage<T, SourceElement> : TerminalStage {
     
     private let each: (T) -> ()
     private var source: AnySpliterator<SourceElement>
-    private var sourceStage: AnyConsumer<SourceElement>
+    private var sourceStage: AnySink<SourceElement>
     
-    init(source: AnySpliterator<SourceElement>, sourceStage: AnyConsumer<SourceElement>, each: @escaping (T) -> ())
+    init(source: AnySpliterator<SourceElement>, sourceStage: AnySink<SourceElement>, each: @escaping (T) -> ())
     {
         self.source = source
         self.sourceStage = sourceStage
@@ -26,8 +26,11 @@ class ForEachTerminalStage<T, SourceElement> : TerminalStage {
     }
     
     func evaluate() -> Void {
-        while let element = source.advance() {
+        sourceStage.begin(size: 0)
+        while !sourceStage.cancellationRequested {
+            guard let element = source.advance() else { break }
             sourceStage.consume(element)
         }
+        sourceStage.end()
     }
 }

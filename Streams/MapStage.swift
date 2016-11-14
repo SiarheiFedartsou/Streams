@@ -13,15 +13,23 @@ class MapPipelineStage<In, Out, SourceElement> : PipelineStage<In, Out, SourceEl
 {
     let mapper: (In) -> Out
     
-    init(sourceStage: AnyConsumer<SourceElement>, source: AnySpliterator<SourceElement>, mapper: @escaping (In) -> Out)
+    init(sourceStage: AnySink<SourceElement>, source: AnySpliterator<SourceElement>, mapper: @escaping (In) -> Out)
     {
         self.mapper = mapper
         super.init(sourceStage: sourceStage, source: source)
+    }
+    
+    override func begin(size: Int) {
+        nextStage?.begin(size: 0)
     }
     
     override func consume(_ t: In) {
         if let nextStage = self.nextStage {
             nextStage.consume(mapper(t))
         }
+    }
+    
+    override func end() {
+        nextStage?.end()
     }
 }

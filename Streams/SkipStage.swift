@@ -13,10 +13,15 @@ class SkipPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
 {
     let sizeToSkip: Int
     var skipped: Int = 0
-    init(sourceStage: AnyConsumer<SourceElement>, source: AnySpliterator<SourceElement>, size: Int)
+    init(sourceStage: AnySink<SourceElement>, source: AnySpliterator<SourceElement>, size: Int)
     {
         self.sizeToSkip = size
         super.init(sourceStage: sourceStage, source: source)
+    }
+    
+    
+    override func begin(size: Int) {
+        nextStage?.begin(size: 0)
     }
     
     override func consume(_ t: T) {
@@ -27,5 +32,13 @@ class SkipPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
         } else {
             skipped += 1
         }
+    }
+    
+    override func end() {
+        nextStage?.end()
+    }
+    
+    override var cancellationRequested: Bool {
+        return self.nextStage?.cancellationRequested ?? false
     }
 }

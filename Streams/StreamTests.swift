@@ -98,6 +98,21 @@ class StreamTests: XCTestCase {
         expect(result).to(equal([14, 10, 3]))
     }
     
+    func testThatLimitAfterSkipWorks() {
+        // given
+        let array = [12, 4, 9, 14, 10, 3, 4, 7]
+        
+        // when
+        var result = [Int]()
+        array.stream
+            .skip(3)
+            .limit(3)
+            .forEach({ result.append($0) })
+        
+        // then
+        expect(result).to(equal([14, 10, 3]))
+    }
+    
     func testThatReduceWorks() {
         // given
         let array = [12, 4, 9, 14, 10, 3]

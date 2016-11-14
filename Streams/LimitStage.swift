@@ -11,10 +11,14 @@ import Foundation
 class LimitPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
 {
     var size: Int
-    init(sourceStage: AnyConsumer<SourceElement>, source: AnySpliterator<SourceElement>, size: Int)
+    init(sourceStage: AnySink<SourceElement>, source: AnySpliterator<SourceElement>, size: Int)
     {
         self.size = size
         super.init(sourceStage: sourceStage, source: source)
+    }
+    
+    override func begin(size: Int) {
+        nextStage?.begin(size: self.size)
     }
     
     override func consume(_ t: T) {
@@ -24,5 +28,13 @@ class LimitPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
                 nextStage.consume(t)
             }
         }
+    }
+    
+    override func end() {
+        nextStage?.end()
+    }
+    
+    override var cancellationRequested: Bool {
+        return size == 0 || (self.nextStage?.cancellationRequested ?? false)
     }
 }
