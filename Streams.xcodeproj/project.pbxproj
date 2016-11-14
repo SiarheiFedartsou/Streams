@@ -26,6 +26,14 @@
 		B39D3A3F1DD39BBD00AED66C /* StreamOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D3A3E1DD39BBD00AED66C /* StreamOptions.swift */; };
 		B39D3A471DD8452B00AED66C /* StreamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D3A461DD8452B00AED66C /* StreamsTests.swift */; };
 		B3BFCD281DD84BD8001ED7A3 /* StreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BFCD271DD84BD8001ED7A3 /* StreamTests.swift */; };
+		B3D0F8FC1DDA13890063326D /* TerminalStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8FB1DDA13890063326D /* TerminalStage.swift */; };
+		B3D0F8FE1DDA13A10063326D /* ReduceStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8FD1DDA13A10063326D /* ReduceStage.swift */; };
+		B3D0F9001DDA13BD0063326D /* MatchStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8FF1DDA13BD0063326D /* MatchStages.swift */; };
+		B3D0F9021DDA13D30063326D /* ForEachStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9011DDA13D30063326D /* ForEachStage.swift */; };
+		B3D0F9041DDA13F30063326D /* LimitStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9031DDA13F30063326D /* LimitStage.swift */; };
+		B3D0F9061DDA14100063326D /* SkipStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9051DDA14100063326D /* SkipStage.swift */; };
+		B3D0F9081DDA142B0063326D /* MapStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9071DDA142B0063326D /* MapStage.swift */; };
+		B3D0F90A1DDA14380063326D /* FilterStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9091DDA14380063326D /* FilterStage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +71,14 @@
 		B39D3A461DD8452B00AED66C /* StreamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamsTests.swift; sourceTree = "<group>"; };
 		B39D3A481DD8452B00AED66C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3BFCD271DD84BD8001ED7A3 /* StreamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTests.swift; sourceTree = "<group>"; };
+		B3D0F8FB1DDA13890063326D /* TerminalStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalStage.swift; sourceTree = "<group>"; };
+		B3D0F8FD1DDA13A10063326D /* ReduceStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReduceStage.swift; sourceTree = "<group>"; };
+		B3D0F8FF1DDA13BD0063326D /* MatchStages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchStages.swift; sourceTree = "<group>"; };
+		B3D0F9011DDA13D30063326D /* ForEachStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForEachStage.swift; sourceTree = "<group>"; };
+		B3D0F9031DDA13F30063326D /* LimitStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LimitStage.swift; sourceTree = "<group>"; };
+		B3D0F9051DDA14100063326D /* SkipStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkipStage.swift; sourceTree = "<group>"; };
+		B3D0F9071DDA142B0063326D /* MapStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapStage.swift; sourceTree = "<group>"; };
+		B3D0F9091DDA14380063326D /* FilterStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterStage.swift; sourceTree = "<group>"; };
 		E794004DCE0DBF391D0CDDB0 /* Pods-StreamsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamsTests/Pods-StreamsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +151,14 @@
 				B31AAF451DD864C3006A0617 /* Supplier.swift */,
 				B31AAF471DD864E6006A0617 /* Sink.swift */,
 				B31AAF491DD86690006A0617 /* Pipeline.swift */,
+				B3D0F8FB1DDA13890063326D /* TerminalStage.swift */,
+				B3D0F8FD1DDA13A10063326D /* ReduceStage.swift */,
+				B3D0F8FF1DDA13BD0063326D /* MatchStages.swift */,
+				B3D0F9011DDA13D30063326D /* ForEachStage.swift */,
+				B3D0F9031DDA13F30063326D /* LimitStage.swift */,
+				B3D0F9051DDA14100063326D /* SkipStage.swift */,
+				B3D0F9071DDA142B0063326D /* MapStage.swift */,
+				B3D0F9091DDA14380063326D /* FilterStage.swift */,
 			);
 			path = Streams;
 			sourceTree = "<group>";
@@ -310,18 +334,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D0F9001DDA13BD0063326D /* MatchStages.swift in Sources */,
 				B301CBBB1DC3D7630086E3EE /* ViewController.swift in Sources */,
 				B39D3A3D1DD39AD100AED66C /* IteratorSpliterator.swift in Sources */,
 				B31AAF4A1DD86690006A0617 /* Pipeline.swift in Sources */,
 				B31AAF481DD864E6006A0617 /* Sink.swift in Sources */,
+				B3D0F8FE1DDA13A10063326D /* ReduceStage.swift in Sources */,
+				B3D0F8FC1DDA13890063326D /* TerminalStage.swift in Sources */,
+				B3D0F9081DDA142B0063326D /* MapStage.swift in Sources */,
 				B39D3A3B1DD39AB900AED66C /* Spliterator.swift in Sources */,
+				B3D0F9041DDA13F30063326D /* LimitStage.swift in Sources */,
 				B301CBCB1DC3D7710086E3EE /* Stream.swift in Sources */,
+				B3D0F9021DDA13D30063326D /* ForEachStage.swift in Sources */,
 				B39D3A3F1DD39BBD00AED66C /* StreamOptions.swift in Sources */,
+				B3D0F90A1DDA14380063326D /* FilterStage.swift in Sources */,
 				B31AAF441DD864B3006A0617 /* Consumer.swift in Sources */,
 				B31AAF3E1DD852BA006A0617 /* Collection+Stream.swift in Sources */,
 				B31AAF421DD857DD006A0617 /* PipelineStage.swift in Sources */,
 				B31AAF401DD85304006A0617 /* AnyStream.swift in Sources */,
 				B301CBB91DC3D7630086E3EE /* AppDelegate.swift in Sources */,
+				B3D0F9061DDA14100063326D /* SkipStage.swift in Sources */,
 				B31AAF461DD864C3006A0617 /* Supplier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
