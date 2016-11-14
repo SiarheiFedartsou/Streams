@@ -40,12 +40,12 @@ struct AnySpliterator<T> : SpliteratorProtocol
     
     mutating func forEachRemaining(_ each: (T) -> Void)
     {
-        
+        _forEachRemaining(each)
     }
     
     mutating func split() -> AnySpliterator<T>?
     {
-        return nil
+        return _split()
     }
     
 }
