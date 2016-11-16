@@ -10,11 +10,12 @@ import Foundation
 
 class LimitPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
 {
-    var size: Int
-    init(sourceStage: AnySink<SourceElement>, source: AnySpliterator<SourceElement>, size: Int)
+    private var size: Int
+
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, size: Int) where PreviousStageType.Input == T, PreviousStageType.SourceElement == SourceElement
     {
         self.size = size
-        super.init(sourceStage: sourceStage, source: source)
+        super.init(previousStage: previousStage)
     }
     
     override func begin(size: Int) {

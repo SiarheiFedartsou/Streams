@@ -13,12 +13,12 @@ class SkipPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
 {
     let sizeToSkip: Int
     var skipped: Int = 0
-    init(sourceStage: AnySink<SourceElement>, source: AnySpliterator<SourceElement>, size: Int)
+    
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, size: Int) where PreviousStageType.Input == T, PreviousStageType.SourceElement == SourceElement
     {
         self.sizeToSkip = size
-        super.init(sourceStage: sourceStage, source: source)
+        super.init(previousStage: previousStage)
     }
-    
     
     override func begin(size: Int) {
         nextStage?.begin(size: 0)

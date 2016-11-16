@@ -13,10 +13,11 @@ class MapPipelineStage<In, Out, SourceElement> : PipelineStage<In, Out, SourceEl
 {
     let mapper: (In) -> Out
     
-    init(sourceStage: AnySink<SourceElement>, source: AnySpliterator<SourceElement>, mapper: @escaping (In) -> Out)
+    
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, mapper: @escaping (In) -> Out) where PreviousStageType.Input == In, PreviousStageType.SourceElement == SourceElement
     {
         self.mapper = mapper
-        super.init(sourceStage: sourceStage, source: source)
+        super.init(previousStage: previousStage)
     }
     
     override func begin(size: Int) {

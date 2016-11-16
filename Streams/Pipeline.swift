@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PipelineStageProtocol : class {
+protocol PipelineStageProtocol : class, SinkProtocol {
     associatedtype SourceElement
     associatedtype Input
     
@@ -43,7 +43,7 @@ class PipelineHead<T> : PipelineStage<T, T, T>
     
 }
 
-class PipelineStage<In, Out, SourceElement> : SinkProtocol, StreamProtocol, PipelineStageProtocol
+class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProtocol
 {
     
     func begin(size: Int) {}
@@ -79,23 +79,17 @@ class PipelineStage<In, Out, SourceElement> : SinkProtocol, StreamProtocol, Pipe
     
     func map<R>(_ mapper: @escaping (Out) -> R) -> AnyStream<R>
     {
-        let stage = MapPipelineStage(sourceStage: self.sourceStage!, source: source, mapper: mapper)
-        self.nextStage = AnySink(stage)
-        return AnyStream(stage)
+        return AnyStream(MapPipelineStage(previousStage: self, mapper: mapper))
     }
     
     func limit(_ size: Int) -> AnyStream<Out>
     {
-        let stage = LimitPipelineStage<Out, SourceElement>(sourceStage: self.sourceStage!, source: source, size: size)
-        self.nextStage = AnySink(stage)
-        return AnyStream(stage)
+        return AnyStream(LimitPipelineStage<Out, SourceElement>(previousStage: self, size: size))
     }
     
     func skip(_ size: Int) -> AnyStream<Out>
     {
-        let stage = SkipPipelineStage<Out, SourceElement>(sourceStage: self.sourceStage!, source: source, size: size)
-        self.nextStage = AnySink(stage)
-        return AnyStream(stage)
+        return AnyStream(SkipPipelineStage<Out, SourceElement>(previousStage: self, size: size))
     }
     
     func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out
