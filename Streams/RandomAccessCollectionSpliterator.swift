@@ -1,49 +1,50 @@
 //
-//  IteratorSpliterator.swift
+//  RandomAccessCollectionSpliterator.swift
 //  Streams
 //
-//  Created by Sergey Fedortsov on 09.11.16.
+//  Created by Sergey Fedortsov on 16.11.16.
 //  Copyright © 2016 Sergey Fedortsov. All rights reserved.
 //
 
 import Foundation
 
-struct IteratorSpliterator<T, Iterator: IteratorProtocol, Count: SignedInteger> : SpliteratorProtocol where Iterator.Element == T {
-    private var iterator: Iterator
-    private var count: Count?
+struct RandomAccessCollectionSpliterator<T> : SpliteratorProtocol  {
+    
+    private var collection: AnyRandomAccessCollection<T>
     
     private(set) var options: StreamOptions
     
-    init(iterator: Iterator, count: Count?, options: StreamOptions)
-    {
-        self.iterator = iterator
-        self.options = options
-        self.count = count
-    }
+    private var index: Int = 0
     
-    init(iterator: Iterator, options: StreamOptions)
+    init(collection: AnyRandomAccessCollection<T>, options: StreamOptions)
     {
-        self.init(iterator: iterator, count: nil, options: options)
+        self.collection = collection
+        self.options = options
     }
     
     
     mutating func advance() -> T? {
-        return iterator.next()
+        index += 1
+        if IntMax(index) < collection.count {
+            return self.collection[AnyIndex(index)]
+        } else {
+            return nil
+        }
     }
     
     mutating func forEachRemaining(_ each: (T) -> Void) {
-        while let element = iterator.next() {
+        while let element = advance() {
             each(element)
         }
     }
     
     var estimatedSize: Int {
-        return 0
+        return Int(self.collection.count)
     }
     
     mutating func split() -> AnySpliterator<T>? {
-//        let size = estimatedSize
-//        
+        //        let size = estimatedSize
+        //
         /*
          Iterator<? extends T> i;
          long s;
@@ -68,7 +69,7 @@ struct IteratorSpliterator<T, Iterator: IteratorProtocol, Count: SignedInteger> 
          return new ArraySpliterator<>(a, 0, j, characteristics);
          }
          return null;
- */
+         */
         
         return nil
     }

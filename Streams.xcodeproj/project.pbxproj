@@ -36,6 +36,7 @@
 		B3D0F90A1DDA14380063326D /* FilterStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9091DDA14380063326D /* FilterStage.swift */; };
 		B3D0F90C1DDA18D40063326D /* Infinite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F90B1DDA18D40063326D /* Infinite.swift */; };
 		B3D0F9101DDCC6400063326D /* SortedStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F90F1DDCC6400063326D /* SortedStage.swift */; };
+		B3D0F9121DDCCC320063326D /* RandomAccessCollectionSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9111DDCCC320063326D /* RandomAccessCollectionSpliterator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		B3D0F9091DDA14380063326D /* FilterStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterStage.swift; sourceTree = "<group>"; };
 		B3D0F90B1DDA18D40063326D /* Infinite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Infinite.swift; sourceTree = "<group>"; };
 		B3D0F90F1DDCC6400063326D /* SortedStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedStage.swift; sourceTree = "<group>"; };
+		B3D0F9111DDCCC320063326D /* RandomAccessCollectionSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessCollectionSpliterator.swift; sourceTree = "<group>"; };
 		E794004DCE0DBF391D0CDDB0 /* Pods-StreamsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamsTests/Pods-StreamsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +141,7 @@
 			children = (
 				B301CBB81DC3D7630086E3EE /* AppDelegate.swift */,
 				B39D3A3C1DD39AD100AED66C /* IteratorSpliterator.swift */,
+				B3D0F9111DDCCC320063326D /* RandomAccessCollectionSpliterator.swift */,
 				B301CBBA1DC3D7630086E3EE /* ViewController.swift */,
 				B301CBBC1DC3D7630086E3EE /* Main.storyboard */,
 				B301CBBF1DC3D7630086E3EE /* Assets.xcassets */,
@@ -342,6 +345,7 @@
 			files = (
 				B3D0F9001DDA13BD0063326D /* MatchStages.swift in Sources */,
 				B301CBBB1DC3D7630086E3EE /* ViewController.swift in Sources */,
+				B3D0F9121DDCCC320063326D /* RandomAccessCollectionSpliterator.swift in Sources */,
 				B39D3A3D1DD39AD100AED66C /* IteratorSpliterator.swift in Sources */,
 				B31AAF4A1DD86690006A0617 /* Pipeline.swift in Sources */,
 				B31AAF481DD864E6006A0617 /* Sink.swift in Sources */,
