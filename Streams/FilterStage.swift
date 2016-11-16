@@ -12,11 +12,12 @@ class FilterPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
 {
     let predicate: (T) -> Bool
     
-    init(sourceStage: AnySink<SourceElement>, source: AnySpliterator<SourceElement>, predicate: @escaping (T) -> Bool)
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, predicate: @escaping (T) -> Bool) where PreviousStageType.Input == T, PreviousStageType.SourceElement == SourceElement
     {
         self.predicate = predicate
-        super.init(sourceStage: sourceStage, source: source)
+        super.init(previousStage: previousStage)
     }
+    
     
     override func begin(size: Int) {
         nextStage?.begin(size: 0)

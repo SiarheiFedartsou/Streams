@@ -8,6 +8,15 @@
 
 import Foundation
 
+protocol PipelineStageProtocol : class {
+    associatedtype SourceElement
+    associatedtype Input
+    
+    var nextStage: AnySink<Input>? { get set }
+    var source: AnySpliterator<SourceElement> { get set }
+    var sourceStage: AnySink<SourceElement>? { get set }
+}
+
 class PipelineHead<T> : PipelineStage<T, T, T>
 {
     init(source: AnySpliterator<T>)
@@ -34,23 +43,29 @@ class PipelineHead<T> : PipelineStage<T, T, T>
     
 }
 
-class PipelineStage<In, Out, SourceElement> : SinkProtocol, StreamProtocol
+class PipelineStage<In, Out, SourceElement> : SinkProtocol, StreamProtocol, PipelineStageProtocol
 {
-    var nextStage: AnySink<Out>? = nil
     
     func begin(size: Int) {}
     func consume(_ t: In) {}
     func end() {}
     var cancellationRequested: Bool { return false }
     
-    private var source: AnySpliterator<SourceElement>
+    var nextStage: AnySink<Out>? = nil
+    var source: AnySpliterator<SourceElement>
     var sourceStage: AnySink<SourceElement>? = nil
-    
     
     init(sourceStage: AnySink<SourceElement>?, source: AnySpliterator<SourceElement>)
     {
         self.source = source
         self.sourceStage = sourceStage
+    }
+    
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Input == In, PreviousStageType.SourceElement == SourceElement
+    {
+        self.source = previousStage.source
+        self.sourceStage = previousStage.sourceStage
+        previousStage.nextStage = AnySink(self)
     }
     
     var spliterator: AnySpliterator<Out> {
@@ -59,9 +74,7 @@ class PipelineStage<In, Out, SourceElement> : SinkProtocol, StreamProtocol
     
     func filter(_ predicate: @escaping (Out) -> Bool) -> AnyStream<Out>
     {
-        let stage = FilterPipelineStage(sourceStage: self.sourceStage!, source: source, predicate: predicate)
-        self.nextStage = AnySink(stage)
-        return AnyStream(stage)
+        return AnyStream(FilterPipelineStage(previousStage: self, predicate: predicate))
     }
     
     func map<R>(_ mapper: @escaping (Out) -> R) -> AnyStream<R>
