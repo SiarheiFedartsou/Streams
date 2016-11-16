@@ -10,9 +10,9 @@ import Foundation
 
 protocol PipelineStageProtocol : class, SinkProtocol {
     associatedtype SourceElement
-    associatedtype Input
+    associatedtype Output
     
-    var nextStage: AnySink<Input>? { get set }
+    var nextStage: AnySink<Output>? { get set }
     var source: AnySpliterator<SourceElement> { get set }
     var sourceStage: AnySink<SourceElement>? { get set }
 }
@@ -61,7 +61,7 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
         self.sourceStage = sourceStage
     }
     
-    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Input == In, PreviousStageType.SourceElement == SourceElement
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Output == In, PreviousStageType.SourceElement == SourceElement
     {
         self.source = previousStage.source
         self.sourceStage = previousStage.sourceStage

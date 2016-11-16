@@ -12,7 +12,7 @@ class LimitPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
 {
     private var size: Int
 
-    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, size: Int) where PreviousStageType.Input == T, PreviousStageType.SourceElement == SourceElement
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, size: Int) where PreviousStageType.Output == T, PreviousStageType.SourceElement == SourceElement
     {
         self.size = size
         super.init(previousStage: previousStage)

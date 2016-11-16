@@ -14,7 +14,7 @@ class SkipPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
     let sizeToSkip: Int
     var skipped: Int = 0
     
-    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, size: Int) where PreviousStageType.Input == T, PreviousStageType.SourceElement == SourceElement
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, size: Int) where PreviousStageType.Output == T, PreviousStageType.SourceElement == SourceElement
     {
         self.sizeToSkip = size
         super.init(previousStage: previousStage)

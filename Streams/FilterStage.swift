@@ -12,7 +12,7 @@ class FilterPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
 {
     let predicate: (T) -> Bool
     
-    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, predicate: @escaping (T) -> Bool) where PreviousStageType.Input == T, PreviousStageType.SourceElement == SourceElement
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, predicate: @escaping (T) -> Bool) where PreviousStageType.Output == T, PreviousStageType.SourceElement == SourceElement
     {
         self.predicate = predicate
         super.init(previousStage: previousStage)

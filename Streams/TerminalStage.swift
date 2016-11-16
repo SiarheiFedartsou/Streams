@@ -9,7 +9,33 @@
 import Foundation
 
 
-protocol TerminalStage : SinkProtocol {
+protocol TerminalStage : SinkProtocol //Protocol/* : PipelineStageProtocol*/ {
+{
     associatedtype Result
     func evaluate() -> Result
 }
+
+
+//class TerminalStage<Result, T, SourceElement> : TerminalStageProtocol {
+//    
+//    func begin(size: Int) {}
+//    func consume(_ t: T) {}
+//    func end() {}
+//    var cancellationRequested: Bool { return false }
+//    
+//    var nextStage: AnySink<T>? = nil
+//    var source: AnySpliterator<SourceElement>
+//    var sourceStage: AnySink<SourceElement>? = nil
+//    
+//    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Output == T, PreviousStageType.SourceElement == SourceElement
+//    {
+//        self.source = previousStage.source
+//        self.sourceStage = previousStage.sourceStage
+//        previousStage.nextStage = AnySink(self)
+//    }
+//    
+//    
+//    func evaluate() -> Result {
+//        
+//    }
+//}

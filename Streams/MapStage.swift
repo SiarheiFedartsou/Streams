@@ -14,7 +14,7 @@ class MapPipelineStage<In, Out, SourceElement> : PipelineStage<In, Out, SourceEl
     let mapper: (In) -> Out
     
     
-    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, mapper: @escaping (In) -> Out) where PreviousStageType.Input == In, PreviousStageType.SourceElement == SourceElement
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, mapper: @escaping (In) -> Out) where PreviousStageType.Output == In, PreviousStageType.SourceElement == SourceElement
     {
         self.mapper = mapper
         super.init(previousStage: previousStage)
