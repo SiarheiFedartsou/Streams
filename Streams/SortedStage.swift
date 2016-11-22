@@ -11,11 +11,13 @@ import Foundation
 class SortedPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement> where T : Comparable
 {
     
+    private let comparator: (T, T) -> Bool
     private var accumulator: [T] = []
-    
-    init(sourceStage: AnySink<SourceElement>, source: AnySpliterator<SourceElement>)
+
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, by comparator: @escaping (T, T) -> Bool) where PreviousStageType.Output == T, PreviousStageType.SourceElement == SourceElement
     {
-        super.init(sourceStage: sourceStage, source: source)
+        self.comparator = comparator
+        super.init(previousStage: previousStage)
     }
     
     override func begin(size: Int) {
@@ -27,7 +29,7 @@ class SortedPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
     }
     
     override func end() {
-        accumulator.sort()
+        accumulator.sort(by: comparator)
         nextStage?.begin(size: accumulator.count)
         for element in accumulator {
             nextStage?.consume(element)

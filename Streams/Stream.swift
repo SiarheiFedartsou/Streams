@@ -99,5 +99,14 @@ class Stream<T, SourceElement> : StreamProtocol {
     var any: T? {
         _abstract()
     }
+}
 
+extension Stream where T : Comparable {
+    func sorted() -> Stream<T, SourceElement> {
+        return SortedPipelineStage(previousStage: self, by: <)
+    }
+    
+    func sorted(by comparator: @escaping (T, T) -> Bool) -> Stream<T, SourceElement> {
+        return SortedPipelineStage(previousStage: self, by: comparator)
+    }
 }

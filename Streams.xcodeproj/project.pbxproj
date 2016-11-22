@@ -25,6 +25,7 @@
 		B39D3A3F1DD39BBD00AED66C /* StreamOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D3A3E1DD39BBD00AED66C /* StreamOptions.swift */; };
 		B39D3A471DD8452B00AED66C /* StreamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D3A461DD8452B00AED66C /* StreamsTests.swift */; };
 		B3BFCD281DD84BD8001ED7A3 /* StreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BFCD271DD84BD8001ED7A3 /* StreamTests.swift */; };
+		B3C351F01DE4B81F009801FB /* StreamPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C351EF1DE4B81F009801FB /* StreamPerformanceTests.swift */; };
 		B3D0F8FC1DDA13890063326D /* TerminalStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8FB1DDA13890063326D /* TerminalStage.swift */; };
 		B3D0F8FE1DDA13A10063326D /* ReduceStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8FD1DDA13A10063326D /* ReduceStage.swift */; };
 		B3D0F9001DDA13BD0063326D /* MatchStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8FF1DDA13BD0063326D /* MatchStages.swift */; };
@@ -72,6 +73,7 @@
 		B39D3A461DD8452B00AED66C /* StreamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamsTests.swift; sourceTree = "<group>"; };
 		B39D3A481DD8452B00AED66C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3BFCD271DD84BD8001ED7A3 /* StreamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTests.swift; sourceTree = "<group>"; };
+		B3C351EF1DE4B81F009801FB /* StreamPerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamPerformanceTests.swift; sourceTree = "<group>"; };
 		B3D0F8FB1DDA13890063326D /* TerminalStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalStage.swift; sourceTree = "<group>"; };
 		B3D0F8FD1DDA13A10063326D /* ReduceStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReduceStage.swift; sourceTree = "<group>"; };
 		B3D0F8FF1DDA13BD0063326D /* MatchStages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchStages.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				B39D3A3A1DD39AB900AED66C /* Spliterator.swift */,
 				B39D3A3E1DD39BBD00AED66C /* StreamOptions.swift */,
 				B3BFCD271DD84BD8001ED7A3 /* StreamTests.swift */,
+				B3C351EF1DE4B81F009801FB /* StreamPerformanceTests.swift */,
 				B31AAF3D1DD852BA006A0617 /* Collection+Stream.swift */,
 				B31AAF3F1DD85304006A0617 /* Utils.swift */,
 				B31AAF431DD864B3006A0617 /* Consumer.swift */,
@@ -370,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3C351F01DE4B81F009801FB /* StreamPerformanceTests.swift in Sources */,
 				B39D3A471DD8452B00AED66C /* StreamsTests.swift in Sources */,
 				B3BFCD281DD84BD8001ED7A3 /* StreamTests.swift in Sources */,
 			);
