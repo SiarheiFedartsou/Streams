@@ -12,7 +12,7 @@ class SortedPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
 {
     
     private let comparator: (T, T) -> Bool
-    private var accumulator: [T] = []
+    private var accumulator: ContiguousArray<T> = []
 
     init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, by comparator: @escaping (T, T) -> Bool) where PreviousStageType.Output == T, PreviousStageType.SourceElement == SourceElement
     {
@@ -37,9 +37,3 @@ class SortedPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
         nextStage?.end()
     }
 }
-//
-//extension StreamProtocol {
-//    func sorted() -> {
-//       // return SortedPipelineStage()
-//    }
-//}
