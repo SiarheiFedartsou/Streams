@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PipelineStageProtocol : class, SinkProtocol {
+protocol PipelineStageProtocol : class {
     associatedtype SourceElement
     associatedtype Output
     
@@ -43,7 +43,7 @@ class PipelineHead<T> : PipelineStage<T, T, T>
     
 }
 
-class PipelineStage<In, Out, SourceElement> : Stream<Out>, PipelineStageProtocol
+class PipelineStage<In, Out, SourceElement> : Stream<Out, SourceElement>, SinkProtocol
 {
     
     func begin(size: Int) {}
@@ -51,47 +51,23 @@ class PipelineStage<In, Out, SourceElement> : Stream<Out>, PipelineStageProtocol
     func end() {}
     var cancellationRequested: Bool { return false }
     
-    var nextStage: AnySink<Out>? = nil
-    var source: AnySpliterator<SourceElement>
-    var sourceStage: AnySink<SourceElement>? = nil
-    
+
     init(sourceStage: AnySink<SourceElement>?, source: AnySpliterator<SourceElement>)
     {
+        super.init(source: source)
         self.source = source
         self.sourceStage = sourceStage
     }
     
     init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Output == In, PreviousStageType.SourceElement == SourceElement
     {
-        self.source = previousStage.source
+        super.init(source: previousStage.source)
         self.sourceStage = previousStage.sourceStage
-        super.init()
-        
         previousStage.nextStage = AnySink(self)
     }
     
     override var spliterator: AnySpliterator<Out> {
         return [Out]().spliterator
-    }
-    
-    override func filter(_ predicate: @escaping (Out) -> Bool) -> Stream<Out>
-    {
-        return FilterPipelineStage(previousStage: self, predicate: predicate)
-    }
-    
-    override func map<R>(_ mapper: @escaping (Out) -> R) -> Stream<R>
-    {
-        return MapPipelineStage(previousStage: self, mapper: mapper)
-    }
-    
-    override func limit(_ size: Int) -> Stream<Out>
-    {
-        return LimitPipelineStage<Out, SourceElement>(previousStage: self, size: size)
-    }
-    
-    override func skip(_ size: Int) -> Stream<Out>
-    {
-        return SkipPipelineStage<Out, SourceElement>(previousStage: self, size: size)
     }
     
     override func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out

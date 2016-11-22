@@ -9,17 +9,17 @@
 import Foundation
 import Swift
 
-protocol StreamProtocol {
+protocol StreamProtocol : PipelineStageProtocol {
     associatedtype T
     var spliterator: AnySpliterator<T> { get }
   
-    func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
-    func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
+    func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T, SourceElement>
+    func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R, SourceElement>
     
     
     
-    func limit(_ size: Int) -> Stream<T>
-    func skip(_ size: Int) -> Stream<T>
+    func limit(_ size: Int) -> Stream<T, SourceElement>
+    func skip(_ size: Int) -> Stream<T, SourceElement>
     
     func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T
     
@@ -30,36 +30,41 @@ protocol StreamProtocol {
     func forEach(_ each: @escaping (T) -> ())
     var first: T? { get }
     var any: T? { get }
-    
 }
 
-class Stream<T> : StreamProtocol {
+class Stream<T, SourceElement> : StreamProtocol {
     
+    var nextStage: AnySink<T>? = nil
+    var source: AnySpliterator<SourceElement>
+    var sourceStage: AnySink<SourceElement>? = nil
     
+    init(source: AnySpliterator<SourceElement>) {
+       self.source = source
+    }
     
     var spliterator: AnySpliterator<T> {
         _abstract()
     }
+
     
-    
-    func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
+    func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T, SourceElement>
     {
-        _abstract()
+        return FilterPipelineStage(previousStage: self, predicate: predicate)
     }
     
-    func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
+    func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R, SourceElement>
     {
-        _abstract()
+        return MapPipelineStage(previousStage: self, mapper: mapper)
     }
     
-    func limit(_ size: Int) -> Stream<T>
+    func limit(_ size: Int) -> Stream<T, SourceElement>
     {
-        _abstract()
+        return LimitPipelineStage<T, SourceElement>(previousStage: self, size: size)
     }
     
-    func skip(_ size: Int) -> Stream<T>
+    func skip(_ size: Int) -> Stream<T, SourceElement>
     {
-        _abstract()
+        return SkipPipelineStage<T, SourceElement>(previousStage: self, size: size)
     }
     
     func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T

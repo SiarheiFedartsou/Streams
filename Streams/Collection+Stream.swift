@@ -9,7 +9,7 @@
 import Foundation
 
 extension Collection {
-    var stream: Stream<Self.Iterator.Element> {
+    var stream: Stream<Self.Iterator.Element, Self.Iterator.Element> {
         
         return PipelineHead(source: self.spliterator)
     }

@@ -16,7 +16,6 @@
 		B301CBCB1DC3D7710086E3EE /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = B301CBCA1DC3D7710086E3EE /* Stream.swift */; };
 		B31AAF3E1DD852BA006A0617 /* Collection+Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF3D1DD852BA006A0617 /* Collection+Stream.swift */; };
 		B31AAF401DD85304006A0617 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF3F1DD85304006A0617 /* Utils.swift */; };
-		B31AAF421DD857DD006A0617 /* PipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF411DD857DD006A0617 /* PipelineStage.swift */; };
 		B31AAF441DD864B3006A0617 /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF431DD864B3006A0617 /* Consumer.swift */; };
 		B31AAF461DD864C3006A0617 /* Supplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF451DD864C3006A0617 /* Supplier.swift */; };
 		B31AAF481DD864E6006A0617 /* Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF471DD864E6006A0617 /* Sink.swift */; };
@@ -62,7 +61,6 @@
 		B301CBCA1DC3D7710086E3EE /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		B31AAF3D1DD852BA006A0617 /* Collection+Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Stream.swift"; sourceTree = "<group>"; };
 		B31AAF3F1DD85304006A0617 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		B31AAF411DD857DD006A0617 /* PipelineStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineStage.swift; sourceTree = "<group>"; };
 		B31AAF431DD864B3006A0617 /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
 		B31AAF451DD864C3006A0617 /* Supplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Supplier.swift; sourceTree = "<group>"; };
 		B31AAF471DD864E6006A0617 /* Sink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sink.swift; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 				B3BFCD271DD84BD8001ED7A3 /* StreamTests.swift */,
 				B31AAF3D1DD852BA006A0617 /* Collection+Stream.swift */,
 				B31AAF3F1DD85304006A0617 /* Utils.swift */,
-				B31AAF411DD857DD006A0617 /* PipelineStage.swift */,
 				B31AAF431DD864B3006A0617 /* Consumer.swift */,
 				B31AAF451DD864C3006A0617 /* Supplier.swift */,
 				B31AAF471DD864E6006A0617 /* Sink.swift */,
@@ -362,7 +359,6 @@
 				B3D0F90A1DDA14380063326D /* FilterStage.swift in Sources */,
 				B31AAF441DD864B3006A0617 /* Consumer.swift in Sources */,
 				B31AAF3E1DD852BA006A0617 /* Collection+Stream.swift in Sources */,
-				B31AAF421DD857DD006A0617 /* PipelineStage.swift in Sources */,
 				B31AAF401DD85304006A0617 /* Utils.swift in Sources */,
 				B301CBB91DC3D7630086E3EE /* AppDelegate.swift in Sources */,
 				B3D0F9061DDA14100063326D /* SkipStage.swift in Sources */,

@@ -18,7 +18,7 @@ struct InfiniteIterator<T> : IteratorProtocol {
 }
 
 
-func iterate<T>(_ generator: @escaping () -> T) -> Stream<T>
+func iterate<T>(_ generator: @escaping () -> T) -> Stream<T, T>
 {
     let iterator = InfiniteIterator<T>(generator: generator)
     let spliterator = AnySpliterator(IteratorSpliterator(iterator: iterator, count: -1, options: StreamOptions()))
