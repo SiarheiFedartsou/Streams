@@ -43,7 +43,7 @@ class PipelineHead<T> : PipelineStage<T, T, T>
     
 }
 
-class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProtocol
+class PipelineStage<In, Out, SourceElement> : Stream<Out>, PipelineStageProtocol
 {
     
     func begin(size: Int) {}
@@ -65,34 +65,36 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
     {
         self.source = previousStage.source
         self.sourceStage = previousStage.sourceStage
+        super.init()
+        
         previousStage.nextStage = AnySink(self)
     }
     
-    var spliterator: AnySpliterator<Out> {
+    override var spliterator: AnySpliterator<Out> {
         return [Out]().spliterator
     }
     
-    func filter(_ predicate: @escaping (Out) -> Bool) -> AnyStream<Out>
+    override func filter(_ predicate: @escaping (Out) -> Bool) -> Stream<Out>
     {
-        return AnyStream(FilterPipelineStage(previousStage: self, predicate: predicate))
+        return FilterPipelineStage(previousStage: self, predicate: predicate)
     }
     
-    func map<R>(_ mapper: @escaping (Out) -> R) -> AnyStream<R>
+    override func map<R>(_ mapper: @escaping (Out) -> R) -> Stream<R>
     {
-        return AnyStream(MapPipelineStage(previousStage: self, mapper: mapper))
+        return MapPipelineStage(previousStage: self, mapper: mapper)
     }
     
-    func limit(_ size: Int) -> AnyStream<Out>
+    override func limit(_ size: Int) -> Stream<Out>
     {
-        return AnyStream(LimitPipelineStage<Out, SourceElement>(previousStage: self, size: size))
+        return LimitPipelineStage<Out, SourceElement>(previousStage: self, size: size)
     }
     
-    func skip(_ size: Int) -> AnyStream<Out>
+    override func skip(_ size: Int) -> Stream<Out>
     {
-        return AnyStream(SkipPipelineStage<Out, SourceElement>(previousStage: self, size: size))
+        return SkipPipelineStage<Out, SourceElement>(previousStage: self, size: size)
     }
     
-    func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out
+    override func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out
     {
         let stage = ReduceTerminalStage(source: source, sourceStage: sourceStage!, identity: identity, accumulator: accumulator)
         self.nextStage = AnySink(stage)
@@ -100,7 +102,7 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
         return stage.evaluate()
     }
     
-    func anyMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
+    override func anyMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
         self.nextStage = AnySink(stage)
@@ -108,7 +110,7 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
         return stage.evaluate()
     }
     
-    func allMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
+    override func allMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
         self.nextStage = AnySink(stage)
@@ -116,7 +118,7 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
         return stage.evaluate()
     }
     
-    func noneMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
+    override func noneMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
         self.nextStage = AnySink(stage)
@@ -124,7 +126,7 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
         return stage.evaluate()
     }
     
-    func forEach(_ each: @escaping (Out) -> ())
+    override func forEach(_ each: @escaping (Out) -> ())
     {
         let stage = ForEachTerminalStage(source: source, sourceStage: sourceStage!, each: each)
         self.nextStage = AnySink(stage)
@@ -132,11 +134,11 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
         stage.evaluate()
     }
     
-    var first: Out? {
+    override var first: Out? {
         return nil
     }
     
-    var any: Out? {
+    override var any: Out? {
         return nil
     }
 }

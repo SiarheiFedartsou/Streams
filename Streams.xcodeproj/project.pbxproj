@@ -15,7 +15,7 @@
 		B301CBC31DC3D7630086E3EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B301CBC11DC3D7630086E3EE /* LaunchScreen.storyboard */; };
 		B301CBCB1DC3D7710086E3EE /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = B301CBCA1DC3D7710086E3EE /* Stream.swift */; };
 		B31AAF3E1DD852BA006A0617 /* Collection+Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF3D1DD852BA006A0617 /* Collection+Stream.swift */; };
-		B31AAF401DD85304006A0617 /* AnyStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF3F1DD85304006A0617 /* AnyStream.swift */; };
+		B31AAF401DD85304006A0617 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF3F1DD85304006A0617 /* Utils.swift */; };
 		B31AAF421DD857DD006A0617 /* PipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF411DD857DD006A0617 /* PipelineStage.swift */; };
 		B31AAF441DD864B3006A0617 /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF431DD864B3006A0617 /* Consumer.swift */; };
 		B31AAF461DD864C3006A0617 /* Supplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31AAF451DD864C3006A0617 /* Supplier.swift */; };
@@ -61,7 +61,7 @@
 		B301CBC41DC3D7630086E3EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B301CBCA1DC3D7710086E3EE /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		B31AAF3D1DD852BA006A0617 /* Collection+Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Stream.swift"; sourceTree = "<group>"; };
-		B31AAF3F1DD85304006A0617 /* AnyStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyStream.swift; sourceTree = "<group>"; };
+		B31AAF3F1DD85304006A0617 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B31AAF411DD857DD006A0617 /* PipelineStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineStage.swift; sourceTree = "<group>"; };
 		B31AAF431DD864B3006A0617 /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
 		B31AAF451DD864C3006A0617 /* Supplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Supplier.swift; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 				B39D3A3E1DD39BBD00AED66C /* StreamOptions.swift */,
 				B3BFCD271DD84BD8001ED7A3 /* StreamTests.swift */,
 				B31AAF3D1DD852BA006A0617 /* Collection+Stream.swift */,
-				B31AAF3F1DD85304006A0617 /* AnyStream.swift */,
+				B31AAF3F1DD85304006A0617 /* Utils.swift */,
 				B31AAF411DD857DD006A0617 /* PipelineStage.swift */,
 				B31AAF431DD864B3006A0617 /* Consumer.swift */,
 				B31AAF451DD864C3006A0617 /* Supplier.swift */,
@@ -363,7 +363,7 @@
 				B31AAF441DD864B3006A0617 /* Consumer.swift in Sources */,
 				B31AAF3E1DD852BA006A0617 /* Collection+Stream.swift in Sources */,
 				B31AAF421DD857DD006A0617 /* PipelineStage.swift in Sources */,
-				B31AAF401DD85304006A0617 /* AnyStream.swift in Sources */,
+				B31AAF401DD85304006A0617 /* Utils.swift in Sources */,
 				B301CBB91DC3D7630086E3EE /* AppDelegate.swift in Sources */,
 				B3D0F9061DDA14100063326D /* SkipStage.swift in Sources */,
 				B31AAF461DD864C3006A0617 /* Supplier.swift in Sources */,
@@ -427,6 +427,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -476,6 +477,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -528,6 +530,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 207AF82852574E1BB3780CF8 /* Pods-StreamsTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = StreamsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -542,6 +545,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E794004DCE0DBF391D0CDDB0 /* Pods-StreamsTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = StreamsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

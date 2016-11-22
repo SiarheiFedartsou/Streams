@@ -13,13 +13,13 @@ protocol StreamProtocol {
     associatedtype T
     var spliterator: AnySpliterator<T> { get }
   
-    func filter(_ predicate: @escaping (T) -> Bool) -> AnyStream<T>
-    func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R>
+    func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
+    func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
     
     
     
-    func limit(_ size: Int) -> AnyStream<T>
-    func skip(_ size: Int) -> AnyStream<T>
+    func limit(_ size: Int) -> Stream<T>
+    func skip(_ size: Int) -> Stream<T>
     
     func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T
     
@@ -31,4 +31,68 @@ protocol StreamProtocol {
     var first: T? { get }
     var any: T? { get }
     
+}
+
+class Stream<T> : StreamProtocol {
+    
+    
+    
+    var spliterator: AnySpliterator<T> {
+        _abstract()
+    }
+    
+    
+    func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
+    {
+        _abstract()
+    }
+    
+    func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
+    {
+        _abstract()
+    }
+    
+    func limit(_ size: Int) -> Stream<T>
+    {
+        _abstract()
+    }
+    
+    func skip(_ size: Int) -> Stream<T>
+    {
+        _abstract()
+    }
+    
+    func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T
+    {
+        _abstract()
+    }
+    
+    func anyMatch(_ predicate: @escaping (T) -> Bool) -> Bool
+    {
+        _abstract()
+    }
+    
+    func allMatch(_ predicate: @escaping (T) -> Bool) -> Bool
+    {
+        _abstract()
+    }
+    
+    func noneMatch(_ predicate: @escaping (T) -> Bool) -> Bool
+    {
+       _abstract()
+    }
+    
+    func forEach(_ each: @escaping (T) -> ())
+    {
+        _abstract()
+    }
+    
+    var first: T? {
+        _abstract()
+    }
+    
+    var any: T? {
+        _abstract()
+    }
+
 }
