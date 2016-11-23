@@ -11,7 +11,7 @@ import Foundation
 public extension Collection {
     var stream: Stream<Self.Iterator.Element> {
         
-        return PipelineHead<Self.Iterator.Element>(source: self.spliterator)
+        return PipelineHead<Self.Iterator.Element>(source: self.spliterator, characteristics: [.ordered, .sized])
     }
     
     internal var spliterator: AnySpliterator<Self.Iterator.Element> {

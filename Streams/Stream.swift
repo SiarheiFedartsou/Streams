@@ -36,6 +36,12 @@ public class Stream<T> : PipelineStageProtocol, StreamProtocol {
     var nextStage: AnySink<T>?
     var evaluator: EvaluatorProtocol?
     
+    let characteristics: StreamOptions
+    
+    init(characteristics: StreamOptions) {
+        self.characteristics = characteristics
+    }
+    
     public var spliterator: AnySpliterator<T> {
         _abstract()
     }
@@ -94,7 +100,6 @@ public class Stream<T> : PipelineStageProtocol, StreamProtocol {
     {
         _abstract()
     }
-    
 }
 
 public extension Stream where T : Comparable {

@@ -13,13 +13,14 @@ internal protocol PipelineStageProtocol : class {
     
     var nextStage: AnySink<Output>? { get set }
     var evaluator: EvaluatorProtocol? { get }
+    var characteristics: StreamOptions { get }
 }
 
 class PipelineHead<T> : PipelineStage<T, T>
 {
-    init(source: AnySpliterator<T>)
+    init(source: AnySpliterator<T>, characteristics: StreamOptions)
     {
-        super.init(evaluator: nil)
+        super.init(evaluator: nil, characteristics: characteristics)
         self.evaluator = DefaultEvaluator(source: source, sourceStage: AnySink(self))
     }
     
@@ -49,15 +50,15 @@ class PipelineStage<In, Out> : Stream<Out>, SinkProtocol
     var cancellationRequested: Bool { return false }
     
 
-    init(evaluator: EvaluatorProtocol?)
+    init(evaluator: EvaluatorProtocol?, characteristics: StreamOptions)
     {
-        super.init()
+        super.init(characteristics: characteristics)
         self.evaluator = evaluator
     }
     
     init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Output == In
     {
-        super.init()
+        super.init(characteristics: previousStage.characteristics)
         self.evaluator = previousStage.evaluator
         previousStage.nextStage = AnySink(self)
     }
