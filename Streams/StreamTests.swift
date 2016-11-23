@@ -8,7 +8,7 @@
 
 import XCTest
 import Nimble
-@testable import Streams
+import Streams
 
 class StreamTests: XCTestCase {
     

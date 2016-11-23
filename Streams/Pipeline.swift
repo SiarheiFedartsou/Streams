@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PipelineStageProtocol : class {
+internal protocol PipelineStageProtocol : class {
     associatedtype Output
     
     var nextStage: AnySink<Output>? { get set }

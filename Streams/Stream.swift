@@ -9,7 +9,7 @@
 import Foundation
 import Swift
 
-protocol StreamProtocol {
+public protocol StreamProtocol {
     associatedtype T
     var spliterator: AnySpliterator<T> { get }
   
@@ -32,72 +32,72 @@ protocol StreamProtocol {
     var any: T? { get }
 }
 
-class Stream<T> : PipelineStageProtocol, StreamProtocol {
+public class Stream<T> : PipelineStageProtocol, StreamProtocol {
     var nextStage: AnySink<T>?
     var evaluator: EvaluatorProtocol?
     
-    var spliterator: AnySpliterator<T> {
+    public var spliterator: AnySpliterator<T> {
         _abstract()
     }
     
-    func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
+    public func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
     {
         return FilterPipelineStage(previousStage: self, predicate: predicate)
     }
     
-    func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
+    public func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
     {
         return MapPipelineStage<T, R>(previousStage: self, mapper: mapper)
     }
     
-    func limit(_ size: Int) -> Stream<T>
+    public func limit(_ size: Int) -> Stream<T>
     {
         return LimitPipelineStage<T>(previousStage: self, size: size)
     }
     
-    func skip(_ size: Int) -> Stream<T>
+    public func skip(_ size: Int) -> Stream<T>
     {
         return SkipPipelineStage<T>(previousStage: self, size: size)
     }
     
-    func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T
+    public func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T
     {
         _abstract()
     }
     
-    func anyMatch(_ predicate: @escaping (T) -> Bool) -> Bool
+    public func anyMatch(_ predicate: @escaping (T) -> Bool) -> Bool
     {
         _abstract()
     }
     
-    func allMatch(_ predicate: @escaping (T) -> Bool) -> Bool
+    public func allMatch(_ predicate: @escaping (T) -> Bool) -> Bool
     {
         _abstract()
     }
     
-    func noneMatch(_ predicate: @escaping (T) -> Bool) -> Bool
+    public func noneMatch(_ predicate: @escaping (T) -> Bool) -> Bool
     {
         _abstract()
     }
     
-    func forEach(_ each: @escaping (T) -> ())
+    public func forEach(_ each: @escaping (T) -> ())
     {
         _abstract()
     }
     
-    var first: T?
+    public var first: T?
     {
         _abstract()
     }
     
-    var any: T?
+    public var any: T?
     {
         _abstract()
     }
     
 }
 
-extension Stream where T : Comparable {
+public extension Stream where T : Comparable {
     func sorted() -> Stream<T> {
         return SortedPipelineStage(previousStage: self, by: <)
     }

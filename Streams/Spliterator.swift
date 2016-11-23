@@ -20,7 +20,7 @@ protocol SpliteratorProtocol {
     var estimatedSize: Int { get }
 }
 
-struct AnySpliterator<T> : SpliteratorProtocol
+public struct AnySpliterator<T> : SpliteratorProtocol
 {
  
     private let box: AnySpliteratorBoxBase<T>
