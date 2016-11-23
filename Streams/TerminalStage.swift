@@ -31,7 +31,7 @@ final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
     }
 }
 
-protocol TerminalStage : SinkProtocol //Protocol/* : PipelineStageProtocol*/ {
+protocol TerminalStage : SinkProtocol
 {
     associatedtype Result
     var result: Result { get }

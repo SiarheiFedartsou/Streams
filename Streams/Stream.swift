@@ -106,3 +106,9 @@ public extension Stream where T : Comparable {
         return SortedPipelineStage(previousStage: self, by: comparator)
     }
 }
+
+public extension Stream where T : Hashable {
+    func distinct() -> Stream<T> {
+        return DistinctPipelineStage(previousStage: self)
+    }
+}

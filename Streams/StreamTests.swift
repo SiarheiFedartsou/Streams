@@ -186,4 +186,18 @@ class StreamTests: XCTestCase {
         expect(result).to(equal([14, 12, 10, 9, 7, 4, 4, 3]))
     }
     
+    func testThatDistinctdWorks() {
+        // given
+        let array = [12, 4, 3, 14, 10, 3, 4, 7]
+        
+        // when
+        var result = [Int]()
+        array.stream
+            .distinct()
+            .forEach({ result.append($0) })
+        
+        // then
+        expect(result).to(equal([12, 4, 3, 14, 10, 7]))
+    }
+    
 }
