@@ -38,9 +38,9 @@ extension StreamProtocol where Self : PipelineStageProtocol, Self.Output == T {
        return AnyStream(FilterPipelineStage(previousStage: self, predicate: predicate))
     }
     
-    func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R> where R == Self.Output
+    func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R>
     {
-        return AnyStream(MapPipelineStage<Self.Out, R, SourceElement>(previousStage: self, mapper: mapper))
+        return AnyStream(MapPipelineStage<T, R, SourceElement>(previousStage: self, mapper: mapper))
     }
     
     func limit(_ size: Int) -> AnyStream<T>

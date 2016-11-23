@@ -158,32 +158,32 @@ class StreamTests: XCTestCase {
         expect(result).to(equal([1, 1, 2, 3, 5, 8, 13, 21, 34]))
     }
     
-    func testThatDefaultSortedWorks() {
-        // given
-        let array = [12, 4, 9, 14, 10, 3, 4, 7]
-        
-        // when
-        var result = [Int]()
-        array.stream
-            .sorted()
-            .forEach({ result.append($0) })
-        
-        // then
-        expect(result).to(equal([3, 4, 4, 7, 9, 10, 12, 14]))
-    }
-    
-    func testThatSortedWorks() {
-        // given
-        let array = [12, 4, 9, 14, 10, 3, 4, 7]
-        
-        // when
-        var result = [Int]()
-        array.stream
-            .sorted(by: >)
-            .forEach({ result.append($0) })
-        
-        // then
-        expect(result).to(equal([14, 12, 10, 9, 7, 4, 4, 3]))
-    }
+//    func testThatDefaultSortedWorks() {
+//        // given
+//        let array = [12, 4, 9, 14, 10, 3, 4, 7]
+//        
+//        // when
+//        var result = [Int]()
+//        array.stream
+//            .sorted()
+//            .forEach({ result.append($0) })
+//        
+//        // then
+//        expect(result).to(equal([3, 4, 4, 7, 9, 10, 12, 14]))
+//    }
+//    
+//    func testThatSortedWorks() {
+//        // given
+//        let array = [12, 4, 9, 14, 10, 3, 4, 7]
+//        
+//        // when
+//        var result = [Int]()
+//        array.stream
+//            .sorted(by: >)
+//            .forEach({ result.append($0) })
+//        
+//        // then
+//        expect(result).to(equal([14, 12, 10, 9, 7, 4, 4, 3]))
+//    }
     
 }
