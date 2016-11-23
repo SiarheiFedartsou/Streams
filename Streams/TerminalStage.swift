@@ -8,11 +8,30 @@
 
 import Foundation
 
-protocol Evaluator {
+protocol EvaluatorProtocol {
     func evaluate()
 }
 
-protocol TerminalStage : SinkProtocol, Evaluator //Protocol/* : PipelineStageProtocol*/ {
+final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
+    var source: AnySpliterator<SourceElement>
+    var sourceStage: AnySink<SourceElement>
+    
+    init(source: AnySpliterator<SourceElement>, sourceStage: AnySink<SourceElement>) {
+        self.source = source
+        self.sourceStage = sourceStage
+    }
+    
+    func evaluate() {
+        sourceStage.begin(size: 0)
+        while !sourceStage.cancellationRequested {
+            guard let element = source.advance() else { break }
+            sourceStage.consume(element)
+        }
+        sourceStage.end()
+    }
+}
+
+protocol TerminalStage : SinkProtocol //Protocol/* : PipelineStageProtocol*/ {
 {
     associatedtype Result
     var result: Result { get }

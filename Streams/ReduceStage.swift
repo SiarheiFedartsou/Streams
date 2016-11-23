@@ -9,18 +9,16 @@
 import Foundation
 
 
-class ReduceTerminalStage<T, SourceElement> : TerminalStage {
-    private var source: AnySpliterator<SourceElement>
-    private var sourceStage: AnySink<SourceElement>
+class ReduceTerminalStage<T> : TerminalStage {
+    private var evaluator: EvaluatorProtocol
     
     
     private var identity: T
     private var accumulator: (T, T) -> T
     
-    init(source: AnySpliterator<SourceElement>, sourceStage: AnySink<SourceElement>, identity: T, accumulator: @escaping (T, T) -> T)
+    init(evaluator: EvaluatorProtocol, identity: T, accumulator: @escaping (T, T) -> T)
     {
-        self.source = source
-        self.sourceStage = sourceStage
+        self.evaluator = evaluator
         self.identity = identity
         self.accumulator = accumulator
     }
@@ -32,15 +30,7 @@ class ReduceTerminalStage<T, SourceElement> : TerminalStage {
     }
     
     var result: T {
+        self.evaluator.evaluate()
         return identity
-    }
-    
-    func evaluate() {
-        sourceStage.begin(size: 0)
-        while !sourceStage.cancellationRequested {
-            guard let element = source.advance() else { break }
-            sourceStage.consume(element)
-        }
-        sourceStage.end()
     }
 }

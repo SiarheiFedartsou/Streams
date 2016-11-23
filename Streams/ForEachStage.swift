@@ -8,16 +8,14 @@
 
 import Foundation
 
-class ForEachTerminalStage<T, SourceElement> : TerminalStage {
+class ForEachTerminalStage<T> : TerminalStage {
     
     private let each: (T) -> ()
-    private var source: AnySpliterator<SourceElement>
-    private var sourceStage: AnySink<SourceElement>
+    private var evaluator: EvaluatorProtocol
     
-    init(source: AnySpliterator<SourceElement>, sourceStage: AnySink<SourceElement>, each: @escaping (T) -> ())
+    init(evaluator: EvaluatorProtocol, each: @escaping (T) -> ())
     {
-        self.source = source
-        self.sourceStage = sourceStage
+        self.evaluator = evaluator
         self.each = each
     }
     
@@ -26,15 +24,8 @@ class ForEachTerminalStage<T, SourceElement> : TerminalStage {
     }
     
     var result: Void {
+        evaluator.evaluate()
         return ()
     }
-    
-    func evaluate() {
-        sourceStage.begin(size: 0)
-        while !sourceStage.cancellationRequested {
-            guard let element = source.advance() else { break }
-            sourceStage.consume(element)
-        }
-        sourceStage.end()
-    }
+
 }
