@@ -8,13 +8,13 @@
 
 import Foundation
 
-class SortedPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement> where T : Comparable
+class SortedPipelineStage<T> : PipelineStage<T, T> where T : Comparable
 {
     
     private let comparator: (T, T) -> Bool
     private var accumulator: ContiguousArray<T> = []
 
-    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, by comparator: @escaping (T, T) -> Bool) where PreviousStageType.Output == T, PreviousStageType.SourceElement == SourceElement
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, by comparator: @escaping (T, T) -> Bool) where PreviousStageType.Output == T
     {
         self.comparator = comparator
         super.init(previousStage: previousStage)

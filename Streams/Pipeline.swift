@@ -9,20 +9,18 @@
 import Foundation
 
 protocol PipelineStageProtocol : class {
-    associatedtype SourceElement
     associatedtype Output
     
     var nextStage: AnySink<Output>? { get set }
-    var source: AnySpliterator<SourceElement> { get set }
-    var sourceStage: AnySink<SourceElement>? { get set }
+    var evaluator: EvaluatorProtocol? { get }
 }
 
-class PipelineHead<T> : PipelineStage<T, T, T>
+class PipelineHead<T> : PipelineStage<T, T>
 {
     init(source: AnySpliterator<T>)
     {
-        super.init(sourceStage: nil, source: source)
-        self.sourceStage = AnySink(self)
+        super.init(evaluator: nil)
+        self.evaluator = DefaultEvaluator(source: source, sourceStage: AnySink(self))
     }
     
     override func begin(size: Int) {
@@ -43,11 +41,12 @@ class PipelineHead<T> : PipelineStage<T, T, T>
     
 }
 
-class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProtocol, SinkProtocol
+class PipelineStage<In, Out> : StreamProtocol, PipelineStageProtocol, SinkProtocol
 {
     var nextStage: AnySink<Out>? = nil
-    var source: AnySpliterator<SourceElement>
-    var sourceStage: AnySink<SourceElement>? = nil
+    
+    
+    var evaluator: EvaluatorProtocol?
     
     func begin(size: Int) {}
     func consume(_ t: In) {}
@@ -55,16 +54,14 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
     var cancellationRequested: Bool { return false }
     
 
-    init(sourceStage: AnySink<SourceElement>?, source: AnySpliterator<SourceElement>)
+    init(evaluator: EvaluatorProtocol?)
     {
-        self.source = source
-        self.sourceStage = sourceStage
+        self.evaluator = evaluator
     }
     
-    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Output == In, PreviousStageType.SourceElement == SourceElement
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Output == In
     {
-        self.source = previousStage.source
-        self.sourceStage = previousStage.sourceStage
+        self.evaluator = previousStage.evaluator
         previousStage.nextStage = AnySink(self)
     }
     
@@ -74,35 +71,35 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
     
     func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out
     {
-        let stage = ReduceTerminalStage(evaluator: DefaultEvaluator(source: source, sourceStage: sourceStage!), identity: identity, accumulator: accumulator)
+        let stage = ReduceTerminalStage(evaluator: evaluator!, identity: identity, accumulator: accumulator)
         self.nextStage = AnySink(stage)
         return stage.result
     }
     
     func anyMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
-        let stage = NoneMatchTerminalStage(evaluator: DefaultEvaluator(source: source, sourceStage: sourceStage!), predicate: predicate)
+        let stage = NoneMatchTerminalStage(evaluator: evaluator!, predicate: predicate)
         self.nextStage = AnySink(stage)
         return stage.result
     }
     
     func allMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
-        let stage = NoneMatchTerminalStage(evaluator: DefaultEvaluator(source: source, sourceStage: sourceStage!), predicate: predicate)
+        let stage = NoneMatchTerminalStage(evaluator: evaluator!, predicate: predicate)
         self.nextStage = AnySink(stage)
         return stage.result
     }
     
     func noneMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
-        let stage = NoneMatchTerminalStage(evaluator: DefaultEvaluator(source: source, sourceStage: sourceStage!), predicate: predicate)
+        let stage = NoneMatchTerminalStage(evaluator: evaluator!, predicate: predicate)
         self.nextStage = AnySink(stage)
         return stage.result
     }
     
     func forEach(_ each: @escaping (Out) -> ())
     {
-        let stage = ForEachTerminalStage(evaluator: DefaultEvaluator(source: source, sourceStage: sourceStage!), each: each)
+        let stage = ForEachTerminalStage(evaluator: evaluator!, each: each)
         self.nextStage = AnySink(stage)
         
         return stage.result

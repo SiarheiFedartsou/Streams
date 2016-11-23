@@ -40,17 +40,17 @@ extension StreamProtocol where Self : PipelineStageProtocol, Self.Output == T {
     
     func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R>
     {
-        return AnyStream(MapPipelineStage<T, R, SourceElement>(previousStage: self, mapper: mapper))
+        return AnyStream(MapPipelineStage<T, R>(previousStage: self, mapper: mapper))
     }
     
     func limit(_ size: Int) -> AnyStream<T>
     {
-        return AnyStream(LimitPipelineStage<T, SourceElement>(previousStage: self, size: size))
+        return AnyStream(LimitPipelineStage<T>(previousStage: self, size: size))
     }
     
     func skip(_ size: Int) -> AnyStream<T>
     {
-        return AnyStream(SkipPipelineStage<T, SourceElement>(previousStage: self, size: size))
+        return AnyStream(SkipPipelineStage<T>(previousStage: self, size: size))
     }
 }
 

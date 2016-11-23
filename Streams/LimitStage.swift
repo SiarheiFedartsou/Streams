@@ -8,11 +8,11 @@
 
 import Foundation
 
-class LimitPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
+class LimitPipelineStage<T> : PipelineStage<T, T>
 {
     private var size: Int
 
-    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, size: Int) where PreviousStageType.Output == T, PreviousStageType.SourceElement == SourceElement
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, size: Int) where PreviousStageType.Output == T
     {
         self.size = size
         super.init(previousStage: previousStage)

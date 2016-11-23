@@ -9,12 +9,12 @@
 import Foundation
 
 
-class MapPipelineStage<In, Out, SourceElement> : PipelineStage<In, Out, SourceElement>
+class MapPipelineStage<In, Out> : PipelineStage<In, Out>
 {
     let mapper: (In) -> Out
     
     
-    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, mapper: @escaping (In) -> Out) where PreviousStageType.Output == In, PreviousStageType.SourceElement == SourceElement
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, mapper: @escaping (In) -> Out) where PreviousStageType.Output == In
     {
         self.mapper = mapper
         super.init(previousStage: previousStage)

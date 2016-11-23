@@ -9,12 +9,12 @@
 import Foundation
 
 
-class SkipPipelineStage<T, SourceElement> : PipelineStage<T, T, SourceElement>
+class SkipPipelineStage<T> : PipelineStage<T, T>
 {
     let sizeToSkip: Int
     var skipped: Int = 0
     
-    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, size: Int) where PreviousStageType.Output == T, PreviousStageType.SourceElement == SourceElement
+    init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, size: Int) where PreviousStageType.Output == T
     {
         self.sizeToSkip = size
         super.init(previousStage: previousStage)
