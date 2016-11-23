@@ -43,8 +43,11 @@ class PipelineHead<T> : PipelineStage<T, T, T>
     
 }
 
-class PipelineStage<In, Out, SourceElement> : Stream<Out, SourceElement>, SinkProtocol
+class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProtocol, SinkProtocol
 {
+    var nextStage: AnySink<Out>? = nil
+    var source: AnySpliterator<SourceElement>
+    var sourceStage: AnySink<SourceElement>? = nil
     
     func begin(size: Int) {}
     func consume(_ t: In) {}
@@ -54,23 +57,22 @@ class PipelineStage<In, Out, SourceElement> : Stream<Out, SourceElement>, SinkPr
 
     init(sourceStage: AnySink<SourceElement>?, source: AnySpliterator<SourceElement>)
     {
-        super.init(source: source)
         self.source = source
         self.sourceStage = sourceStage
     }
     
     init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Output == In, PreviousStageType.SourceElement == SourceElement
     {
-        super.init(source: previousStage.source)
+        self.source = previousStage.source
         self.sourceStage = previousStage.sourceStage
         previousStage.nextStage = AnySink(self)
     }
     
-    override var spliterator: AnySpliterator<Out> {
+    var spliterator: AnySpliterator<Out> {
         return [Out]().spliterator
     }
     
-    override func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out
+    func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out
     {
         let stage = ReduceTerminalStage(source: source, sourceStage: sourceStage!, identity: identity, accumulator: accumulator)
         self.nextStage = AnySink(stage)
@@ -78,7 +80,7 @@ class PipelineStage<In, Out, SourceElement> : Stream<Out, SourceElement>, SinkPr
         return stage.evaluate()
     }
     
-    override func anyMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
+    func anyMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
         self.nextStage = AnySink(stage)
@@ -86,7 +88,7 @@ class PipelineStage<In, Out, SourceElement> : Stream<Out, SourceElement>, SinkPr
         return stage.evaluate()
     }
     
-    override func allMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
+    func allMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
         self.nextStage = AnySink(stage)
@@ -94,7 +96,7 @@ class PipelineStage<In, Out, SourceElement> : Stream<Out, SourceElement>, SinkPr
         return stage.evaluate()
     }
     
-    override func noneMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
+    func noneMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
         self.nextStage = AnySink(stage)
@@ -102,7 +104,7 @@ class PipelineStage<In, Out, SourceElement> : Stream<Out, SourceElement>, SinkPr
         return stage.evaluate()
     }
     
-    override func forEach(_ each: @escaping (Out) -> ())
+    func forEach(_ each: @escaping (Out) -> ())
     {
         let stage = ForEachTerminalStage(source: source, sourceStage: sourceStage!, each: each)
         self.nextStage = AnySink(stage)
@@ -110,11 +112,11 @@ class PipelineStage<In, Out, SourceElement> : Stream<Out, SourceElement>, SinkPr
         stage.evaluate()
     }
     
-    override var first: Out? {
+    var first: Out? {
         return nil
     }
     
-    override var any: Out? {
+    var any: Out? {
         return nil
     }
 }
