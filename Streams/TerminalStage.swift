@@ -8,12 +8,17 @@
 
 import Foundation
 
+protocol Evaluator {
+    func evaluate()
+}
 
-protocol TerminalStage : SinkProtocol //Protocol/* : PipelineStageProtocol*/ {
+protocol TerminalStage : SinkProtocol, Evaluator //Protocol/* : PipelineStageProtocol*/ {
 {
     associatedtype Result
-    func evaluate() -> Result
+    var result: Result { get }
 }
+
+
 
 
 //class TerminalStage<Result, T, SourceElement> : TerminalStageProtocol {

@@ -77,7 +77,9 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
         let stage = ReduceTerminalStage(source: source, sourceStage: sourceStage!, identity: identity, accumulator: accumulator)
         self.nextStage = AnySink(stage)
         
-        return stage.evaluate()
+        stage.evaluate()
+        
+        return stage.result
     }
     
     func anyMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
@@ -85,7 +87,9 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
         self.nextStage = AnySink(stage)
         
-        return stage.evaluate()
+        stage.evaluate()
+        
+        return stage.result
     }
     
     func allMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
@@ -93,7 +97,9 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
         self.nextStage = AnySink(stage)
         
-        return stage.evaluate()
+        stage.evaluate()
+        
+        return stage.result
     }
     
     func noneMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
@@ -101,7 +107,9 @@ class PipelineStage<In, Out, SourceElement> : StreamProtocol, PipelineStageProto
         let stage = NoneMatchTerminalStage(source: source, sourceStage: sourceStage!, predicate: predicate)
         self.nextStage = AnySink(stage)
         
-        return stage.evaluate()
+        stage.evaluate()
+        
+        return stage.result
     }
     
     func forEach(_ each: @escaping (Out) -> ())

@@ -31,14 +31,16 @@ class ReduceTerminalStage<T, SourceElement> : TerminalStage {
         identity = accumulator(identity, t)
     }
     
-    func evaluate() -> T {
+    var result: T {
+        return identity
+    }
+    
+    func evaluate() {
         sourceStage.begin(size: 0)
         while !sourceStage.cancellationRequested {
             guard let element = source.advance() else { break }
             sourceStage.consume(element)
         }
         sourceStage.end()
-        
-        return identity
     }
 }

@@ -28,13 +28,16 @@ class NoneMatchTerminalStage<T, SourceElement> : TerminalStage {
         }
     }
     
-    func evaluate() -> Bool {
+    var result: Bool {
+        return noneMatch
+    }
+    
+    func evaluate() {
         sourceStage.begin(size: 0)
         while !sourceStage.cancellationRequested {
             guard let element = source.advance() else { break }
             sourceStage.consume(element)
         }
         sourceStage.end()
-        return noneMatch
     }
 }

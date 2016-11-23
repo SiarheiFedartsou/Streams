@@ -25,7 +25,11 @@ class ForEachTerminalStage<T, SourceElement> : TerminalStage {
         each(t)
     }
     
-    func evaluate() -> Void {
+    var result: Void {
+        return ()
+    }
+    
+    func evaluate() {
         sourceStage.begin(size: 0)
         while !sourceStage.cancellationRequested {
             guard let element = source.advance() else { break }
