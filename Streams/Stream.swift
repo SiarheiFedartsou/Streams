@@ -13,13 +13,13 @@ protocol StreamProtocol {
     associatedtype T
     var spliterator: AnySpliterator<T> { get }
   
-    func filter(_ predicate: @escaping (T) -> Bool) -> AnyStream<T>
-    func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R>
+    func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
+    func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
     
     
     
-    func limit(_ size: Int) -> AnyStream<T>
-    func skip(_ size: Int) -> AnyStream<T>
+    func limit(_ size: Int) -> Stream<T>
+    func skip(_ size: Int) -> Stream<T>
     
     func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T
     
@@ -32,34 +32,77 @@ protocol StreamProtocol {
     var any: T? { get }
 }
 
-extension StreamProtocol where Self : PipelineStageProtocol, Self.Output == T {
-    func filter(_ predicate: @escaping (T) -> Bool) -> AnyStream<T>
-    {
-       return AnyStream(FilterPipelineStage(previousStage: self, predicate: predicate))
+class Stream<T> : PipelineStageProtocol, StreamProtocol {
+    var nextStage: AnySink<T>?
+    var evaluator: EvaluatorProtocol?
+    
+    var spliterator: AnySpliterator<T> {
+        _abstract()
     }
     
-    func map<R>(_ mapper: @escaping (T) -> R) -> AnyStream<R>
+    func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
     {
-        return AnyStream(MapPipelineStage<T, R>(previousStage: self, mapper: mapper))
+        return FilterPipelineStage(previousStage: self, predicate: predicate)
     }
     
-    func limit(_ size: Int) -> AnyStream<T>
+    func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
     {
-        return AnyStream(LimitPipelineStage<T>(previousStage: self, size: size))
+        return MapPipelineStage<T, R>(previousStage: self, mapper: mapper)
     }
     
-    func skip(_ size: Int) -> AnyStream<T>
+    func limit(_ size: Int) -> Stream<T>
     {
-        return AnyStream(SkipPipelineStage<T>(previousStage: self, size: size))
+        return LimitPipelineStage<T>(previousStage: self, size: size)
     }
+    
+    func skip(_ size: Int) -> Stream<T>
+    {
+        return SkipPipelineStage<T>(previousStage: self, size: size)
+    }
+    
+    func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T
+    {
+        _abstract()
+    }
+    
+    func anyMatch(_ predicate: @escaping (T) -> Bool) -> Bool
+    {
+        _abstract()
+    }
+    
+    func allMatch(_ predicate: @escaping (T) -> Bool) -> Bool
+    {
+        _abstract()
+    }
+    
+    func noneMatch(_ predicate: @escaping (T) -> Bool) -> Bool
+    {
+        _abstract()
+    }
+    
+    func forEach(_ each: @escaping (T) -> ())
+    {
+        _abstract()
+    }
+    
+    var first: T?
+    {
+        _abstract()
+    }
+    
+    var any: T?
+    {
+        _abstract()
+    }
+    
 }
 
-extension StreamProtocol where T : Comparable, Self : PipelineStageProtocol, Self.Output == T {
-    func sorted() -> AnyStream<T> {
-        return AnyStream(SortedPipelineStage(previousStage: self, by: <))
+extension Stream where T : Comparable {
+    func sorted() -> Stream<T> {
+        return SortedPipelineStage(previousStage: self, by: <)
     }
     
-    func sorted(by comparator: @escaping (T, T) -> Bool) -> AnyStream<T> {
-        return AnyStream(SortedPipelineStage(previousStage: self, by: comparator))
+    func sorted(by comparator: @escaping (T, T) -> Bool) -> Stream<T> {
+        return SortedPipelineStage(previousStage: self, by: comparator)
     }
 }

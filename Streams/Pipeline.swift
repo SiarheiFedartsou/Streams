@@ -41,13 +41,8 @@ class PipelineHead<T> : PipelineStage<T, T>
     
 }
 
-class PipelineStage<In, Out> : StreamProtocol, PipelineStageProtocol, SinkProtocol
+class PipelineStage<In, Out> : Stream<Out>, SinkProtocol
 {
-    var nextStage: AnySink<Out>? = nil
-    
-    
-    var evaluator: EvaluatorProtocol?
-    
     func begin(size: Int) {}
     func consume(_ t: In) {}
     func end() {}
@@ -56,48 +51,50 @@ class PipelineStage<In, Out> : StreamProtocol, PipelineStageProtocol, SinkProtoc
 
     init(evaluator: EvaluatorProtocol?)
     {
+        super.init()
         self.evaluator = evaluator
     }
     
     init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Output == In
     {
+        super.init()
         self.evaluator = previousStage.evaluator
         previousStage.nextStage = AnySink(self)
     }
     
-    var spliterator: AnySpliterator<Out> {
+    override var spliterator: AnySpliterator<Out> {
         return [Out]().spliterator
     }
     
-    func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out
+    override func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out
     {
         let stage = ReduceTerminalStage(evaluator: evaluator!, identity: identity, accumulator: accumulator)
         self.nextStage = AnySink(stage)
         return stage.result
     }
     
-    func anyMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
+    override func anyMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(evaluator: evaluator!, predicate: predicate)
         self.nextStage = AnySink(stage)
         return stage.result
     }
     
-    func allMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
+    override func allMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(evaluator: evaluator!, predicate: predicate)
         self.nextStage = AnySink(stage)
         return stage.result
     }
     
-    func noneMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
+    override func noneMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
     {
         let stage = NoneMatchTerminalStage(evaluator: evaluator!, predicate: predicate)
         self.nextStage = AnySink(stage)
         return stage.result
     }
     
-    func forEach(_ each: @escaping (Out) -> ())
+    override func forEach(_ each: @escaping (Out) -> ())
     {
         let stage = ForEachTerminalStage(evaluator: evaluator!, each: each)
         self.nextStage = AnySink(stage)
@@ -105,11 +102,11 @@ class PipelineStage<In, Out> : StreamProtocol, PipelineStageProtocol, SinkProtoc
         return stage.result
     }
     
-    var first: Out? {
+    override var first: Out? {
         return nil
     }
     
-    var any: Out? {
+    override var any: Out? {
         return nil
     }
 }

@@ -9,9 +9,9 @@
 import Foundation
 
 extension Collection {
-    var stream: AnyStream<Self.Iterator.Element> {
+    var stream: Stream<Self.Iterator.Element> {
         
-        return AnyStream(PipelineHead<Self.Iterator.Element>(source: self.spliterator))
+        return PipelineHead<Self.Iterator.Element>(source: self.spliterator)
     }
     
     var spliterator: AnySpliterator<Self.Iterator.Element> {
