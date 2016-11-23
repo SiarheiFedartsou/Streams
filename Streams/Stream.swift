@@ -32,6 +32,28 @@ protocol StreamProtocol : PipelineStageProtocol {
     var any: T? { get }
 }
 
+extension StreamProtocol where Self : PipelineStageProtocol, Output == T {
+    func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T, SourceElement>
+    {
+        return FilterPipelineStage(previousStage: self, predicate: predicate)
+    }
+    
+    func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R, SourceElement>
+    {
+        return MapPipelineStage<T, R, SourceElement>(previousStage: self, mapper: mapper)
+    }
+    
+    func limit(_ size: Int) -> Stream<T, SourceElement>
+    {
+        return LimitPipelineStage<T, SourceElement>(previousStage: self, size: size)
+    }
+    
+    func skip(_ size: Int) -> Stream<T, SourceElement>
+    {
+        return SkipPipelineStage<T, SourceElement>(previousStage: self, size: size)
+    }
+}
+
 class Stream<T, SourceElement> : StreamProtocol {
     
     var nextStage: AnySink<T>? = nil
@@ -44,27 +66,6 @@ class Stream<T, SourceElement> : StreamProtocol {
     
     var spliterator: AnySpliterator<T> {
         _abstract()
-    }
-
-    
-    func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T, SourceElement>
-    {
-        return FilterPipelineStage(previousStage: self, predicate: predicate)
-    }
-    
-    func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R, SourceElement>
-    {
-        return MapPipelineStage(previousStage: self, mapper: mapper)
-    }
-    
-    func limit(_ size: Int) -> Stream<T, SourceElement>
-    {
-        return LimitPipelineStage<T, SourceElement>(previousStage: self, size: size)
-    }
-    
-    func skip(_ size: Int) -> Stream<T, SourceElement>
-    {
-        return SkipPipelineStage<T, SourceElement>(previousStage: self, size: size)
     }
     
     func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T
