@@ -117,3 +117,11 @@ public extension Stream where T : Hashable {
         return DistinctPipelineStage(previousStage: self)
     }
 }
+
+public extension Stream {
+    static func +(left: Stream<T>, right: Stream<T>) -> Stream<T>
+    {
+        let spliterator = ConcatSpliterator(left: left.spliterator, right: right.spliterator)
+        return PipelineHead(source: AnySpliterator(spliterator), characteristics: spliterator.options)
+    }
+}

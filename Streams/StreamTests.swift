@@ -200,4 +200,16 @@ class StreamTests: XCTestCase {
         expect(result).to(equal([12, 4, 3, 14, 10, 7]))
     }
     
+    func testThatConcatWorks() {
+        // given
+        let array1 = [12, 4, 3, 14, 10, 3, 4, 7]
+        let array2 = [3, 4, 2, 3]
+        
+        // when
+        var result = [Int]()
+        (array1.stream.distinct() + array2.stream.limit(3)).forEach { result.append($0) }
+        
+        // then
+        expect(result).to(equal([12, 4, 3, 14, 10, 7, 3, 4, 2]))
+    }
 }
