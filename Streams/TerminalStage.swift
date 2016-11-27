@@ -10,11 +10,15 @@ import Foundation
 
 protocol EvaluatorProtocol {
     func evaluate()
+    
+    func advance()
 }
 
 final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
     var source: AnySpliterator<SourceElement>
     var sourceStage: AnySink<SourceElement>
+    
+    var started = false
     
     init(source: AnySpliterator<SourceElement>, sourceStage: AnySink<SourceElement>) {
         self.source = source
@@ -22,12 +26,29 @@ final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
     }
     
     func evaluate() {
+        started = true
         sourceStage.begin(size: 0)
         while !sourceStage.cancellationRequested {
             guard let element = source.advance() else { break }
             sourceStage.consume(element)
         }
         sourceStage.end()
+    }
+    
+    func advance() {
+        if !started {
+            started = true
+            sourceStage.begin(size: 0)
+        }
+        if !sourceStage.cancellationRequested {
+            if let element = source.advance() {
+                sourceStage.consume(element)
+            } else {
+                sourceStage.end()
+            }
+        } else {
+           sourceStage.end()
+        }
     }
 }
 

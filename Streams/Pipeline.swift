@@ -64,7 +64,7 @@ class PipelineStage<In, Out> : Stream<Out>, SinkProtocol
     }
     
     override var spliterator: AnySpliterator<Out> {
-        return [Out]().spliterator
+        return AnySpliterator(PipelineWrappingSpliterator(pipelineStage: self))
     }
     
     override func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out
