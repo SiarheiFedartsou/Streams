@@ -4,7 +4,7 @@ allMatch|allMatch||Not implemented
 anyMatch|anyMatch||Not implemented
 collect|collect|Another approach should be considered|Not implemented
 operator +|concat||Implemented
-count|count||Not implemented
+count|count||Implemented
 distinct|distinct|Some optimizations to implement|Implemented
 static empty|static empty||Not implemented
 filter|filter||Implemented
@@ -27,7 +27,3 @@ makeIterator|iterator||Not implemented
 parallel|parallel||Not implemented
 sequential|sequential||Not implemented
 unordered|unordered||Not implemented
-
-
-
-

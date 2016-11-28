@@ -39,6 +39,9 @@
 		B3D0F9101DDCC6400063326D /* SortedStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F90F1DDCC6400063326D /* SortedStage.swift */; };
 		B3D0F9121DDCCC320063326D /* RandomAccessCollectionSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9111DDCCC320063326D /* RandomAccessCollectionSpliterator.swift */; };
 		B3D9F0051DEB000E00BA5C5D /* PipelineWrappingSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D9F0041DEB000E00BA5C5D /* PipelineWrappingSpliterator.swift */; };
+		B3D9F0071DEC98EE00BA5C5D /* StreamCountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D9F0061DEC98EE00BA5C5D /* StreamCountTests.swift */; };
+		B3D9F00B1DEC9C1D00BA5C5D /* Summable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D9F00A1DEC9C1D00BA5C5D /* Summable.swift */; };
+		B3D9F00D1DEC9ED900BA5C5D /* StreamSumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D9F00C1DEC9ED900BA5C5D /* StreamSumTests.swift */; };
 		B3DE87231DE5C39E00F56985 /* DistinctStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DE87221DE5C39E00F56985 /* DistinctStage.swift */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +94,9 @@
 		B3D0F90F1DDCC6400063326D /* SortedStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedStage.swift; sourceTree = "<group>"; };
 		B3D0F9111DDCCC320063326D /* RandomAccessCollectionSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessCollectionSpliterator.swift; sourceTree = "<group>"; };
 		B3D9F0041DEB000E00BA5C5D /* PipelineWrappingSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineWrappingSpliterator.swift; sourceTree = "<group>"; };
+		B3D9F0061DEC98EE00BA5C5D /* StreamCountTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamCountTests.swift; sourceTree = "<group>"; };
+		B3D9F00A1DEC9C1D00BA5C5D /* Summable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Summable.swift; sourceTree = "<group>"; };
+		B3D9F00C1DEC9ED900BA5C5D /* StreamSumTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamSumTests.swift; sourceTree = "<group>"; };
 		B3DE87221DE5C39E00F56985 /* DistinctStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistinctStage.swift; sourceTree = "<group>"; };
 		E794004DCE0DBF391D0CDDB0 /* Pods-StreamsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamsTests/Pods-StreamsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,6 +184,9 @@
 				B3D0F90F1DDCC6400063326D /* SortedStage.swift */,
 				B3DE87221DE5C39E00F56985 /* DistinctStage.swift */,
 				B399FF241DE56A120089813F /* AnyStream.swift */,
+				B3D9F0061DEC98EE00BA5C5D /* StreamCountTests.swift */,
+				B3D9F00A1DEC9C1D00BA5C5D /* Summable.swift */,
+				B3D9F00C1DEC9ED900BA5C5D /* StreamSumTests.swift */,
 			);
 			path = Streams;
 			sourceTree = "<group>";
@@ -372,6 +381,7 @@
 				B3D0F8FE1DDA13A10063326D /* ReduceStage.swift in Sources */,
 				B3D0F8FC1DDA13890063326D /* TerminalStage.swift in Sources */,
 				B3D0F9081DDA142B0063326D /* MapStage.swift in Sources */,
+				B3D9F00B1DEC9C1D00BA5C5D /* Summable.swift in Sources */,
 				B3D0F9101DDCC6400063326D /* SortedStage.swift in Sources */,
 				B3D9F0051DEB000E00BA5C5D /* PipelineWrappingSpliterator.swift in Sources */,
 				B39D3A3B1DD39AB900AED66C /* Spliterator.swift in Sources */,
@@ -395,7 +405,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D9F00D1DEC9ED900BA5C5D /* StreamSumTests.swift in Sources */,
 				B3C351F01DE4B81F009801FB /* StreamPerformanceTests.swift in Sources */,
+				B3D9F0071DEC98EE00BA5C5D /* StreamCountTests.swift in Sources */,
 				B39D3A471DD8452B00AED66C /* StreamsTests.swift in Sources */,
 				B3BFCD281DD84BD8001ED7A3 /* StreamTests.swift in Sources */,
 			);

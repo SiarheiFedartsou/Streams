@@ -13,6 +13,9 @@ public protocol StreamProtocol {
     associatedtype T
     var spliterator: AnySpliterator<T> { get }
   
+    var count: Int { get }
+    
+    
     func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
     func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
     
@@ -100,6 +103,10 @@ public class Stream<T> : PipelineStageProtocol, StreamProtocol {
     {
         _abstract()
     }
+    
+    public var count: Int {
+        return map({ _ in 1 }).sum()
+    }
 }
 
 public extension Stream where T : Comparable {
@@ -111,6 +118,7 @@ public extension Stream where T : Comparable {
         return SortedPipelineStage(previousStage: self, by: comparator)
     }
 }
+
 
 public extension Stream where T : Hashable {
     func distinct() -> Stream<T> {
@@ -125,3 +133,12 @@ public extension Stream {
         return PipelineHead(source: AnySpliterator(spliterator), characteristics: spliterator.options)
     }
 }
+
+
+public extension Stream where T : Summable {
+    func sum() -> T {
+        return self.reduce(identity: T(), accumulator: +)
+    }
+}
+
+
