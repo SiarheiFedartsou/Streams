@@ -14,8 +14,8 @@ flatMap|flatMap||Not implemented
 flatten|flatten||Not implemented
 forEach|forEach||Implemented
 forEachOrdered|forEachOrdered||Not implemented
-static generate|static generate||Not implemented
-static iterate|static iterate||Not implemented
+func generate|static generate||Implemented
+func iterate|static iterate||Implemented
 limit|limit||Implemented
 map|map||Implemented
 max|max||Implemented

@@ -1,5 +1,5 @@
 //
-//  MinMaxPipelineStage.swift
+//  MinMaxTerminalStage.swift
 //  Streams
 //
 //  Created by Sergey Fedortsov on 29.11.16.

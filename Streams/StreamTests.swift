@@ -136,27 +136,7 @@ class StreamTests: XCTestCase {
         // then
         expect(result).to(equal(52))
     }
-    
-    func testThatIterateWorks() {
-        // when
-        var lastFibonacci = 1
-        var lastButOneFibonacci = 1
-        
-        var result = [Int]()
-        result.append(lastFibonacci)
-        result.append(lastButOneFibonacci)
-        
-        iterate({
-            let result = lastFibonacci + lastButOneFibonacci
-            (lastFibonacci, lastButOneFibonacci) = (result, lastFibonacci)
-            return result
-        }).limit(7).forEach {
-            result.append($0)
-        }
-        
-        // then
-        expect(result).to(equal([1, 1, 2, 3, 5, 8, 13, 21, 34]))
-    }
+
     
     func testThatDefaultSortedWorks() {
         // given
