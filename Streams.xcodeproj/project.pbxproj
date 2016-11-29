@@ -44,6 +44,11 @@
 		B3D9F00D1DEC9ED900BA5C5D /* StreamSumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D9F00C1DEC9ED900BA5C5D /* StreamSumTests.swift */; };
 		B3D9F00F1DECA0A900BA5C5D /* EmptySpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D9F00E1DECA0A900BA5C5D /* EmptySpliterator.swift */; };
 		B3DE87231DE5C39E00F56985 /* DistinctStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DE87221DE5C39E00F56985 /* DistinctStage.swift */; };
+		B3F91C6B1DEDF483003480C6 /* AllMatchTerminalStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C671DEDF483003480C6 /* AllMatchTerminalStage.swift */; };
+		B3F91C6C1DEDF483003480C6 /* AnyMatchTerminalStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C681DEDF483003480C6 /* AnyMatchTerminalStage.swift */; };
+		B3F91C741DEDF531003480C6 /* StreamNoneMatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C731DEDF531003480C6 /* StreamNoneMatchTests.swift */; };
+		B3F91C751DEDF579003480C6 /* StreamAllMatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C691DEDF483003480C6 /* StreamAllMatchTests.swift */; };
+		B3F91C761DEDF586003480C6 /* StreamAnyMatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C6A1DEDF483003480C6 /* StreamAnyMatchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +105,11 @@
 		B3D9F00C1DEC9ED900BA5C5D /* StreamSumTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamSumTests.swift; sourceTree = "<group>"; };
 		B3D9F00E1DECA0A900BA5C5D /* EmptySpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptySpliterator.swift; sourceTree = "<group>"; };
 		B3DE87221DE5C39E00F56985 /* DistinctStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistinctStage.swift; sourceTree = "<group>"; };
+		B3F91C671DEDF483003480C6 /* AllMatchTerminalStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllMatchTerminalStage.swift; sourceTree = "<group>"; };
+		B3F91C681DEDF483003480C6 /* AnyMatchTerminalStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyMatchTerminalStage.swift; sourceTree = "<group>"; };
+		B3F91C691DEDF483003480C6 /* StreamAllMatchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamAllMatchTests.swift; sourceTree = "<group>"; };
+		B3F91C6A1DEDF483003480C6 /* StreamAnyMatchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamAnyMatchTests.swift; sourceTree = "<group>"; };
+		B3F91C731DEDF531003480C6 /* StreamNoneMatchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamNoneMatchTests.swift; sourceTree = "<group>"; };
 		E794004DCE0DBF391D0CDDB0 /* Pods-StreamsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamsTests/Pods-StreamsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +164,7 @@
 		B301CBB71DC3D7630086E3EE /* Streams */ = {
 			isa = PBXGroup;
 			children = (
+				B3F91C651DEDF483003480C6 /* Stages */,
 				B3C351F11DEAFAA4009801FB /* Spliterators */,
 				B301CBB81DC3D7630086E3EE /* AppDelegate.swift */,
 				B39D3A3C1DD39AD100AED66C /* IteratorSpliterator.swift */,
@@ -210,6 +221,26 @@
 				B3D9F00E1DECA0A900BA5C5D /* EmptySpliterator.swift */,
 			);
 			path = Spliterators;
+			sourceTree = "<group>";
+		};
+		B3F91C651DEDF483003480C6 /* Stages */ = {
+			isa = PBXGroup;
+			children = (
+				B3F91C661DEDF483003480C6 /* Match */,
+			);
+			path = Stages;
+			sourceTree = "<group>";
+		};
+		B3F91C661DEDF483003480C6 /* Match */ = {
+			isa = PBXGroup;
+			children = (
+				B3F91C671DEDF483003480C6 /* AllMatchTerminalStage.swift */,
+				B3F91C681DEDF483003480C6 /* AnyMatchTerminalStage.swift */,
+				B3F91C691DEDF483003480C6 /* StreamAllMatchTests.swift */,
+				B3F91C6A1DEDF483003480C6 /* StreamAnyMatchTests.swift */,
+				B3F91C731DEDF531003480C6 /* StreamNoneMatchTests.swift */,
+			);
+			path = Match;
 			sourceTree = "<group>";
 		};
 		FC78CD210D700ECE001930D4 /* Frameworks */ = {
@@ -387,7 +418,9 @@
 				B3D0F9081DDA142B0063326D /* MapStage.swift in Sources */,
 				B3D9F00B1DEC9C1D00BA5C5D /* Summable.swift in Sources */,
 				B3D0F9101DDCC6400063326D /* SortedStage.swift in Sources */,
+				B3F91C6C1DEDF483003480C6 /* AnyMatchTerminalStage.swift in Sources */,
 				B3D9F0051DEB000E00BA5C5D /* PipelineWrappingSpliterator.swift in Sources */,
+				B3F91C6B1DEDF483003480C6 /* AllMatchTerminalStage.swift in Sources */,
 				B39D3A3B1DD39AB900AED66C /* Spliterator.swift in Sources */,
 				B3D0F9041DDA13F30063326D /* LimitStage.swift in Sources */,
 				B301CBCB1DC3D7710086E3EE /* Stream.swift in Sources */,
@@ -409,8 +442,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3F91C761DEDF586003480C6 /* StreamAnyMatchTests.swift in Sources */,
 				B3D9F00D1DEC9ED900BA5C5D /* StreamSumTests.swift in Sources */,
+				B3F91C741DEDF531003480C6 /* StreamNoneMatchTests.swift in Sources */,
 				B3C351F01DE4B81F009801FB /* StreamPerformanceTests.swift in Sources */,
+				B3F91C751DEDF579003480C6 /* StreamAllMatchTests.swift in Sources */,
 				B3D9F0071DEC98EE00BA5C5D /* StreamCountTests.swift in Sources */,
 				B39D3A471DD8452B00AED66C /* StreamsTests.swift in Sources */,
 				B3BFCD281DD84BD8001ED7A3 /* StreamTests.swift in Sources */,

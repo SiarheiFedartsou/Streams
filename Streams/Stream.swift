@@ -76,17 +76,19 @@ public class Stream<T> : PipelineStageProtocol, StreamProtocol {
     
     public func anyMatch(_ predicate: @escaping (T) -> Bool) -> Bool
     {
-        _abstract()
+        let stage = AnyMatchTerminalStage(previousStage: self, evaluator: evaluator!, predicate: predicate)
+        return stage.result
     }
     
     public func allMatch(_ predicate: @escaping (T) -> Bool) -> Bool
     {
-        _abstract()
+        let stage = AllMatchTerminalStage(previousStage: self, evaluator: evaluator!, predicate: predicate)
+        return stage.result
     }
     
     public func noneMatch(_ predicate: @escaping (T) -> Bool) -> Bool
     {
-        _abstract()
+        return !anyMatch(predicate)
     }
     
     public func forEach(_ each: @escaping (T) -> ())

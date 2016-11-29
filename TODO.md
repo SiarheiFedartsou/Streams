@@ -1,7 +1,7 @@
 Method | Java Method | Comment | Status
 -----------|-----------|----------------------|-----
-allMatch|allMatch||Not implemented
-anyMatch|anyMatch||Not implemented
+allMatch|allMatch||Implemented
+anyMatch|anyMatch||Implemented
 collect|collect|Another approach should be considered|Not implemented
 operator +|concat||Implemented
 count|count||Implemented
@@ -20,6 +20,7 @@ limit|limit||Implemented
 map|map||Implemented
 max|max||Not implemented
 min|min||Not implemented
+noneMatch|noneMatch||Implemented
 reduce|reduce||Partially implemented
 skip|skip||Implemented
 sorted|sorted||Implemented

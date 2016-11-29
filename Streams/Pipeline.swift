@@ -74,27 +74,6 @@ class PipelineStage<In, Out> : Stream<Out>, SinkProtocol
         return stage.result
     }
     
-    override func anyMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
-    {
-        let stage = NoneMatchTerminalStage(evaluator: evaluator!, predicate: predicate)
-        self.nextStage = AnySink(stage)
-        return stage.result
-    }
-    
-    override func allMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
-    {
-        let stage = NoneMatchTerminalStage(evaluator: evaluator!, predicate: predicate)
-        self.nextStage = AnySink(stage)
-        return stage.result
-    }
-    
-    override func noneMatch(_ predicate: @escaping (Out) -> Bool) -> Bool
-    {
-        let stage = NoneMatchTerminalStage(evaluator: evaluator!, predicate: predicate)
-        self.nextStage = AnySink(stage)
-        return stage.result
-    }
-    
     override func forEach(_ each: @escaping (Out) -> ())
     {
         let stage = ForEachTerminalStage(evaluator: evaluator!, each: each)
