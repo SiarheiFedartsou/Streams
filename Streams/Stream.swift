@@ -121,6 +121,25 @@ public extension Stream where T : Comparable {
     }
 }
 
+public extension Stream where T : Comparable {
+    func max() -> T? {
+        return max(by: >)
+    }
+    
+    func max(by comparator: @escaping (T, T) -> Bool) -> T? {
+        return MinMaxTerminalStage(previousStage: self, evaluator: evaluator!, comparator: comparator).result
+    }
+    
+    func min() -> T? {
+        return MinMaxTerminalStage(previousStage: self, evaluator: evaluator!, comparator: <).result
+    }
+    
+    func min(by comparator: @escaping (T, T) -> Bool) -> T? {
+        let invertedComparator = { !comparator($0, $1) }
+        return MinMaxTerminalStage(previousStage: self, evaluator: evaluator!, comparator: invertedComparator).result
+    }
+}
+
 
 public extension Stream where T : Hashable {
     func distinct() -> Stream<T> {

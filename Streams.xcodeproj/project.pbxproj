@@ -29,7 +29,6 @@
 		B3C351F31DEAFAB3009801FB /* ConcatSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C351F21DEAFAB3009801FB /* ConcatSpliterator.swift */; };
 		B3D0F8FC1DDA13890063326D /* TerminalStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8FB1DDA13890063326D /* TerminalStage.swift */; };
 		B3D0F8FE1DDA13A10063326D /* ReduceStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8FD1DDA13A10063326D /* ReduceStage.swift */; };
-		B3D0F9001DDA13BD0063326D /* MatchStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8FF1DDA13BD0063326D /* MatchStages.swift */; };
 		B3D0F9021DDA13D30063326D /* ForEachStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9011DDA13D30063326D /* ForEachStage.swift */; };
 		B3D0F9041DDA13F30063326D /* LimitStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9031DDA13F30063326D /* LimitStage.swift */; };
 		B3D0F9061DDA14100063326D /* SkipStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9051DDA14100063326D /* SkipStage.swift */; };
@@ -49,6 +48,9 @@
 		B3F91C741DEDF531003480C6 /* StreamNoneMatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C731DEDF531003480C6 /* StreamNoneMatchTests.swift */; };
 		B3F91C751DEDF579003480C6 /* StreamAllMatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C691DEDF483003480C6 /* StreamAllMatchTests.swift */; };
 		B3F91C761DEDF586003480C6 /* StreamAnyMatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C6A1DEDF483003480C6 /* StreamAnyMatchTests.swift */; };
+		B3F91C791DEDF6D8003480C6 /* StreamMinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C781DEDF6D8003480C6 /* StreamMinTests.swift */; };
+		B3F91C7B1DEDF72C003480C6 /* StreamMaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C7A1DEDF72C003480C6 /* StreamMaxTests.swift */; };
+		B3F91C7D1DEDF794003480C6 /* MinMaxPipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C7C1DEDF794003480C6 /* MinMaxPipelineStage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,7 +92,6 @@
 		B3C351F21DEAFAB3009801FB /* ConcatSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcatSpliterator.swift; sourceTree = "<group>"; };
 		B3D0F8FB1DDA13890063326D /* TerminalStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalStage.swift; sourceTree = "<group>"; };
 		B3D0F8FD1DDA13A10063326D /* ReduceStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReduceStage.swift; sourceTree = "<group>"; };
-		B3D0F8FF1DDA13BD0063326D /* MatchStages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchStages.swift; sourceTree = "<group>"; };
 		B3D0F9011DDA13D30063326D /* ForEachStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForEachStage.swift; sourceTree = "<group>"; };
 		B3D0F9031DDA13F30063326D /* LimitStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LimitStage.swift; sourceTree = "<group>"; };
 		B3D0F9051DDA14100063326D /* SkipStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkipStage.swift; sourceTree = "<group>"; };
@@ -110,6 +111,9 @@
 		B3F91C691DEDF483003480C6 /* StreamAllMatchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamAllMatchTests.swift; sourceTree = "<group>"; };
 		B3F91C6A1DEDF483003480C6 /* StreamAnyMatchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamAnyMatchTests.swift; sourceTree = "<group>"; };
 		B3F91C731DEDF531003480C6 /* StreamNoneMatchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamNoneMatchTests.swift; sourceTree = "<group>"; };
+		B3F91C781DEDF6D8003480C6 /* StreamMinTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamMinTests.swift; sourceTree = "<group>"; };
+		B3F91C7A1DEDF72C003480C6 /* StreamMaxTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamMaxTests.swift; sourceTree = "<group>"; };
+		B3F91C7C1DEDF794003480C6 /* MinMaxPipelineStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinMaxPipelineStage.swift; sourceTree = "<group>"; };
 		E794004DCE0DBF391D0CDDB0 /* Pods-StreamsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamsTests/Pods-StreamsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,7 +191,6 @@
 				B31AAF491DD86690006A0617 /* Pipeline.swift */,
 				B3D0F8FB1DDA13890063326D /* TerminalStage.swift */,
 				B3D0F8FD1DDA13A10063326D /* ReduceStage.swift */,
-				B3D0F8FF1DDA13BD0063326D /* MatchStages.swift */,
 				B3D0F9011DDA13D30063326D /* ForEachStage.swift */,
 				B3D0F9031DDA13F30063326D /* LimitStage.swift */,
 				B3D0F9051DDA14100063326D /* SkipStage.swift */,
@@ -226,6 +229,7 @@
 		B3F91C651DEDF483003480C6 /* Stages */ = {
 			isa = PBXGroup;
 			children = (
+				B3F91C771DEDF6C3003480C6 /* MinMax */,
 				B3F91C661DEDF483003480C6 /* Match */,
 			);
 			path = Stages;
@@ -241,6 +245,16 @@
 				B3F91C731DEDF531003480C6 /* StreamNoneMatchTests.swift */,
 			);
 			path = Match;
+			sourceTree = "<group>";
+		};
+		B3F91C771DEDF6C3003480C6 /* MinMax */ = {
+			isa = PBXGroup;
+			children = (
+				B3F91C781DEDF6D8003480C6 /* StreamMinTests.swift */,
+				B3F91C7A1DEDF72C003480C6 /* StreamMaxTests.swift */,
+				B3F91C7C1DEDF794003480C6 /* MinMaxPipelineStage.swift */,
+			);
+			path = MinMax;
 			sourceTree = "<group>";
 		};
 		FC78CD210D700ECE001930D4 /* Frameworks */ = {
@@ -405,9 +419,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3D0F9001DDA13BD0063326D /* MatchStages.swift in Sources */,
 				B301CBBB1DC3D7630086E3EE /* ViewController.swift in Sources */,
 				B3D0F9121DDCCC320063326D /* RandomAccessCollectionSpliterator.swift in Sources */,
+				B3F91C7D1DEDF794003480C6 /* MinMaxPipelineStage.swift in Sources */,
 				B39D3A3D1DD39AD100AED66C /* IteratorSpliterator.swift in Sources */,
 				B3DE87231DE5C39E00F56985 /* DistinctStage.swift in Sources */,
 				B31AAF4A1DD86690006A0617 /* Pipeline.swift in Sources */,
@@ -450,6 +464,8 @@
 				B3D9F0071DEC98EE00BA5C5D /* StreamCountTests.swift in Sources */,
 				B39D3A471DD8452B00AED66C /* StreamsTests.swift in Sources */,
 				B3BFCD281DD84BD8001ED7A3 /* StreamTests.swift in Sources */,
+				B3F91C7B1DEDF72C003480C6 /* StreamMaxTests.swift in Sources */,
+				B3F91C791DEDF6D8003480C6 /* StreamMinTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

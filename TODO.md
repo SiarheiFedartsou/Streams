@@ -18,8 +18,8 @@ static generate|static generate||Not implemented
 static iterate|static iterate||Not implemented
 limit|limit||Implemented
 map|map||Implemented
-max|max||Not implemented
-min|min||Not implemented
+max|max||Implemented
+min|min||Implemented
 noneMatch|noneMatch||Implemented
 reduce|reduce||Partially implemented
 skip|skip||Implemented
