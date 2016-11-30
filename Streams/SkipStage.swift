@@ -8,11 +8,43 @@
 
 import Foundation
 
+final class SkipPipelineStageSink<T> : SinkProtocol
+{
+    private let nextSink: AnySink<T>
+    private let sizeToSkip: Int
+    
+    private var skipped: Int = 0
+    
+    
+    init(nextSink: AnySink<T>, sizeToSkip: Int) {
+        self.nextSink = nextSink
+        self.sizeToSkip = sizeToSkip
+    }
+    
+    func begin(size: Int) {
+        nextSink.begin(size: size)
+    }
+    
+    func consume(_ t: T) {
+        if (skipped == sizeToSkip) {
+            nextSink.consume(t)
+        } else {
+            skipped += 1
+        }
+    }
+    
+    func end() {
+        nextSink.end()
+    }
+    
+    var cancellationRequested: Bool {
+        return nextSink.cancellationRequested
+    }
+}
 
 class SkipPipelineStage<T> : PipelineStage<T, T>
 {
     let sizeToSkip: Int
-    var skipped: Int = 0
     
     init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType, size: Int) where PreviousStageType.Output == T
     {
@@ -20,25 +52,7 @@ class SkipPipelineStage<T> : PipelineStage<T, T>
         super.init(previousStage: previousStage)
     }
     
-    override func begin(size: Int) {
-        nextStage?.begin(size: 0)
-    }
-    
-    override func consume(_ t: T) {
-        if (skipped == sizeToSkip) {
-            if let nextStage = self.nextStage {
-                nextStage.consume(t)
-            }
-        } else {
-            skipped += 1
-        }
-    }
-    
-    override func end() {
-        nextStage?.end()
-    }
-    
-    override var cancellationRequested: Bool {
-        return self.nextStage?.cancellationRequested ?? false
+    override func makeSink() -> AnySink<T> {
+        return AnySink(SkipPipelineStageSink(nextSink: nextStage!.makeSink(), sizeToSkip: sizeToSkip))
     }
 }

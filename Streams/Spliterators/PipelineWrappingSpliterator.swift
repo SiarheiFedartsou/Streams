@@ -9,7 +9,7 @@
 import Foundation
 
 
-final class PipelineWrappingSpliterator<T> : SpliteratorProtocol, SinkProtocol {
+final class PipelineWrappingSpliterator<T> : SpliteratorProtocol, SinkProtocol, SinkFactory {
     
     let evaluator: EvaluatorProtocol?
     
@@ -19,7 +19,11 @@ final class PipelineWrappingSpliterator<T> : SpliteratorProtocol, SinkProtocol {
     init<PipelineStageType: PipelineStageProtocol>(pipelineStage: PipelineStageType) where PipelineStageType.Output == T
     {
         evaluator = pipelineStage.evaluator
-        pipelineStage.nextStage = AnySink(self)
+        pipelineStage.nextStage = AnySinkFactory(self)
+    }
+    
+    func makeSink() -> AnySink<T> {
+        return AnySink(self)
     }
     
     func begin(size: Int) {

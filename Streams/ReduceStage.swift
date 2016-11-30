@@ -8,8 +8,7 @@
 
 import Foundation
 
-
-class ReduceTerminalStage<T> : TerminalStage {
+class ReduceTerminalStage<T> : TerminalStage, SinkProtocol {
     private var evaluator: EvaluatorProtocol
     
     
@@ -23,7 +22,9 @@ class ReduceTerminalStage<T> : TerminalStage {
         self.accumulator = accumulator
     }
     
-    private var noneMatch: Bool = false
+    func makeSink() -> AnySink<T> {
+        return AnySink(self)
+    }
     
     func consume(_ t: T) {
         identity = accumulator(identity, t)

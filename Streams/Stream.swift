@@ -36,7 +36,7 @@ public protocol StreamProtocol {
 }
 
 public class Stream<T> : PipelineStageProtocol, StreamProtocol {
-    var nextStage: AnySink<T>?
+    var nextStage: AnySinkFactory<T>?
     var evaluator: EvaluatorProtocol?
     
     let characteristics: StreamOptions

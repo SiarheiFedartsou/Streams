@@ -8,6 +8,32 @@
 
 import Foundation
 
+final class FilterPipelineStageSink<T> : SinkProtocol
+{
+    private let nextSink: AnySink<T>
+    private let predicate: (T) -> Bool
+    
+    init(nextSink: AnySink<T>, predicate: @escaping (T) -> Bool) {
+        self.nextSink = nextSink
+        self.predicate = predicate
+    }
+    
+    
+    func begin(size: Int) {
+        nextSink.begin(size: size)
+    }
+    
+    func consume(_ t: T) {
+        if predicate(t) {
+            nextSink.consume(t)
+        }
+    }
+    
+    func end() {
+        nextSink.end()
+    }
+}
+
 class FilterPipelineStage<T> : PipelineStage<T, T>
 {
     let predicate: (T) -> Bool
@@ -19,19 +45,7 @@ class FilterPipelineStage<T> : PipelineStage<T, T>
     }
     
     
-    override func begin(size: Int) {
-        nextStage?.begin(size: 0)
-    }
-    
-    override func consume(_ t: T) {
-        if let nextStage = self.nextStage {
-            if predicate(t) {
-                nextStage.consume(t)
-            }
-        }
-    }
-    
-    override func end() {
-        nextStage?.end()
+    override func makeSink() -> AnySink<T> {
+        return AnySink(FilterPipelineStageSink(nextSink: nextStage!.makeSink(), predicate: predicate))
     }
 }

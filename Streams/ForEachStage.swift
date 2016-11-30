@@ -8,6 +8,18 @@
 
 import Foundation
 
+final class ForEachTerminalStageSink<T> : SinkProtocol {
+    private let each: (T) -> ()
+    
+    init(each: @escaping (T) -> ()) {
+        self.each = each
+    }
+    
+    func consume(_ t: T) {
+        each(t)
+    }
+}
+
 class ForEachTerminalStage<T> : TerminalStage {
     
     private let each: (T) -> ()
@@ -19,8 +31,8 @@ class ForEachTerminalStage<T> : TerminalStage {
         self.each = each
     }
     
-    func consume(_ t: T) {
-        each(t)
+    func makeSink() -> AnySink<T> {
+        return AnySink(ForEachTerminalStageSink(each: each))
     }
     
     var result: Void {

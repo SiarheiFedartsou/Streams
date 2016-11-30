@@ -8,7 +8,8 @@
 
 import Foundation
 
-final class MinMaxTerminalStage<T> : TerminalStage {
+
+final class MinMaxTerminalStage<T> : TerminalStage, SinkProtocol {
     private let comparator: (T, T) -> (Bool)
     private var evaluator: EvaluatorProtocol
     
@@ -18,7 +19,11 @@ final class MinMaxTerminalStage<T> : TerminalStage {
         self.evaluator = evaluator
         self.comparator = comparator
         
-        previousStage.nextStage = AnySink(self)
+        previousStage.nextStage = AnySinkFactory(self)
+    }
+    
+    func makeSink() -> AnySink<T> {
+        return AnySink(self)
     }
     
     private var possibleResult: T? = nil
@@ -33,7 +38,6 @@ final class MinMaxTerminalStage<T> : TerminalStage {
             self.possibleResult = element
         }
     }
-    
     
     var result: T? {
         self.evaluator.evaluate()

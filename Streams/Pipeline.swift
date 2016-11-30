@@ -8,48 +8,69 @@
 
 import Foundation
 
+internal protocol SinkFactory {
+    associatedtype SinkElement
+    func makeSink() -> AnySink<SinkElement>
+}
+
+struct AnySinkFactory<T> : SinkFactory {
+    private let _makeSink: () -> AnySink<T>
+    
+    init<Base: SinkFactory>(_ base: Base) where Base.SinkElement == T {
+        _makeSink = base.makeSink
+    }
+    
+    func makeSink() -> AnySink<T> {
+        return _makeSink()
+    }
+}
+
 internal protocol PipelineStageProtocol : class {
     associatedtype Output
     
-    var nextStage: AnySink<Output>? { get set }
+    var nextStage: AnySinkFactory<Output>? { get set }
     var evaluator: EvaluatorProtocol? { get }
     var characteristics: StreamOptions { get }
 }
+
 
 class PipelineHead<T> : PipelineStage<T, T>
 {
     init(source: AnySpliterator<T>, characteristics: StreamOptions)
     {
         super.init(evaluator: nil, characteristics: characteristics)
-        self.evaluator = DefaultEvaluator(source: source, sourceStage: AnySink(self))
+        self.evaluator = DefaultEvaluator(source: source, sourceStage: AnySinkFactory(self))
     }
     
-    override func begin(size: Int) {
-        nextStage?.begin(size: size)
-    }
+//    override func begin(size: Int) {
+//        nextStage?.begin(size: size)
+//    }
+//    
+//    override func consume(_ t: T) {
+//        nextStage?.consume(t)
+//    }
+//    
+//    override func end() {
+//        nextStage?.end()
+//    }
+//    
+//    override var cancellationRequested: Bool {
+//        return nextStage?.cancellationRequested ?? false
+//    }
     
-    override func consume(_ t: T) {
-        nextStage?.consume(t)
-    }
-    
-    override func end() {
-        nextStage?.end()
-    }
-    
-    override var cancellationRequested: Bool {
-        return nextStage?.cancellationRequested ?? false
+    override func makeSink() -> AnySink<T> {
+        return AnySink(ChainedSink(nextSink: nextStage!.makeSink()))
     }
     
 }
 
-class PipelineStage<In, Out> : Stream<Out>, SinkProtocol
+class PipelineStage<In, Out> : Stream<Out>, SinkFactory
 {
-    func begin(size: Int) {}
-    func consume(_ t: In) {}
-    func end() {}
-    var cancellationRequested: Bool { return false }
-    
-
+//    func begin(size: Int) {}
+//    func consume(_ t: In) {}
+//    func end() {}
+//    var cancellationRequested: Bool { return false }
+//    
     init(evaluator: EvaluatorProtocol?, characteristics: StreamOptions)
     {
         super.init(characteristics: characteristics)
@@ -60,7 +81,7 @@ class PipelineStage<In, Out> : Stream<Out>, SinkProtocol
     {
         super.init(characteristics: previousStage.characteristics)
         self.evaluator = previousStage.evaluator
-        previousStage.nextStage = AnySink(self)
+        previousStage.nextStage = AnySinkFactory(self)
     }
     
     override var spliterator: AnySpliterator<Out> {
@@ -70,14 +91,14 @@ class PipelineStage<In, Out> : Stream<Out>, SinkProtocol
     override func reduce(identity: Out, accumulator: @escaping (Out, Out) -> Out) -> Out
     {
         let stage = ReduceTerminalStage(evaluator: evaluator!, identity: identity, accumulator: accumulator)
-        self.nextStage = AnySink(stage)
+        self.nextStage = AnySinkFactory(stage)
         return stage.result
     }
     
     override func forEach(_ each: @escaping (Out) -> ())
     {
         let stage = ForEachTerminalStage(evaluator: evaluator!, each: each)
-        self.nextStage = AnySink(stage)
+        self.nextStage = AnySinkFactory(stage)
         
         return stage.result
     }
@@ -88,6 +109,10 @@ class PipelineStage<In, Out> : Stream<Out>, SinkProtocol
     
     override var any: Out? {
         return nil
+    }
+    
+    func makeSink() -> AnySink<In> {
+        _abstract()
     }
 }
 

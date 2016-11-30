@@ -7,7 +7,7 @@
 //
 
 
-final class AnyMatchTerminalStage<T> : TerminalStage {
+final class AnyMatchTerminalStage<T> : TerminalStage, SinkProtocol {
     private let predicate: (T) -> (Bool)
     private var evaluator: EvaluatorProtocol
     
@@ -17,7 +17,11 @@ final class AnyMatchTerminalStage<T> : TerminalStage {
         self.evaluator = evaluator
         self.predicate = predicate
         
-        previousStage.nextStage = AnySink(self)
+        previousStage.nextStage = AnySinkFactory(self)
+    }
+    
+    func makeSink() -> AnySink<T> {
+        return AnySink(self)
     }
     
     private var anyMatch: Bool = false

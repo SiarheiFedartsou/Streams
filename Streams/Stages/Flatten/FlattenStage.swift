@@ -6,6 +6,30 @@
 //  Copyright © 2016 Sergey Fedortsov. All rights reserved.
 //
 
+final class FlattenPipelineStageSink<In: StreamProtocol, Out> : SinkProtocol  where In.T == Out
+{
+    private let nextSink: AnySink<Out>
+    
+    init(nextSink: AnySink<Out>) {
+        self.nextSink = nextSink
+    }
+    
+    func begin(size: Int) {
+        nextSink.begin(size: size)
+    }
+    
+    func consume(_ element: In) {
+        var spliterator = element.spliterator
+        while let next = spliterator.advance() {
+            nextSink.consume(next)
+        }
+    }
+    
+    func end() {
+        nextSink.end()
+    }
+}
+
 final class FlattenPipelineStage<In: StreamProtocol, Out> : PipelineStage<In, Out> where In.T == Out
 {
     override init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Output == In
@@ -13,18 +37,7 @@ final class FlattenPipelineStage<In: StreamProtocol, Out> : PipelineStage<In, Ou
         super.init(previousStage: previousStage)
     }
     
-    override func begin(size: Int) {
-        nextStage?.begin(size: size)
-    }
-    
-    override func consume(_ element: In) {
-        var spliterator = element.spliterator
-        while let next = spliterator.advance() {
-            nextStage?.consume(next)
-        }
-    }
-    
-    override func end() {
-        nextStage?.end()
+    override func makeSink() -> AnySink<In> {
+        return AnySink(FlattenPipelineStageSink(nextSink: nextStage!.makeSink()))
     }
 }

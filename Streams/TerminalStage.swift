@@ -16,43 +16,56 @@ protocol EvaluatorProtocol {
 
 final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
     var source: AnySpliterator<SourceElement>
-    var sourceStage: AnySink<SourceElement>
+    var sourceStage: AnySinkFactory<SourceElement>
+    
+    var sourceSink: AnySink<SourceElement>? = nil
     
     var started = false
     
-    init(source: AnySpliterator<SourceElement>, sourceStage: AnySink<SourceElement>) {
+    init(source: AnySpliterator<SourceElement>, sourceStage: AnySinkFactory<SourceElement>) {
         self.source = source
         self.sourceStage = sourceStage
+        
     }
     
     func evaluate() {
+        self.sourceSink = self.sourceStage.makeSink()
+    
+        guard let sourceSink = sourceSink else { return }
+        
+
         started = true
-        sourceStage.begin(size: 0)
-        while !sourceStage.cancellationRequested {
+        sourceSink.begin(size: 0)
+        while !sourceSink.cancellationRequested {
             guard let element = source.advance() else { break }
-            sourceStage.consume(element)
+            sourceSink.consume(element)
         }
-        sourceStage.end()
+        sourceSink.end()
     }
     
     func advance() {
+        if sourceSink == nil {
+            self.sourceSink = self.sourceStage.makeSink()
+        }
+        
+        guard let sourceSink = sourceSink else { return }
         if !started {
             started = true
-            sourceStage.begin(size: 0)
+            sourceSink.begin(size: 0)
         }
-        if !sourceStage.cancellationRequested {
+        if !sourceSink.cancellationRequested {
             if let element = source.advance() {
-                sourceStage.consume(element)
+                sourceSink.consume(element)
             } else {
-                sourceStage.end()
+                sourceSink.end()
             }
         } else {
-           sourceStage.end()
+           sourceSink.end()
         }
     }
 }
 
-protocol TerminalStage : SinkProtocol
+protocol TerminalStage : SinkFactory
 {
     associatedtype Result
     var result: Result { get }

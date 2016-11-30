@@ -6,6 +6,35 @@
 //  Copyright © 2016 Sergey Fedortsov. All rights reserved.
 //
 
+final class LimitPipelineStageSink<T> : SinkProtocol {
+    private var size: Int
+    let nextSink: AnySink<T>
+    
+    init(nextSink: AnySink<T>, size: Int) {
+        self.nextSink = nextSink
+        self.size = size
+    }
+    
+    func begin(size: Int) {
+        nextSink.begin(size: self.size)
+    }
+    
+    func consume(_ t: T) {
+        if size > 0 {
+            size -= 1
+            nextSink.consume(t)
+        }
+    }
+    
+    func end() {
+        nextSink.end()
+    }
+    
+    var cancellationRequested: Bool {
+        return size == 0 || nextSink.cancellationRequested
+    }
+    
+}
 
 final class LimitPipelineStage<T> : PipelineStage<T, T>
 {
@@ -17,24 +46,7 @@ final class LimitPipelineStage<T> : PipelineStage<T, T>
         super.init(previousStage: previousStage)
     }
     
-    override func begin(size: Int) {
-        nextStage?.begin(size: self.size)
-    }
-    
-    override func consume(_ t: T) {
-        if size > 0 {
-            if let nextStage = self.nextStage {
-                size -= 1
-                nextStage.consume(t)
-            }
-        }
-    }
-    
-    override func end() {
-        nextStage?.end()
-    }
-    
-    override var cancellationRequested: Bool {
-        return size == 0 || (self.nextStage?.cancellationRequested ?? false)
+    override func makeSink() -> AnySink<T> {
+        return AnySink(LimitPipelineStageSink(nextSink: nextStage!.makeSink(), size: size))
     }
 }

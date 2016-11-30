@@ -88,6 +88,22 @@ final class AnySinkBox<Base: SinkProtocol>: AnySinkBoxBase<Base.Consumable> {
     
 }
 
-//struct ChainedSink<T, Out> : SinkProtocol {
-//    
-//}
+struct ChainedSink<T> : SinkProtocol {
+    let nextSink: AnySink<T>
+    
+    func begin(size: Int) {
+        nextSink.begin(size: size)
+    }
+    
+    func end() {
+        nextSink.end()
+    }
+    
+    var cancellationRequested: Bool {
+        return nextSink.cancellationRequested
+    }
+    
+    func consume(_ t: T) {
+        nextSink.consume(t)
+    }
+}

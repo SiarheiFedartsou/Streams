@@ -8,28 +8,41 @@
 
 import Foundation
 
-class DistinctPipelineStage<T> : PipelineStage<T, T> where T : Hashable
+final class DistinctPipelineStageSink<T: Hashable>: SinkProtocol {
+    private let nextSink: AnySink<T>
+    
+    init(nextSink: AnySink<T>) {
+        self.nextSink = nextSink
+    }
+    
+    private var seen: Set<T> = Set<T>()
+    
+    func begin(size: Int) {
+        nextSink.begin(size: size)
+    }
+    
+    func consume(_ t: T) {
+        if !seen.contains(t) {
+            seen.insert(t)
+            nextSink.consume(t)
+        }
+    }
+    
+    func end() {
+        nextSink.end()
+    }
+    
+}
+
+final class DistinctPipelineStage<T> : PipelineStage<T, T> where T : Hashable
 {
-    
-    var seen: Set<T> = Set<T>()
-    
+
     override init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Output == T
     {
         super.init(previousStage: previousStage)
     }
     
-    override func begin(size: Int) {
-        nextStage?.begin(size: size)
-    }
-    
-    override func consume(_ t: T) {
-        if !seen.contains(t) {
-            seen.insert(t)
-            nextStage?.consume(t)
-        }
-    }
-    
-    override func end() {
-        nextStage?.end()
+    override func makeSink() -> AnySink<T> {
+        return AnySink(DistinctPipelineStageSink(nextSink: nextStage!.makeSink()))
     }
 }

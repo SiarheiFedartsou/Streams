@@ -8,6 +8,27 @@
 
 import Foundation
 
+final class MapPipelineStageSink<In, Out> : SinkProtocol {
+    private let mapper: (In) -> (Out)
+    private let nextSink: AnySink<Out>
+    
+    init(nextSink: AnySink<Out>, mapper: @escaping (In) -> Out) {
+        self.nextSink = nextSink
+        self.mapper = mapper
+    }
+    
+    func begin(size: Int) {
+        nextSink.begin(size: size)
+    }
+    
+    func consume(_ t: In) {
+        nextSink.consume(mapper(t))
+    }
+    
+    func end() {
+        nextSink.end()
+    }
+}
 
 class MapPipelineStage<In, Out> : PipelineStage<In, Out>
 {
@@ -20,17 +41,7 @@ class MapPipelineStage<In, Out> : PipelineStage<In, Out>
         super.init(previousStage: previousStage)
     }
     
-    override func begin(size: Int) {
-        nextStage?.begin(size: 0)
-    }
-    
-    override func consume(_ t: In) {
-        if let nextStage = self.nextStage {
-            nextStage.consume(mapper(t))
-        }
-    }
-    
-    override func end() {
-        nextStage?.end()
+    override func makeSink() -> AnySink<In> {
+        return AnySink(MapPipelineStageSink(nextSink: nextStage!.makeSink(), mapper: mapper))
     }
 }
