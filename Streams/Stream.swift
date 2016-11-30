@@ -19,7 +19,7 @@ public protocol StreamProtocol {
     func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
     func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
     
-    
+    func flatMap<R: StreamProtocol>(_ mapper: @escaping (T) -> R) -> Stream<R.T>
     
     func limit(_ size: Int) -> Stream<T>
     func skip(_ size: Int) -> Stream<T>
@@ -57,6 +57,11 @@ public class Stream<T> : PipelineStageProtocol, StreamProtocol {
     public func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
     {
         return MapPipelineStage<T, R>(previousStage: self, mapper: mapper)
+    }
+    
+    
+    public func flatMap<R: StreamProtocol>(_ mapper: @escaping (T) -> R) -> Stream<R.T> {
+        return self.map(mapper).flatten()
     }
     
     public func limit(_ size: Int) -> Stream<T>
@@ -159,6 +164,12 @@ public extension Stream {
 public extension Stream where T : Summable {
     func sum() -> T {
         return self.reduce(identity: T(), accumulator: +)
+    }
+}
+
+public extension Stream where T : StreamProtocol {
+    func flatten() -> Stream<T.T> {
+        return FlattenPipelineStage(previousStage: self)
     }
 }
 

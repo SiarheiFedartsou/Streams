@@ -52,6 +52,8 @@
 		B3F91C7D1DEDF794003480C6 /* MinMaxTerminalStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C7C1DEDF794003480C6 /* MinMaxTerminalStage.swift */; };
 		B3F91C801DEDFEC5003480C6 /* Generators.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C7F1DEDFEC5003480C6 /* Generators.swift */; };
 		B3F91C821DEDFEE8003480C6 /* GeneratorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C811DEDFEE8003480C6 /* GeneratorsTests.swift */; };
+		B3F91C851DEF46DB003480C6 /* FlattenStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C841DEF46DB003480C6 /* FlattenStage.swift */; };
+		B3F91C871DEF46EB003480C6 /* StreamFlattenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F91C861DEF46EB003480C6 /* StreamFlattenTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +118,8 @@
 		B3F91C7C1DEDF794003480C6 /* MinMaxTerminalStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinMaxTerminalStage.swift; sourceTree = "<group>"; };
 		B3F91C7F1DEDFEC5003480C6 /* Generators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generators.swift; sourceTree = "<group>"; };
 		B3F91C811DEDFEE8003480C6 /* GeneratorsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorsTests.swift; sourceTree = "<group>"; };
+		B3F91C841DEF46DB003480C6 /* FlattenStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlattenStage.swift; sourceTree = "<group>"; };
+		B3F91C861DEF46EB003480C6 /* StreamFlattenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamFlattenTests.swift; sourceTree = "<group>"; };
 		E794004DCE0DBF391D0CDDB0 /* Pods-StreamsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamsTests/Pods-StreamsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -231,6 +235,7 @@
 		B3F91C651DEDF483003480C6 /* Stages */ = {
 			isa = PBXGroup;
 			children = (
+				B3F91C831DEF46C5003480C6 /* Flatten */,
 				B3F91C771DEDF6C3003480C6 /* MinMax */,
 				B3F91C661DEDF483003480C6 /* Match */,
 			);
@@ -266,6 +271,15 @@
 				B3F91C811DEDFEE8003480C6 /* GeneratorsTests.swift */,
 			);
 			path = Generators;
+			sourceTree = "<group>";
+		};
+		B3F91C831DEF46C5003480C6 /* Flatten */ = {
+			isa = PBXGroup;
+			children = (
+				B3F91C841DEF46DB003480C6 /* FlattenStage.swift */,
+				B3F91C861DEF46EB003480C6 /* StreamFlattenTests.swift */,
+			);
+			path = Flatten;
 			sourceTree = "<group>";
 		};
 		FC78CD210D700ECE001930D4 /* Frameworks */ = {
@@ -443,6 +457,7 @@
 				B3D0F9081DDA142B0063326D /* MapStage.swift in Sources */,
 				B3D9F00B1DEC9C1D00BA5C5D /* Summable.swift in Sources */,
 				B3D0F9101DDCC6400063326D /* SortedStage.swift in Sources */,
+				B3F91C851DEF46DB003480C6 /* FlattenStage.swift in Sources */,
 				B3F91C6C1DEDF483003480C6 /* AnyMatchTerminalStage.swift in Sources */,
 				B3D9F0051DEB000E00BA5C5D /* PipelineWrappingSpliterator.swift in Sources */,
 				B3F91C6B1DEDF483003480C6 /* AllMatchTerminalStage.swift in Sources */,
@@ -471,6 +486,7 @@
 				B3D9F00D1DEC9ED900BA5C5D /* StreamSumTests.swift in Sources */,
 				B3F91C741DEDF531003480C6 /* StreamNoneMatchTests.swift in Sources */,
 				B3C351F01DE4B81F009801FB /* StreamPerformanceTests.swift in Sources */,
+				B3F91C871DEF46EB003480C6 /* StreamFlattenTests.swift in Sources */,
 				B3F91C751DEDF579003480C6 /* StreamAllMatchTests.swift in Sources */,
 				B3D9F0071DEC98EE00BA5C5D /* StreamCountTests.swift in Sources */,
 				B3F91C821DEDFEE8003480C6 /* GeneratorsTests.swift in Sources */,

@@ -10,8 +10,8 @@ static empty|static empty||Not implemented
 filter|filter||Implemented
 any|findAny||Not implemented
 first|findFirst||Not implemented
-flatMap|flatMap||Not implemented
-flatten|flatten||Not implemented
+flatMap|flatMap||Implemented
+flatten|flatten||Implemented
 forEach|forEach||Implemented
 forEachOrdered|forEachOrdered||Not implemented
 func generate|static generate||Implemented

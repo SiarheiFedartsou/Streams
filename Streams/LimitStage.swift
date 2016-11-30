@@ -6,9 +6,8 @@
 //  Copyright © 2016 Sergey Fedortsov. All rights reserved.
 //
 
-import Foundation
 
-class LimitPipelineStage<T> : PipelineStage<T, T>
+final class LimitPipelineStage<T> : PipelineStage<T, T>
 {
     private var size: Int
 
