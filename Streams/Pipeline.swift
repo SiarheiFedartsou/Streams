@@ -8,22 +8,6 @@
 
 import Foundation
 
-internal protocol SinkFactory {
-    associatedtype SinkElement
-    func makeSink() -> AnySink<SinkElement>
-}
-
-struct AnySinkFactory<T> : SinkFactory {
-    private let _makeSink: () -> AnySink<T>
-    
-    init<Base: SinkFactory>(_ base: Base) where Base.SinkElement == T {
-        _makeSink = base.makeSink
-    }
-    
-    func makeSink() -> AnySink<T> {
-        return _makeSink()
-    }
-}
 
 internal protocol PipelineStageProtocol : class {
     associatedtype Output

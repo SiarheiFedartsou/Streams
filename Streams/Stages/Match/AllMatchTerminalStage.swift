@@ -6,8 +6,41 @@
 //  Copyright © 2016 Sergey Fedortsov. All rights reserved.
 //
 
+protocol Resulting {
+    associatedtype Result
+    var result: Result { get }
+}
 
-final class AllMatchTerminalStage<T> : TerminalStage, SinkProtocol {
+
+final class AllMatchTerminalStageSink<T>: SinkProtocol {
+    private let predicate: (T) -> (Bool)
+    private let onResult: (Bool) -> ()
+    
+    private var allMatch: Bool = true
+    
+    init(predicate: @escaping (T) -> Bool, onResult: @escaping (Bool) -> ())
+    {
+        self.predicate = predicate
+        self.onResult = onResult
+    }
+    
+    func consume(_ t: T) {
+        if !predicate(t) {
+            allMatch = false
+        }
+    }
+    
+    func end() {
+        onResult(allMatch)
+    }
+    
+    var cancellationRequested: Bool {
+        return !allMatch
+    }
+
+}
+
+final class AllMatchTerminalStage<T> : TerminalStage {
     private let predicate: (T) -> (Bool)
     private var evaluator: EvaluatorProtocol
     
@@ -21,23 +54,17 @@ final class AllMatchTerminalStage<T> : TerminalStage, SinkProtocol {
     }
     
     func makeSink() -> AnySink<T> {
-        return AnySink(self)
+        return AnySink(AllMatchTerminalStageSink(predicate: predicate, onResult:  {
+            self._result = $0
+        }))
     }
     
-    private var allMatch: Bool = true
+    private var _result: Bool = true
     
-    func consume(_ t: T) {
-        if !predicate(t) {
-            allMatch = false
-        }
-    }
+
     
-    var cancellationRequested: Bool {
-        return !allMatch
-    }
-    
-    var result: Bool {
+    var result: Bool { 
         self.evaluator.evaluate()
-        return allMatch
+        return _result
     }
 }
