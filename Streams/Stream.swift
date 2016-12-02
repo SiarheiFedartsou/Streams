@@ -33,6 +33,12 @@ public protocol StreamProtocol {
     func forEach(_ each: @escaping (T) -> ())
     var first: T? { get }
     var any: T? { get }
+    
+    func parallel() -> Stream<T>
+    func sequential() -> Stream<T>
+    
+    var isParallel: Bool { get }
+    
 }
 
 public class Stream<T> : PipelineStageProtocol, StreamProtocol {
@@ -41,8 +47,9 @@ public class Stream<T> : PipelineStageProtocol, StreamProtocol {
     
     let characteristics: StreamOptions
     
-    init(characteristics: StreamOptions) {
+    init(characteristics: StreamOptions, parallel: Bool) {
         self.characteristics = characteristics
+        self.isParallel = parallel
     }
     
     public var spliterator: AnySpliterator<T> {
@@ -114,6 +121,18 @@ public class Stream<T> : PipelineStageProtocol, StreamProtocol {
     public var count: Int {
         return map({ _ in 1 }).sum()
     }
+    
+    public func parallel() -> Stream<T> {
+        self.isParallel = true
+        return self
+    }
+    
+    public func sequential() -> Stream<T> {
+        self.isParallel = false
+        return self
+    }
+    
+    private(set) public var isParallel: Bool
 }
 
 public extension Stream where T : Comparable {
@@ -156,7 +175,7 @@ public extension Stream {
     static func +(left: Stream<T>, right: Stream<T>) -> Stream<T>
     {
         let spliterator = ConcatSpliterator(left: left.spliterator, right: right.spliterator)
-        return PipelineHead(source: AnySpliterator(spliterator), characteristics: spliterator.options)
+        return PipelineHead(source: AnySpliterator(spliterator), characteristics: spliterator.options, parallel: left.isParallel && right.isParallel )
     }
 }
 

@@ -20,7 +20,7 @@ public func generate<T>(_ generator: @escaping () -> T?) -> Stream<T>
 {
     let iterator = GenerateIterator<T>(generator: generator)
     let spliterator = AnySpliterator(IteratorSpliterator(iterator: iterator, count: -1, options: StreamOptions()))
-    return PipelineHead(source: spliterator, characteristics: .ordered)
+    return PipelineHead(source: spliterator, characteristics: .ordered, parallel: false)
 }
 
 struct IterateIterator<T> : IteratorProtocol {
@@ -49,5 +49,5 @@ public func iterate<T>(seed: T, producer: @escaping (T) -> T?) -> Stream<T>
 {
     let iterator = IterateIterator<T>(seed: seed, producer: producer)
     let spliterator = AnySpliterator(IteratorSpliterator(iterator: iterator, count: -1, options: StreamOptions()))
-    return PipelineHead(source: spliterator, characteristics: .ordered)
+    return PipelineHead(source: spliterator, characteristics: .ordered, parallel: false)
 }

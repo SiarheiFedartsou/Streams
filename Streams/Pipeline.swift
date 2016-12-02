@@ -15,32 +15,17 @@ internal protocol PipelineStageProtocol : class {
     var nextStage: AnySinkFactory<Output>? { get set }
     var evaluator: EvaluatorProtocol? { get }
     var characteristics: StreamOptions { get }
+    var isParallel: Bool { get }
 }
 
 
-class PipelineHead<T> : PipelineStage<T, T>
+final class PipelineHead<T> : PipelineStage<T, T>
 {
-    init(source: AnySpliterator<T>, characteristics: StreamOptions)
+    init(source: AnySpliterator<T>, characteristics: StreamOptions, parallel: Bool)
     {
-        super.init(evaluator: nil, characteristics: characteristics)
+        super.init(evaluator: nil, characteristics: characteristics, parallel: parallel)
         self.evaluator = DefaultEvaluator(source: source, sourceStage: AnySinkFactory(self))
     }
-    
-//    override func begin(size: Int) {
-//        nextStage?.begin(size: size)
-//    }
-//    
-//    override func consume(_ t: T) {
-//        nextStage?.consume(t)
-//    }
-//    
-//    override func end() {
-//        nextStage?.end()
-//    }
-//    
-//    override var cancellationRequested: Bool {
-//        return nextStage?.cancellationRequested ?? false
-//    }
     
     override func makeSink() -> AnySink<T> {
         return AnySink(ChainedSink(nextSink: nextStage!.makeSink()))
@@ -50,20 +35,15 @@ class PipelineHead<T> : PipelineStage<T, T>
 
 class PipelineStage<In, Out> : Stream<Out>, SinkFactory
 {
-//    func begin(size: Int) {}
-//    func consume(_ t: In) {}
-//    func end() {}
-//    var cancellationRequested: Bool { return false }
-//    
-    init(evaluator: EvaluatorProtocol?, characteristics: StreamOptions)
+    init(evaluator: EvaluatorProtocol?, characteristics: StreamOptions, parallel: Bool)
     {
-        super.init(characteristics: characteristics)
+        super.init(characteristics: characteristics, parallel: parallel)
         self.evaluator = evaluator
     }
     
     init<PreviousStageType: PipelineStageProtocol>(previousStage: PreviousStageType) where PreviousStageType.Output == In
     {
-        super.init(characteristics: previousStage.characteristics)
+        super.init(characteristics: previousStage.characteristics, parallel: previousStage.isParallel)
         self.evaluator = previousStage.evaluator
         previousStage.nextStage = AnySinkFactory(self)
     }
