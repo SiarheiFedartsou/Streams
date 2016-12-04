@@ -26,6 +26,8 @@
 		B33AFA4C1DF42A0E002B7A9E /* CollectTerminalStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33AFA4B1DF42A0E002B7A9E /* CollectTerminalStage.swift */; };
 		B33AFA4E1DF42BFE002B7A9E /* ToArrayCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33AFA4D1DF42BFE002B7A9E /* ToArrayCollector.swift */; };
 		B33AFA501DF42D47002B7A9E /* ToArrayCollectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33AFA4F1DF42D47002B7A9E /* ToArrayCollectorTests.swift */; };
+		B33AFA521DF42E48002B7A9E /* GroupingByCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33AFA511DF42E48002B7A9E /* GroupingByCollector.swift */; };
+		B33AFA541DF4322D002B7A9E /* GroupingByCollectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33AFA531DF4322D002B7A9E /* GroupingByCollectorTests.swift */; };
 		B39D3A3B1DD39AB900AED66C /* Spliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D3A3A1DD39AB900AED66C /* Spliterator.swift */; };
 		B39D3A3D1DD39AD100AED66C /* IteratorSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D3A3C1DD39AD100AED66C /* IteratorSpliterator.swift */; };
 		B39D3A3F1DD39BBD00AED66C /* StreamOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D3A3E1DD39BBD00AED66C /* StreamOptions.swift */; };
@@ -95,6 +97,8 @@
 		B33AFA4B1DF42A0E002B7A9E /* CollectTerminalStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectTerminalStage.swift; sourceTree = "<group>"; };
 		B33AFA4D1DF42BFE002B7A9E /* ToArrayCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToArrayCollector.swift; sourceTree = "<group>"; };
 		B33AFA4F1DF42D47002B7A9E /* ToArrayCollectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToArrayCollectorTests.swift; sourceTree = "<group>"; };
+		B33AFA511DF42E48002B7A9E /* GroupingByCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingByCollector.swift; sourceTree = "<group>"; };
+		B33AFA531DF4322D002B7A9E /* GroupingByCollectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingByCollectorTests.swift; sourceTree = "<group>"; };
 		B399FF241DE56A120089813F /* AnyStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyStream.swift; sourceTree = "<group>"; };
 		B39D3A3A1DD39AB900AED66C /* Spliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spliterator.swift; sourceTree = "<group>"; };
 		B39D3A3C1DD39AD100AED66C /* IteratorSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IteratorSpliterator.swift; sourceTree = "<group>"; };
@@ -242,6 +246,8 @@
 				B33AFA481DF427CD002B7A9E /* AnyCollector.swift */,
 				B33AFA4D1DF42BFE002B7A9E /* ToArrayCollector.swift */,
 				B33AFA4F1DF42D47002B7A9E /* ToArrayCollectorTests.swift */,
+				B33AFA511DF42E48002B7A9E /* GroupingByCollector.swift */,
+				B33AFA531DF4322D002B7A9E /* GroupingByCollectorTests.swift */,
 			);
 			path = Collectors;
 			sourceTree = "<group>";
@@ -515,6 +521,7 @@
 				B3D0F90A1DDA14380063326D /* FilterStage.swift in Sources */,
 				B31AAF441DD864B3006A0617 /* Consumer.swift in Sources */,
 				B31AAF3E1DD852BA006A0617 /* Collection+Stream.swift in Sources */,
+				B33AFA521DF42E48002B7A9E /* GroupingByCollector.swift in Sources */,
 				B33AFA441DF1FA2D002B7A9E /* SinkFactory.swift in Sources */,
 				B3C351F31DEAFAB3009801FB /* ConcatSpliterator.swift in Sources */,
 				B31AAF401DD85304006A0617 /* Utils.swift in Sources */,
@@ -530,6 +537,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3F91C761DEDF586003480C6 /* StreamAnyMatchTests.swift in Sources */,
+				B33AFA541DF4322D002B7A9E /* GroupingByCollectorTests.swift in Sources */,
 				B3D9F00D1DEC9ED900BA5C5D /* StreamSumTests.swift in Sources */,
 				B33AFA501DF42D47002B7A9E /* ToArrayCollectorTests.swift in Sources */,
 				B3F91C741DEDF531003480C6 /* StreamNoneMatchTests.swift in Sources */,
