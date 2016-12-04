@@ -6,12 +6,6 @@
 //  Copyright © 2016 Sergey Fedortsov. All rights reserved.
 //
 
-protocol Resulting {
-    associatedtype Result
-    var result: Result { get }
-}
-
-
 final class AllMatchTerminalStageSink<T>: SinkProtocol {
     private let predicate: (T) -> (Bool)
     private let onResult: (Bool) -> ()

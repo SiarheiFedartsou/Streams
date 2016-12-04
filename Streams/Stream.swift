@@ -15,6 +15,7 @@ public protocol StreamProtocol {
   
     var count: Int { get }
     
+    func collect<Accumulator, Result>(_ collector: AnyCollector<T, Accumulator, Result>) -> Result
     
     func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
     func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R>
@@ -54,6 +55,10 @@ public class Stream<T> : PipelineStageProtocol, StreamProtocol {
     
     public var spliterator: AnySpliterator<T> {
         _abstract()
+    }
+    
+    public func collect<Accumulator, Result>(_ collector: AnyCollector<T, Accumulator, Result>) -> Result {
+        return CollectTerminalStage(previousStage: self, evaluator: evaluator!, collector: collector).result
     }
     
     public func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T>
