@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
             let spliterator = RandomAccessCollectionSpliterator(collection: AnyRandomAccessCollection(testCollection), options: StreamOptions())
-            let task = ReduceTask<Int>(spliterator: AnySpliterator(spliterator), accumulator: +)
+            let task = ReduceTask(spliterator: AnySpliterator(spliterator), accumulator: +)
             let result = task.invoke()
         print(result)
         
