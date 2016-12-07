@@ -14,7 +14,7 @@ class RandomAccessCollectionSpliteratorTests: XCTestCase {
     
     func testThatItProperlySplitsArray() {
         // given
-        let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let array = (1...1024)
         
         // when
         var spliterator = RandomAccessCollectionSpliterator(collection: AnyRandomAccessCollection(array), options: StreamOptions())
@@ -22,17 +22,18 @@ class RandomAccessCollectionSpliteratorTests: XCTestCase {
         var newSpliterator = spliterator.split()
         
         // then
-        expect(newSpliterator!.estimatedSize).to(equal(5))
-        expect(spliterator.estimatedSize).to(equal(5))
+        expect(newSpliterator!.estimatedSize).to(equal(512))
+        expect(spliterator.estimatedSize).to(equal(512))
         
-        var originSpliteratorRemainingElements = [Int]()
-        spliterator.forEachRemaining { originSpliteratorRemainingElements.append($0) }
-        var newSpliteratorRemainingElements = [Int]()
-        newSpliterator!.forEachRemaining { newSpliteratorRemainingElements.append($0) }
+
+        expect(newSpliterator!.advance()).to(equal(1))
+        expect(newSpliterator!.advance()).to(equal(2))
+        expect(newSpliterator!.advance()).to(equal(3))
         
+        expect(spliterator.advance()).to(equal(513))
+        expect(spliterator.advance()).to(equal(514))
+        expect(spliterator.advance()).to(equal(515))
         
-        expect(originSpliteratorRemainingElements).to(equal([6, 7, 8, 9, 10]))
-        expect(newSpliteratorRemainingElements).to(equal([1, 2, 3, 4, 5]))
     }
     
     func testThatItDoesntSplitsIfThereIsNothingToSplit() {

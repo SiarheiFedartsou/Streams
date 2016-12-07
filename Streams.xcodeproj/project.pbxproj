@@ -34,6 +34,8 @@
 		B33AFA5C1DF87F69002B7A9E /* RandomAccessCollectionSpliteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33AFA5B1DF87F69002B7A9E /* RandomAccessCollectionSpliteratorTests.swift */; };
 		B39D3A3F1DD39BBD00AED66C /* StreamOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D3A3E1DD39BBD00AED66C /* StreamOptions.swift */; };
 		B39D3A471DD8452B00AED66C /* StreamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39D3A461DD8452B00AED66C /* StreamsTests.swift */; };
+		B3A081111DF894BB0076AE52 /* TestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A081101DF894BB0076AE52 /* TestTask.swift */; };
+		B3A081131DF894CC0076AE52 /* ParallelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A081121DF894CC0076AE52 /* ParallelTests.swift */; };
 		B3BFCD281DD84BD8001ED7A3 /* StreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BFCD271DD84BD8001ED7A3 /* StreamTests.swift */; };
 		B3C351F01DE4B81F009801FB /* StreamPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C351EF1DE4B81F009801FB /* StreamPerformanceTests.swift */; };
 		B3C351F31DEAFAB3009801FB /* ConcatSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C351F21DEAFAB3009801FB /* ConcatSpliterator.swift */; };
@@ -109,6 +111,8 @@
 		B39D3A441DD8452B00AED66C /* StreamsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StreamsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B39D3A461DD8452B00AED66C /* StreamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamsTests.swift; sourceTree = "<group>"; };
 		B39D3A481DD8452B00AED66C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3A081101DF894BB0076AE52 /* TestTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTask.swift; sourceTree = "<group>"; };
+		B3A081121DF894CC0076AE52 /* ParallelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallelTests.swift; sourceTree = "<group>"; };
 		B3BFCD271DD84BD8001ED7A3 /* StreamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTests.swift; sourceTree = "<group>"; };
 		B3C351EF1DE4B81F009801FB /* StreamPerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamPerformanceTests.swift; sourceTree = "<group>"; };
 		B3C351F21DEAFAB3009801FB /* ConcatSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcatSpliterator.swift; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 		B301CBB71DC3D7630086E3EE /* Streams */ = {
 			isa = PBXGroup;
 			children = (
+				B3A0810F1DF894B20076AE52 /* Tasks */,
 				B33AFA451DF42680002B7A9E /* Collectors */,
 				B33AFA421DF1FA2D002B7A9E /* Sink */,
 				B3F91C7E1DEDFEB8003480C6 /* Generators */,
@@ -266,6 +271,15 @@
 				B39D3A481DD8452B00AED66C /* Info.plist */,
 			);
 			path = StreamsTests;
+			sourceTree = "<group>";
+		};
+		B3A0810F1DF894B20076AE52 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				B3A081101DF894BB0076AE52 /* TestTask.swift */,
+				B3A081121DF894CC0076AE52 /* ParallelTests.swift */,
+			);
+			path = Tasks;
 			sourceTree = "<group>";
 		};
 		B3C351F11DEAFAA4009801FB /* Spliterators */ = {
@@ -511,6 +525,7 @@
 				B3D9F00B1DEC9C1D00BA5C5D /* Summable.swift in Sources */,
 				B33AFA5A1DF87C21002B7A9E /* Spliterator.swift in Sources */,
 				B3D0F9101DDCC6400063326D /* SortedStage.swift in Sources */,
+				B3A081111DF894BB0076AE52 /* TestTask.swift in Sources */,
 				B3F91C851DEF46DB003480C6 /* FlattenStage.swift in Sources */,
 				B3F91C6C1DEDF483003480C6 /* AnyMatchTerminalStage.swift in Sources */,
 				B33AFA581DF87C21002B7A9E /* IteratorSpliterator.swift in Sources */,
@@ -553,6 +568,7 @@
 				B39D3A471DD8452B00AED66C /* StreamsTests.swift in Sources */,
 				B3BFCD281DD84BD8001ED7A3 /* StreamTests.swift in Sources */,
 				B3F91C7B1DEDF72C003480C6 /* StreamMaxTests.swift in Sources */,
+				B3A081131DF894CC0076AE52 /* ParallelTests.swift in Sources */,
 				B3F91C791DEDF6D8003480C6 /* StreamMinTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

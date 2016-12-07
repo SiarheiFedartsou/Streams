@@ -54,6 +54,7 @@ struct RandomAccessCollectionSpliterator<T> : SpliteratorProtocol  {
     }
     
     mutating func split() -> AnySpliterator<T>? {
+        guard estimatedSize > 512 else { return nil }
         let lo = index
         let mid = collection.index(lo, offsetBy: collection.distance(from: lo, to: fence) / 2)
         guard lo < mid else { return nil }
