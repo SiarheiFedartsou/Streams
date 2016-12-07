@@ -22,14 +22,14 @@ class ParallelTests: XCTestCase {
         
         
         self.measure {
-            var result = 0
+           // var result = 0
             
-            var spliterator = RandomAccessCollectionSpliterator(collection: AnyRandomAccessCollection(testCollection), options: StreamOptions())
-//            let task = ReduceTask<Int>(spliterator: AnySpliterator(spliterator), accumulator: +)
-//            let result = task.invoke()
-            while let element = spliterator.advance() {
-                result += element
-            }
+            let spliterator = RandomAccessCollectionSpliterator(collection: testCollection, options: StreamOptions())
+            let task = ReduceTask<Int>(spliterator: AnySpliterator(spliterator), accumulator: +)
+            let result = task.invoke()
+//            while let element = spliterator.advance() {
+//                result += element
+//            }
             expect(result).to(equal(450000))
         }
     }

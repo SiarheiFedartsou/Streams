@@ -12,8 +12,8 @@ struct RandomAccessCollectionSpliterator<Elements: Collection> : SpliteratorProt
     
     private var collection: Elements
     private var index: Elements.Index
-    private var fence: Elements.Index
-    private(set) var options: StreamOptions
+    private let fence: Elements.Index
+    let options: StreamOptions
     
     
     init(collection: Elements, options: StreamOptions)
@@ -48,7 +48,9 @@ struct RandomAccessCollectionSpliterator<Elements: Collection> : SpliteratorProt
     
     var estimatedSize: Int {
         // TODO: !!!
-        return Int(collection.distance(from: index, to: fence) as! Int64)
+        let x = collection.distance(from: index, to: fence)
+        return (x as? Int) ?? Int(x as! Int64)
+       // return Int( as! Int)
     }
     
     mutating func split() -> AnySpliterator<Elements.Iterator.Element>? {
