@@ -16,29 +16,53 @@ class ParallelTests: XCTestCase {
     
     func testStreamsPerfomance() {
         var testCollection = [Int]()
-        for i in 0..<1000_000 {
+        for i in 0..<100_000 {
             testCollection.append(i % 10)
         }
         
         
         self.measure {
-            let spliterator = RandomAccessCollectionSpliterator(collection: AnyRandomAccessCollection(testCollection), options: StreamOptions())
-            let task = ReduceTask<Int>(spliterator: AnySpliterator(spliterator), accumulator: +)
-            let result = task.invoke()
-            expect(result).to(equal(4500000))
+            var result = 0
+            
+            var spliterator = RandomAccessCollectionSpliterator(collection: AnyRandomAccessCollection(testCollection), options: StreamOptions())
+//            let task = ReduceTask<Int>(spliterator: AnySpliterator(spliterator), accumulator: +)
+//            let result = task.invoke()
+            while let element = spliterator.advance() {
+                result += element
+            }
+            expect(result).to(equal(450000))
         }
     }
     
-    func testStdlibPerfomance() {
+    func testStdlibReducePerfomance() {
         var testCollection = [Int]()
-        for i in 0..<1000_000 {
+        for i in 0..<100_000 {
             testCollection.append(i % 10)
         }
         
         
         self.measure {
             let result = testCollection.reduce(0, +)
-            expect(result).to(equal(4500000))
+            expect(result).to(equal(450000))
+        }
+    }
+    
+    
+    func testClassicPerfomance() {
+        var testCollection = [Int]()
+        for i in 0..<100_000 {
+            testCollection.append(i % 10)
+        }
+        
+        
+        self.measure {
+            var result = 0
+            
+            var iterator = testCollection.makeIterator()
+            while let element = iterator.next() {
+                result += element
+            }
+            expect(result).to(equal(450000))
         }
     }
     

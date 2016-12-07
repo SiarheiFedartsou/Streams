@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,6 +14,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        var testCollection = [Int]()
+        
+        for i in 0..<1000_000 {
+            testCollection.append(i % 10)
+        }
+        
+        
+            let spliterator = RandomAccessCollectionSpliterator(collection: AnyRandomAccessCollection(testCollection), options: StreamOptions())
+            let task = ReduceTask<Int>(spliterator: AnySpliterator(spliterator), accumulator: +)
+            let result = task.invoke()
+        print(result)
         
 //        let foo = [1, 2, 3, 4, 5];
 //        

@@ -8,22 +8,22 @@
 
 import Foundation
 
-struct RandomAccessCollectionSpliterator<T> : SpliteratorProtocol  {
+struct RandomAccessCollectionSpliterator<Elements: Collection> : SpliteratorProtocol  {
     
-    private var collection: AnyRandomAccessCollection<T>
-    private var index: AnyIndex
-    private var fence: AnyIndex
+    private var collection: Elements
+    private var index: Elements.Index
+    private var fence: Elements.Index
     private(set) var options: StreamOptions
     
     
-    init(collection: AnyRandomAccessCollection<T>, options: StreamOptions)
+    init(collection: Elements, options: StreamOptions)
     {
         self.init(collection: collection, origin: collection.startIndex, fence: collection.endIndex, options: options)
     }
     
     
     
-    init(collection: AnyRandomAccessCollection<T>, origin: AnyIndex, fence: AnyIndex, options: StreamOptions)
+    init(collection: Elements, origin: Elements.Index, fence: Elements.Index, options: StreamOptions)
     {
         self.collection = collection
         self.options = options
@@ -32,28 +32,26 @@ struct RandomAccessCollectionSpliterator<T> : SpliteratorProtocol  {
     }
     
     
-    mutating func advance() -> T? {
-        if (index < fence) {
+    mutating func advance() -> Elements.Iterator.Element? {
+        if index == fence { return nil }
         
-            let element = collection[index]
-        
-            collection.formIndex(after: &self.index)
-            return element
-        }
-        return nil
+        let element = collection[index]
+        collection.formIndex(after: &index)
+        return element
     }
     
-    mutating func forEachRemaining(_ each: (T) -> Void) {
+    mutating func forEachRemaining(_ each: (Elements.Iterator.Element) -> Void) {
         while let element = advance() {
             each(element)
         }
     }
     
     var estimatedSize: Int {
-        return Int(collection.distance(from: index, to: fence))
+        // TODO: !!!
+        return Int(collection.distance(from: index, to: fence) as! Int64)
     }
     
-    mutating func split() -> AnySpliterator<T>? {
+    mutating func split() -> AnySpliterator<Elements.Iterator.Element>? {
         guard estimatedSize > 512 else { return nil }
         let lo = index
         let mid = collection.index(lo, offsetBy: collection.distance(from: lo, to: fence) / 2)
