@@ -10,14 +10,13 @@ import XCTest
 @testable import Streams
 import Nimble
 
-extension Int : Initializable {}
 
 class ParallelTests: XCTestCase {
     
     
     func testStreamsPerfomance() {
         var testCollection = [Int]()
-        for i in 0..<100_000 {
+        for i in 0..<1000_000 {
             testCollection.append(i % 10)
         }
         
@@ -26,20 +25,20 @@ class ParallelTests: XCTestCase {
             let spliterator = RandomAccessCollectionSpliterator(collection: AnyRandomAccessCollection(testCollection), options: StreamOptions())
             let task = ReduceTask<Int>(spliterator: AnySpliterator(spliterator), accumulator: +)
             let result = task.invoke()
-            expect(result).to(equal(450000))
+            expect(result).to(equal(4500000))
         }
     }
     
     func testStdlibPerfomance() {
         var testCollection = [Int]()
-        for i in 0..<100_000 {
+        for i in 0..<1000_000 {
             testCollection.append(i % 10)
         }
         
         
         self.measure {
             let result = testCollection.reduce(0, +)
-            expect(result).to(equal(450000))
+            expect(result).to(equal(4500000))
         }
     }
     
