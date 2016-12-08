@@ -16,41 +16,42 @@ class ParallelTests: XCTestCase {
     
     func testStreamsPerfomance() {
         var testCollection = [Int]()
-        for i in 0..<100_000 {
+        for i in 0..<10_000 {
             testCollection.append(i % 10)
         }
         
         
         self.measure {
-         //   var result = 0
-            
             let spliterator = RandomAccessCollectionSpliterator(collection: testCollection, options: StreamOptions())
-            let task = ReduceTask(spliterator: AnySpliterator(spliterator), accumulator: +)
+            let task = ReduceTask(spliterator: AnySpliterator(spliterator), accumulator: {
+                usleep(1)
+                return $0 + $1
+            })
             let result = task.invoke()
-//            while let element = spliterator.advance() {
-//                result += element
-//            }
-            expect(result).to(equal(450000))
+            expect(result).to(equal(45_000))
         }
     }
     
     func testStdlibReducePerfomance() {
         var testCollection = [Int]()
-        for i in 0..<100_000 {
+        for i in 0..<10_000 {
             testCollection.append(i % 10)
         }
         
         
         self.measure {
-            let result = testCollection.reduce(0, +)
-            expect(result).to(equal(450000))
+            let result = testCollection.reduce(0, {
+                usleep(1)
+                return $0 + $1
+            })
+            expect(result).to(equal(45_000))
         }
     }
     
     
     func testClassicPerfomance() {
         var testCollection = [Int]()
-        for i in 0..<100_000 {
+        for i in 0..<10_000 {
             testCollection.append(i % 10)
         }
         
@@ -60,9 +61,10 @@ class ParallelTests: XCTestCase {
             
             var iterator = testCollection.makeIterator()
             while let element = iterator.next() {
+                usleep(1)
                 result += element
             }
-            expect(result).to(equal(450000))
+            expect(result).to(equal(45_000))
         }
     }
     
