@@ -9,7 +9,7 @@
 import Foundation
 
 protocol EvaluatorProtocol {
-    func evaluate()
+    func evaluate<T>() -> T?
     
     func advance()
 }
@@ -28,10 +28,10 @@ final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
         
     }
     
-    func evaluate() {
+    func evaluate<T>() -> T? {
         self.sourceSink = self.sourceStage.makeSink()
     
-        guard let sourceSink = sourceSink else { return }
+        guard let sourceSink = sourceSink else { return nil }
         
 
         started = true
@@ -41,6 +41,8 @@ final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
             sourceSink.consume(element)
         }
         sourceSink.end()
+        
+        return sourceSink.finalResult() as? T
     }
     
     func advance() {

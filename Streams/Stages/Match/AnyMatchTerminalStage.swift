@@ -37,7 +37,10 @@ final class AnyMatchTerminalStage<T> : TerminalStage, SinkProtocol {
     }
     
     var result: Bool {
-        self.evaluator.evaluate()
+        return self.evaluator.evaluate()!
+    }
+    
+    func finalResult() -> Any? {
         return anyMatch
     }
 }

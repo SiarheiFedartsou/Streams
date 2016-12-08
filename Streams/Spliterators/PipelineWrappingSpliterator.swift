@@ -39,6 +39,10 @@ final class PipelineWrappingSpliterator<T> : SpliteratorProtocol, SinkProtocol, 
         finished = true
     }
     
+    func finalResult() -> Any? {
+        return nil
+    }
+    
     var cancellationRequested: Bool { return false }
     
     func advance() -> T? {

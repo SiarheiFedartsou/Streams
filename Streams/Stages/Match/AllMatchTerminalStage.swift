@@ -8,14 +8,12 @@
 
 final class AllMatchTerminalStageSink<T>: SinkProtocol {
     private let predicate: (T) -> (Bool)
-    private let onResult: (Bool) -> ()
     
     private var allMatch: Bool = true
     
-    init(predicate: @escaping (T) -> Bool, onResult: @escaping (Bool) -> ())
+    init(predicate: @escaping (T) -> Bool)
     {
         self.predicate = predicate
-        self.onResult = onResult
     }
     
     func consume(_ t: T) {
@@ -25,11 +23,14 @@ final class AllMatchTerminalStageSink<T>: SinkProtocol {
     }
     
     func end() {
-        onResult(allMatch)
     }
     
     var cancellationRequested: Bool {
         return !allMatch
+    }
+    
+    func finalResult() -> Any? {
+        return allMatch
     }
 
 }
@@ -48,17 +49,11 @@ final class AllMatchTerminalStage<T> : TerminalStage {
     }
     
     func makeSink() -> AnySink<T> {
-        return AnySink(AllMatchTerminalStageSink(predicate: predicate, onResult:  {
-            self._result = $0
-        }))
+        return AnySink(AllMatchTerminalStageSink(predicate: predicate))
     }
     
-    private var _result: Bool = true
-    
-
     
     var result: Bool { 
-        self.evaluator.evaluate()
-        return _result
+        return self.evaluator.evaluate()!
     }
 }

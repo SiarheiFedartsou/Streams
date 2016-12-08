@@ -31,7 +31,10 @@ class ReduceTerminalStage<T> : TerminalStage, SinkProtocol {
     }
     
     var result: T {
-        self.evaluator.evaluate()
+        return self.evaluator.evaluate()!
+    }
+    
+    func finalResult() -> Any? {
         return identity
     }
 }

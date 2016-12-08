@@ -28,6 +28,10 @@ final class FlattenPipelineStageSink<In: StreamProtocol, Out> : SinkProtocol  wh
     func end() {
         nextSink.end()
     }
+    
+    func finalResult() -> Any? {
+        return nextSink.finalResult()
+    }
 }
 
 final class FlattenPipelineStage<In: StreamProtocol, Out> : PipelineStage<In, Out> where In.T == Out

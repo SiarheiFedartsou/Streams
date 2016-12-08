@@ -14,6 +14,8 @@ protocol SinkProtocol : ConsumerProtocol {
     func end()
     
     var cancellationRequested: Bool { get }
+    
+    func finalResult() -> Any?
 }
 
 
@@ -23,6 +25,10 @@ extension SinkProtocol {
     var cancellationRequested: Bool {
         return false
     }
+    
+//    func finalResult() -> Any? {
+//        return nil
+//    }
 }
 
 struct AnySink<T> : SinkProtocol {
@@ -49,6 +55,10 @@ struct AnySink<T> : SinkProtocol {
     func consume(_ t: T) {
         box.consume(t)
     }
+ 
+    func finalResult() -> Any? {
+        return box.finalResult()
+    }
     
 }
 
@@ -59,6 +69,10 @@ class AnySinkBoxBase<T>: SinkProtocol {
     var cancellationRequested: Bool { return false }
     
     func consume(_ t: T) {}
+    
+    func finalResult() -> Any? {
+        _abstract()
+    }
 }
 
 final class AnySinkBox<Base: SinkProtocol>: AnySinkBoxBase<Base.Consumable> {
@@ -86,6 +100,10 @@ final class AnySinkBox<Base: SinkProtocol>: AnySinkBoxBase<Base.Consumable> {
         self.base.consume(t)
     }
     
+    override func finalResult() -> Any? {
+        return self.base.finalResult()
+    }
+    
 }
 
 struct ChainedSink<T> : SinkProtocol {
@@ -105,5 +123,9 @@ struct ChainedSink<T> : SinkProtocol {
     
     func consume(_ t: T) {
         nextSink.consume(t)
+    }
+    
+    func finalResult() -> Any? {
+        return nextSink.finalResult()
     }
 }

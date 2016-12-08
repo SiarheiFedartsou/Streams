@@ -35,6 +35,10 @@ final class SortedPipelineStageSink<T> : SinkProtocol {
         }
         nextSink.end()
     }
+    
+    func finalResult() -> Any? {
+        return nextSink.finalResult()
+    }
 }
 
 class SortedPipelineStage<T> : PipelineStage<T, T> where T : Comparable

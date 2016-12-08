@@ -28,6 +28,10 @@ final class MapPipelineStageSink<In, Out> : SinkProtocol {
     func end() {
         nextSink.end()
     }
+    
+    func finalResult() -> Any? {
+        return nextSink.finalResult()
+    }
 }
 
 class MapPipelineStage<In, Out> : PipelineStage<In, Out>

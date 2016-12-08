@@ -34,6 +34,10 @@ final class LimitPipelineStageSink<T> : SinkProtocol {
         return size == 0 || nextSink.cancellationRequested
     }
     
+    func finalResult() -> Any? {
+        return nextSink.finalResult()
+    }
+    
 }
 
 final class LimitPipelineStage<T> : PipelineStage<T, T>

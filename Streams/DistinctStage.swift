@@ -32,6 +32,10 @@ final class DistinctPipelineStageSink<T: Hashable>: SinkProtocol {
         nextSink.end()
     }
     
+    func finalResult() -> Any? {
+        return nextSink.finalResult()
+    }
+    
 }
 
 final class DistinctPipelineStage<T> : PipelineStage<T, T> where T : Hashable

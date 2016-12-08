@@ -37,6 +37,10 @@ final class SkipPipelineStageSink<T> : SinkProtocol
         nextSink.end()
     }
     
+    func finalResult() -> Any? {
+        return nextSink.finalResult()
+    }
+    
     var cancellationRequested: Bool {
         return nextSink.cancellationRequested
     }

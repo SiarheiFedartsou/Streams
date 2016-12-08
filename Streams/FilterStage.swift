@@ -32,6 +32,10 @@ final class FilterPipelineStageSink<T> : SinkProtocol
     func end() {
         nextSink.end()
     }
+    
+    func finalResult() -> Any? {
+        return nextSink.finalResult()
+    }
 }
 
 class FilterPipelineStage<T> : PipelineStage<T, T>

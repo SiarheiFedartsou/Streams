@@ -18,6 +18,10 @@ final class ForEachTerminalStageSink<T> : SinkProtocol {
     func consume(_ t: T) {
         each(t)
     }
+    
+    func finalResult() -> Any? {
+        return ()
+    }
 }
 
 class ForEachTerminalStage<T> : TerminalStage {
@@ -36,8 +40,7 @@ class ForEachTerminalStage<T> : TerminalStage {
     }
     
     var result: Void {
-        evaluator.evaluate()
-        return ()
+        return evaluator.evaluate()!
     }
 
 }

@@ -41,12 +41,15 @@ final class CollectTerminalStage<T, Accumulator, Result> : TerminalStage, SinkPr
         resultingContainer = collector.finisher(accumulator)
     }
     
+    func finalResult() -> Any? {
+        return resultingContainer
+    }
+    
     var cancellationRequested: Bool {
         return false
     }
     
     var result: Result {
-        self.evaluator.evaluate()
-        return resultingContainer!
+        return self.evaluator.evaluate()!
     }
 }
