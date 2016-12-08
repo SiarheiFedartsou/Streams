@@ -39,8 +39,8 @@
 		B3BFCD281DD84BD8001ED7A3 /* StreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BFCD271DD84BD8001ED7A3 /* StreamTests.swift */; };
 		B3C351F01DE4B81F009801FB /* StreamPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C351EF1DE4B81F009801FB /* StreamPerformanceTests.swift */; };
 		B3C351F31DEAFAB3009801FB /* ConcatSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C351F21DEAFAB3009801FB /* ConcatSpliterator.swift */; };
+		B3C36DDA1DF9D4F200B48B4A /* ReduceStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C36DD91DF9D4F200B48B4A /* ReduceStage.swift */; };
 		B3D0F8FC1DDA13890063326D /* TerminalStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8FB1DDA13890063326D /* TerminalStage.swift */; };
-		B3D0F8FE1DDA13A10063326D /* ReduceStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F8FD1DDA13A10063326D /* ReduceStage.swift */; };
 		B3D0F9021DDA13D30063326D /* ForEachStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9011DDA13D30063326D /* ForEachStage.swift */; };
 		B3D0F9041DDA13F30063326D /* LimitStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9031DDA13F30063326D /* LimitStage.swift */; };
 		B3D0F9061DDA14100063326D /* SkipStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D0F9051DDA14100063326D /* SkipStage.swift */; };
@@ -116,8 +116,8 @@
 		B3BFCD271DD84BD8001ED7A3 /* StreamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTests.swift; sourceTree = "<group>"; };
 		B3C351EF1DE4B81F009801FB /* StreamPerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamPerformanceTests.swift; sourceTree = "<group>"; };
 		B3C351F21DEAFAB3009801FB /* ConcatSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcatSpliterator.swift; sourceTree = "<group>"; };
+		B3C36DD91DF9D4F200B48B4A /* ReduceStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReduceStage.swift; sourceTree = "<group>"; };
 		B3D0F8FB1DDA13890063326D /* TerminalStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalStage.swift; sourceTree = "<group>"; };
-		B3D0F8FD1DDA13A10063326D /* ReduceStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReduceStage.swift; sourceTree = "<group>"; };
 		B3D0F9011DDA13D30063326D /* ForEachStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForEachStage.swift; sourceTree = "<group>"; };
 		B3D0F9031DDA13F30063326D /* LimitStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LimitStage.swift; sourceTree = "<group>"; };
 		B3D0F9051DDA14100063326D /* SkipStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkipStage.swift; sourceTree = "<group>"; };
@@ -219,7 +219,6 @@
 				B31AAF471DD864E6006A0617 /* Sink.swift */,
 				B31AAF491DD86690006A0617 /* Pipeline.swift */,
 				B3D0F8FB1DDA13890063326D /* TerminalStage.swift */,
-				B3D0F8FD1DDA13A10063326D /* ReduceStage.swift */,
 				B3D0F9011DDA13D30063326D /* ForEachStage.swift */,
 				B3D0F9031DDA13F30063326D /* LimitStage.swift */,
 				B3D0F9051DDA14100063326D /* SkipStage.swift */,
@@ -296,9 +295,18 @@
 			path = Spliterators;
 			sourceTree = "<group>";
 		};
+		B3C36DD81DF9D4E000B48B4A /* Reduce */ = {
+			isa = PBXGroup;
+			children = (
+				B3C36DD91DF9D4F200B48B4A /* ReduceStage.swift */,
+			);
+			path = Reduce;
+			sourceTree = "<group>";
+		};
 		B3F91C651DEDF483003480C6 /* Stages */ = {
 			isa = PBXGroup;
 			children = (
+				B3C36DD81DF9D4E000B48B4A /* Reduce */,
 				B33AFA4A1DF42A02002B7A9E /* Collect */,
 				B3F91C831DEF46C5003480C6 /* Flatten */,
 				B3F91C771DEDF6C3003480C6 /* MinMax */,
@@ -518,7 +526,6 @@
 				B3DE87231DE5C39E00F56985 /* DistinctStage.swift in Sources */,
 				B31AAF4A1DD86690006A0617 /* Pipeline.swift in Sources */,
 				B31AAF481DD864E6006A0617 /* Sink.swift in Sources */,
-				B3D0F8FE1DDA13A10063326D /* ReduceStage.swift in Sources */,
 				B3D0F8FC1DDA13890063326D /* TerminalStage.swift in Sources */,
 				B3D9F00F1DECA0A900BA5C5D /* EmptySpliterator.swift in Sources */,
 				B3D0F9081DDA142B0063326D /* MapStage.swift in Sources */,
@@ -528,6 +535,7 @@
 				B3A081111DF894BB0076AE52 /* TestTask.swift in Sources */,
 				B3F91C851DEF46DB003480C6 /* FlattenStage.swift in Sources */,
 				B3F91C6C1DEDF483003480C6 /* AnyMatchTerminalStage.swift in Sources */,
+				B3C36DDA1DF9D4F200B48B4A /* ReduceStage.swift in Sources */,
 				B33AFA581DF87C21002B7A9E /* IteratorSpliterator.swift in Sources */,
 				B3D9F0051DEB000E00BA5C5D /* PipelineWrappingSpliterator.swift in Sources */,
 				B3F91C6B1DEDF483003480C6 /* AllMatchTerminalStage.swift in Sources */,
