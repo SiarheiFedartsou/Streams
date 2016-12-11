@@ -20,17 +20,17 @@ protocol Task {
     func invoke() -> Result
 }
 
-final class ReduceTask<T: Initializable, Spliterator: SpliteratorProtocol> : Task where Spliterator.T == T {
+final class ReduceTask<T: Initializable> : Task {
     
-    var spliterator: Spliterator
+    var spliterator: UntypedSpliteratorProtocol
     let accumulator: (T, T) -> T
     let dispatchGroup: DispatchGroup
     
-    convenience init(spliterator: Spliterator, accumulator: @escaping (T, T) -> T) {
+    convenience init(spliterator: UntypedSpliteratorProtocol, accumulator: @escaping (T, T) -> T) {
         self.init(spliterator: spliterator, accumulator: accumulator, dispatchGroup: DispatchGroup())
     }
     
-    private init(spliterator: Spliterator, accumulator: @escaping (T, T) -> T, dispatchGroup: DispatchGroup) {
+    private init(spliterator: UntypedSpliteratorProtocol, accumulator: @escaping (T, T) -> T, dispatchGroup: DispatchGroup) {
         self.spliterator = spliterator
         self.accumulator = accumulator
         self.dispatchGroup = dispatchGroup
@@ -42,7 +42,7 @@ final class ReduceTask<T: Initializable, Spliterator: SpliteratorProtocol> : Tas
             var result2 = T()
             DispatchQueue.concurrentPerform(iterations: 2, execute: {
                 if $0 == 0 {
-                    result1 = ReduceTask<T, AnySpliterator<T>>(spliterator: splitted, accumulator: self.accumulator, dispatchGroup: self.dispatchGroup).invoke()
+                    result1 = ReduceTask<T>(spliterator: splitted, accumulator: self.accumulator, dispatchGroup: self.dispatchGroup).invoke()
                 } else {
                     result2 = ReduceTask(spliterator: self.spliterator, accumulator: self.accumulator, dispatchGroup: self.dispatchGroup).invoke()
                 }
@@ -52,7 +52,7 @@ final class ReduceTask<T: Initializable, Spliterator: SpliteratorProtocol> : Tas
         } else {
             var result = T()
             spliterator.forEachRemaining {
-                result = accumulator(result, $0)
+                result = accumulator(result, $0 as! T)
             }
             return result
         }

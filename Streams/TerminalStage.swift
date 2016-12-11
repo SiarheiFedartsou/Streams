@@ -18,7 +18,7 @@ final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
     var source: AnySpliterator<SourceElement>
     var sourceStage: AnySinkFactory<SourceElement>
     
-    var sourceSink: AnySink<SourceElement>? = nil
+    var sourceSink: UntypedSinkProtocol? = nil
     
     var started = false
     
@@ -29,7 +29,7 @@ final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
     }
     
     func evaluate<T>() -> T? {
-        self.sourceSink = self.sourceStage.makeSink()
+        self.sourceSink = UntypedSink(self.sourceStage.makeSink())
     
         guard let sourceSink = sourceSink else { return nil }
         
@@ -47,7 +47,7 @@ final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
     
     func advance() {
         if sourceSink == nil {
-            self.sourceSink = self.sourceStage.makeSink()
+            self.sourceSink = UntypedSink(self.sourceStage.makeSink())
         }
         
         guard let sourceSink = sourceSink else { return }

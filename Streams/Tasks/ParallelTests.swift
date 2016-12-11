@@ -23,7 +23,7 @@ class ParallelTests: XCTestCase {
         
         self.measure {
             let spliterator = RandomAccessCollectionSpliterator(collection: testCollection, options: StreamOptions())
-            let task = ReduceTask(spliterator: AnySpliterator(spliterator), accumulator: {
+            let task = ReduceTask<Int>(spliterator: UntypedSpliterator(AnySpliterator(spliterator)), accumulator: {
                 usleep(1)
                 return $0 + $1
             })
