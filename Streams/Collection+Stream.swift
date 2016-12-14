@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension Collection {
+public extension RandomAccessCollection {
     var stream: Stream<Self.Iterator.Element> {
         
         return PipelineHead<Self.Iterator.Element>(source: self.spliterator, characteristics: [.ordered, .sized], parallel: false)
@@ -21,6 +21,6 @@ public extension Collection {
     
     
     internal var spliterator: AnySpliterator<Self.Iterator.Element> {
-        return AnySpliterator(IteratorSpliterator(iterator: self.makeIterator(), count: self.count, options: StreamOptions()))
+        return AnySpliterator(RandomAccessCollectionSpliterator(collection: self, options: StreamOptions()))
     }
 }

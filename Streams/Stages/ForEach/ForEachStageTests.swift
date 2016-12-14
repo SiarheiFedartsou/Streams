@@ -47,16 +47,20 @@ class ForEachStageTests: XCTestCase {
         }
 
         
+        let queue = DispatchQueue(label: "org.streams_sync_queue")
+        
         // when
         var result = [Int]()
         array.parallelStream
             .map {
                 $0 * $0
-            }.forEach {
-                result.append($0)
+            }.forEach { element in
+                queue.sync {
+                    result.append(element)
+                }
         }
         
         // then
-        expect(result).to(equal([12, 4, 9, 14, 10, 3]))
+        expect(result.reduce(0, +)).to(equal(array.map { $0 * $0 }.reduce(0, +)))
     }
 }
