@@ -63,4 +63,46 @@ class ForEachStageTests: XCTestCase {
         // then
         expect(result.reduce(0, +)).to(equal(array.map { $0 * $0 }.reduce(0, +)))
     }
+    
+    
+    func testForEachPerformance() {
+        var array = [Int]()
+        for i in 0..<10000 {
+            array.append(i % 10)
+        }
+        
+        
+        let queue = DispatchQueue(label: "org.streams_sync_queue")
+        
+        
+        measure {
+            var result = [Int]()
+            array.parallelStream
+                .map {
+                    usleep(1)
+                    return $0 * $0
+                }.forEach { element in
+                    queue.sync {
+                        result.append(element)
+                    }
+            }
+        }
+    }
+    
+    func testForStdlibEachPerformance() {
+        var array = [Int]()
+        for i in 0..<10000 {
+            array.append(i % 10)
+        }
+        
+        measure {
+            var result = [Int]()
+            array.map {
+                    usleep(1)
+                    return $0 * $0
+                }.forEach { element in
+                    result.append(element)
+            }
+        }
+    }
 }
