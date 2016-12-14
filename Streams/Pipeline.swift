@@ -61,7 +61,7 @@ class PipelineStage<In, Out> : Stream<Out>, SinkFactory
     
     override func forEach(_ each: @escaping (Out) -> ())
     {
-        let stage = ForEachTerminalStage(evaluator: evaluator!, each: each)
+        let stage = ForEachTerminalStage(evaluator: evaluator!, parallel: isParallel, each: each)
         self.nextStage = AnySinkFactory(stage)
         
         return stage.result
@@ -77,6 +77,10 @@ class PipelineStage<In, Out> : Stream<Out>, SinkFactory
     
     func makeSink() -> AnySink<In> {
         _abstract()
+    }
+    
+    var isStateful: Bool {
+        return false
     }
 }
 

@@ -59,4 +59,8 @@ class SkipPipelineStage<T> : PipelineStage<T, T>
     override func makeSink() -> AnySink<T> {
         return AnySink(SkipPipelineStageSink(nextSink: nextStage!.makeSink(), sizeToSkip: sizeToSkip))
     }
+    
+    override var isStateful: Bool {
+        return true
+    }
 }

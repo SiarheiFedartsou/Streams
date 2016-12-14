@@ -12,6 +12,9 @@ protocol EvaluatorProtocol {
     func evaluate<T>() -> T?
     
     func advance()
+    
+    func makeSink() -> UntypedSinkProtocol
+    func makeSpliterator() -> UntypedSpliteratorProtocol
 }
 
 final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
@@ -28,8 +31,18 @@ final class DefaultEvaluator<SourceElement> : EvaluatorProtocol {
         
     }
     
+    func makeSink() -> UntypedSinkProtocol {
+        return UntypedSink(sourceStage.makeSink())
+    }
+    
+    func makeSpliterator() -> UntypedSpliteratorProtocol {
+        return UntypedSpliterator(source)
+    }
+    
+    
+    
     func evaluate<T>() -> T? {
-        self.sourceSink = UntypedSink(self.sourceStage.makeSink())
+        self.sourceSink = makeSink()
     
         guard let sourceSink = sourceSink else { return nil }
         

@@ -24,15 +24,18 @@ final class ForEachTerminalStageSink<T> : SinkProtocol {
     }
 }
 
-class ForEachTerminalStage<T> : TerminalStage {
+final class ForEachTerminalStage<T> : TerminalStage {
     
     private let each: (T) -> ()
     private var evaluator: EvaluatorProtocol
     
-    init(evaluator: EvaluatorProtocol, each: @escaping (T) -> ())
+    private let isParallel: Bool
+    
+    init(evaluator: EvaluatorProtocol, parallel: Bool, each: @escaping (T) -> ())
     {
         self.evaluator = evaluator
         self.each = each
+        self.isParallel = parallel
     }
     
     func makeSink() -> AnySink<T> {
@@ -40,7 +43,11 @@ class ForEachTerminalStage<T> : TerminalStage {
     }
     
     var result: Void {
-        return evaluator.evaluate()!
+        if isParallel {
+            return ForEachTask(spliterator: evaluator.makeSpliterator(), sink: evaluator.makeSink(), each: each).invoke()
+        } else {
+            return evaluator.evaluate()!
+        }
     }
 
 }
