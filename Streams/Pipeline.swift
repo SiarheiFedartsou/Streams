@@ -12,9 +12,11 @@ internal protocol UntypedPipelineStageProtocol : class {
     var nextStage: UntypedPipelineStageProtocol? { get }
     weak var previousStage: UntypedPipelineStageProtocol? { get }
     
+    var sourceStage: UntypedPipelineStageProtocol { get }
+    var sourceSpliterator: UntypedSpliteratorProtocol { get }
+    
     var isStateful: Bool { get }
     var sinkFactory: UntypedSinkFactoryProtocol { get }
-    var spliterator: UntypedSpliteratorProtocol { get }
 }
 
 internal protocol PipelineStageProtocol : class {
