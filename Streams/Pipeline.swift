@@ -8,6 +8,14 @@
 
 import Foundation
 
+internal protocol UntypedPipelineStageProtocol : class {
+    var nextStage: UntypedPipelineStageProtocol? { get }
+    var previousStage: UntypedPipelineStageProtocol? { get }
+    
+    var isStateful: Bool { get }
+    var sinkFactory: UntypedSinkFactoryProtocol { get }
+    var spliterator: UntypedSpliteratorProtocol { get }
+}
 
 internal protocol PipelineStageProtocol : class {
     associatedtype Output
