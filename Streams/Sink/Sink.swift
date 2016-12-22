@@ -25,10 +25,6 @@ extension SinkProtocol {
     var cancellationRequested: Bool {
         return false
     }
-    
-//    func finalResult() -> Any? {
-//        return nil
-//    }
 }
 
 struct AnySink<T> : SinkProtocol {
