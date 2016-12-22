@@ -10,7 +10,7 @@ import Foundation
 
 internal protocol UntypedPipelineStageProtocol : class {
     var nextStage: UntypedPipelineStageProtocol? { get }
-    var previousStage: UntypedPipelineStageProtocol? { get }
+    weak var previousStage: UntypedPipelineStageProtocol? { get }
     
     var isStateful: Bool { get }
     var sinkFactory: UntypedSinkFactoryProtocol { get }
