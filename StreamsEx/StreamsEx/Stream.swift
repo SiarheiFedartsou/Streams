@@ -62,4 +62,8 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     func makeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         _abstract()
     }
+    
+    func evaluate<R, TerminalOperation: TerminalOperationProtocol>(terminalOperation: TerminalOperation) -> R where TerminalOperation.Result == R {
+        return isParallel ? terminalOperation.evaluateParallel(forPipelineStage: self, spliterator: nil) :  terminalOperation.evaluateSequential(forPipelineStage: self, spliterator: nil)
+    }
 }

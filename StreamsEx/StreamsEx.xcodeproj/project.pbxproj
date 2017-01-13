@@ -31,6 +31,8 @@
 		B3A0CCED1E28FFD800E36037 /* MapPipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCEC1E28FFD800E36037 /* MapPipelineStage.swift */; };
 		B3A0CCEF1E29067E00E36037 /* PipelineHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCEE1E29067E00E36037 /* PipelineHead.swift */; };
 		B3A0CCF11E29097600E36037 /* StreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCF01E29097600E36037 /* StreamTests.swift */; };
+		B3A0CCF31E290D2800E36037 /* TerminalOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCF21E290D2800E36037 /* TerminalOperation.swift */; };
+		B3A0CCF61E290EFA00E36037 /* ReduceTerminalOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCF51E290EFA00E36037 /* ReduceTerminalOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		B3A0CCEC1E28FFD800E36037 /* MapPipelineStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPipelineStage.swift; sourceTree = "<group>"; };
 		B3A0CCEE1E29067E00E36037 /* PipelineHead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineHead.swift; sourceTree = "<group>"; };
 		B3A0CCF01E29097600E36037 /* StreamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTests.swift; sourceTree = "<group>"; };
+		B3A0CCF21E290D2800E36037 /* TerminalOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalOperation.swift; sourceTree = "<group>"; };
+		B3A0CCF51E290EFA00E36037 /* ReduceTerminalOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReduceTerminalOperation.swift; sourceTree = "<group>"; };
 		C3C907ADD8E31DEC43DE4435 /* Pods_StreamsExTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StreamsExTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -136,6 +140,7 @@
 		B3A0CC9B1E28F95600E36037 /* StreamsEx */ = {
 			isa = PBXGroup;
 			children = (
+				B3A0CCF41E290EE700E36037 /* Reduce */,
 				B3A0CCEB1E28FFAF00E36037 /* Map */,
 				B3A0CCE01E28FE7A00E36037 /* Sink */,
 				B3A0CCD81E28FA3100E36037 /* Utils.swift */,
@@ -148,6 +153,7 @@
 				B3A0CCDE1E28FD3800E36037 /* PipelineStage.swift */,
 				B3A0CCEE1E29067E00E36037 /* PipelineHead.swift */,
 				B3A0CCF01E29097600E36037 /* StreamTests.swift */,
+				B3A0CCF21E290D2800E36037 /* TerminalOperation.swift */,
 			);
 			path = StreamsEx;
 			sourceTree = "<group>";
@@ -194,6 +200,14 @@
 				B3A0CCEC1E28FFD800E36037 /* MapPipelineStage.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		B3A0CCF41E290EE700E36037 /* Reduce */ = {
+			isa = PBXGroup;
+			children = (
+				B3A0CCF51E290EFA00E36037 /* ReduceTerminalOperation.swift */,
+			);
+			path = Reduce;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,6 +373,7 @@
 			files = (
 				B3A0CCCD1E28F9D900E36037 /* ConcatSpliterator.swift in Sources */,
 				B3A0CCEF1E29067E00E36037 /* PipelineHead.swift in Sources */,
+				B3A0CCF31E290D2800E36037 /* TerminalOperation.swift in Sources */,
 				B3A0CCD11E28F9D900E36037 /* RandomAccessCollectionSpliterator.swift in Sources */,
 				B3A0CCE51E28FE7A00E36037 /* Sink.swift in Sources */,
 				B3A0CCD71E28FA1200E36037 /* StreamOptions.swift in Sources */,
@@ -373,6 +388,7 @@
 				B3A0CCED1E28FFD800E36037 /* MapPipelineStage.swift in Sources */,
 				B3A0CCCE1E28F9D900E36037 /* EmptySpliterator.swift in Sources */,
 				B3A0CCDB1E28FC3600E36037 /* Stream.swift in Sources */,
+				B3A0CCF61E290EFA00E36037 /* ReduceTerminalOperation.swift in Sources */,
 				B3A0CCDD1E28FCC500E36037 /* UntypedPipelineStageProtocol.swift in Sources */,
 				B3A0CCD91E28FA3100E36037 /* Utils.swift in Sources */,
 			);
