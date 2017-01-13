@@ -20,6 +20,17 @@
 		B3A0CCD51E28F9DD00E36037 /* RandomAccessCollectionSpliteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCCA1E28F9D900E36037 /* RandomAccessCollectionSpliteratorTests.swift */; };
 		B3A0CCD71E28FA1200E36037 /* StreamOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCD61E28FA1200E36037 /* StreamOptions.swift */; };
 		B3A0CCD91E28FA3100E36037 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCD81E28FA3100E36037 /* Utils.swift */; };
+		B3A0CCDB1E28FC3600E36037 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCDA1E28FC3600E36037 /* Stream.swift */; };
+		B3A0CCDD1E28FCC500E36037 /* UntypedPipelineStageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCDC1E28FCC500E36037 /* UntypedPipelineStageProtocol.swift */; };
+		B3A0CCDF1E28FD3800E36037 /* PipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCDE1E28FD3800E36037 /* PipelineStage.swift */; };
+		B3A0CCE51E28FE7A00E36037 /* Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCE11E28FE7A00E36037 /* Sink.swift */; };
+		B3A0CCE61E28FE7A00E36037 /* SinkFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCE21E28FE7A00E36037 /* SinkFactory.swift */; };
+		B3A0CCE71E28FE7A00E36037 /* UntypedSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCE31E28FE7A00E36037 /* UntypedSink.swift */; };
+		B3A0CCE81E28FE7A00E36037 /* UntypedSinkFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCE41E28FE7A00E36037 /* UntypedSinkFactory.swift */; };
+		B3A0CCEA1E28FEBD00E36037 /* Consumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCE91E28FEBD00E36037 /* Consumer.swift */; };
+		B3A0CCED1E28FFD800E36037 /* MapPipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCEC1E28FFD800E36037 /* MapPipelineStage.swift */; };
+		B3A0CCEF1E29067E00E36037 /* PipelineHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCEE1E29067E00E36037 /* PipelineHead.swift */; };
+		B3A0CCF11E29097600E36037 /* StreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCF01E29097600E36037 /* StreamTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +62,17 @@
 		B3A0CCCC1E28F9D900E36037 /* UntypedSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UntypedSpliterator.swift; sourceTree = "<group>"; };
 		B3A0CCD61E28FA1200E36037 /* StreamOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamOptions.swift; sourceTree = "<group>"; };
 		B3A0CCD81E28FA3100E36037 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		B3A0CCDA1E28FC3600E36037 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
+		B3A0CCDC1E28FCC500E36037 /* UntypedPipelineStageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UntypedPipelineStageProtocol.swift; sourceTree = "<group>"; };
+		B3A0CCDE1E28FD3800E36037 /* PipelineStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineStage.swift; sourceTree = "<group>"; };
+		B3A0CCE11E28FE7A00E36037 /* Sink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sink.swift; sourceTree = "<group>"; };
+		B3A0CCE21E28FE7A00E36037 /* SinkFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SinkFactory.swift; sourceTree = "<group>"; };
+		B3A0CCE31E28FE7A00E36037 /* UntypedSink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UntypedSink.swift; sourceTree = "<group>"; };
+		B3A0CCE41E28FE7A00E36037 /* UntypedSinkFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UntypedSinkFactory.swift; sourceTree = "<group>"; };
+		B3A0CCE91E28FEBD00E36037 /* Consumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consumer.swift; sourceTree = "<group>"; };
+		B3A0CCEC1E28FFD800E36037 /* MapPipelineStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPipelineStage.swift; sourceTree = "<group>"; };
+		B3A0CCEE1E29067E00E36037 /* PipelineHead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineHead.swift; sourceTree = "<group>"; };
+		B3A0CCF01E29097600E36037 /* StreamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTests.swift; sourceTree = "<group>"; };
 		C3C907ADD8E31DEC43DE4435 /* Pods_StreamsExTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StreamsExTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -114,11 +136,18 @@
 		B3A0CC9B1E28F95600E36037 /* StreamsEx */ = {
 			isa = PBXGroup;
 			children = (
+				B3A0CCEB1E28FFAF00E36037 /* Map */,
+				B3A0CCE01E28FE7A00E36037 /* Sink */,
 				B3A0CCD81E28FA3100E36037 /* Utils.swift */,
 				B3A0CCD61E28FA1200E36037 /* StreamOptions.swift */,
 				B3A0CCC41E28F9D900E36037 /* Spliterators */,
 				B3A0CC9C1E28F95600E36037 /* StreamsEx.h */,
 				B3A0CC9D1E28F95600E36037 /* Info.plist */,
+				B3A0CCDA1E28FC3600E36037 /* Stream.swift */,
+				B3A0CCDC1E28FCC500E36037 /* UntypedPipelineStageProtocol.swift */,
+				B3A0CCDE1E28FD3800E36037 /* PipelineStage.swift */,
+				B3A0CCEE1E29067E00E36037 /* PipelineHead.swift */,
+				B3A0CCF01E29097600E36037 /* StreamTests.swift */,
 			);
 			path = StreamsEx;
 			sourceTree = "<group>";
@@ -145,6 +174,26 @@
 				B3A0CCCC1E28F9D900E36037 /* UntypedSpliterator.swift */,
 			);
 			path = Spliterators;
+			sourceTree = "<group>";
+		};
+		B3A0CCE01E28FE7A00E36037 /* Sink */ = {
+			isa = PBXGroup;
+			children = (
+				B3A0CCE91E28FEBD00E36037 /* Consumer.swift */,
+				B3A0CCE11E28FE7A00E36037 /* Sink.swift */,
+				B3A0CCE21E28FE7A00E36037 /* SinkFactory.swift */,
+				B3A0CCE31E28FE7A00E36037 /* UntypedSink.swift */,
+				B3A0CCE41E28FE7A00E36037 /* UntypedSinkFactory.swift */,
+			);
+			path = Sink;
+			sourceTree = "<group>";
+		};
+		B3A0CCEB1E28FFAF00E36037 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				B3A0CCEC1E28FFD800E36037 /* MapPipelineStage.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,12 +358,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3A0CCCD1E28F9D900E36037 /* ConcatSpliterator.swift in Sources */,
+				B3A0CCEF1E29067E00E36037 /* PipelineHead.swift in Sources */,
 				B3A0CCD11E28F9D900E36037 /* RandomAccessCollectionSpliterator.swift in Sources */,
+				B3A0CCE51E28FE7A00E36037 /* Sink.swift in Sources */,
 				B3A0CCD71E28FA1200E36037 /* StreamOptions.swift in Sources */,
+				B3A0CCE81E28FE7A00E36037 /* UntypedSinkFactory.swift in Sources */,
+				B3A0CCEA1E28FEBD00E36037 /* Consumer.swift in Sources */,
 				B3A0CCCF1E28F9D900E36037 /* IteratorSpliterator.swift in Sources */,
+				B3A0CCDF1E28FD3800E36037 /* PipelineStage.swift in Sources */,
 				B3A0CCD41E28F9D900E36037 /* UntypedSpliterator.swift in Sources */,
 				B3A0CCD31E28F9D900E36037 /* Spliterator.swift in Sources */,
+				B3A0CCE71E28FE7A00E36037 /* UntypedSink.swift in Sources */,
+				B3A0CCE61E28FE7A00E36037 /* SinkFactory.swift in Sources */,
+				B3A0CCED1E28FFD800E36037 /* MapPipelineStage.swift in Sources */,
 				B3A0CCCE1E28F9D900E36037 /* EmptySpliterator.swift in Sources */,
+				B3A0CCDB1E28FC3600E36037 /* Stream.swift in Sources */,
+				B3A0CCDD1E28FCC500E36037 /* UntypedPipelineStageProtocol.swift in Sources */,
 				B3A0CCD91E28FA3100E36037 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3A0CCF11E29097600E36037 /* StreamTests.swift in Sources */,
 				B3A0CCD51E28F9DD00E36037 /* RandomAccessCollectionSpliteratorTests.swift in Sources */,
 				B3A0CCA81E28F95600E36037 /* StreamsExTests.swift in Sources */,
 			);
@@ -519,6 +579,7 @@
 				B3A0CCAF1E28F95600E36037 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B3A0CCB01E28F95600E36037 /* Build configuration list for PBXNativeTarget "StreamsExTests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +588,7 @@
 				B3A0CCB21E28F95600E36037 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
