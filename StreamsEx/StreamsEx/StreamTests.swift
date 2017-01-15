@@ -43,4 +43,15 @@ class StreamTests: XCTestCase {
         expect(testSink.consumedElements).to(equal([2, 5, 10, 17, 26]))
     }
     
+    func testThatItProperlyMapsAndThenReducesCollection() {
+        // given
+        let array = [42, 43, 39]
+        
+        // when
+        let sum = array.stream.map { $0 + 1}.reduce(identity: 0, accumulator: +)
+        
+        // then
+        expect(sum).to(equal(127))
+    }
+    
 }

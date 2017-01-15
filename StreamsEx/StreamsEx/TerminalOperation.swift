@@ -9,6 +9,6 @@
 protocol TerminalOperationProtocol {
     associatedtype Result
     
-    func evaluateParallel(forPipelineStage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol?) -> Result
-    func evaluateSequential(forPipelineStage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol?) -> Result
+    func evaluateParallel(forPipelineStage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> Result
+    func evaluateSequential(forPipelineStage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> Result
 }

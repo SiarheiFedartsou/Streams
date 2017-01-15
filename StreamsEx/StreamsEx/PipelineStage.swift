@@ -11,5 +11,7 @@ class PipelineStage<In, Out> : Stream<Out> {
         super.init()
         previousStage?.nextStage = self
         self.previousStage = previousStage
+        self.sourceStage = previousStage?.sourceStage
+        self.sourceSpliterator = previousStage?.sourceSpliterator
     }
 }

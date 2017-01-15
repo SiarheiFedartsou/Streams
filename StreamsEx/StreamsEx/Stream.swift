@@ -16,14 +16,14 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     public func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R> {
         return MapPipelineStage(previousStage: self, mapper: mapper)
     }
-
-    public func skip(_ size: Int) -> Stream<T> {
-        _abstract()
+    
+    public func slice(_ bounds: ClosedRange<IntMax>) -> Stream<T> {
+        return SlicePipelineStage(previousStage: self, bounds: bounds)
     }
     
     public func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T
     {
-        _abstract()
+        return evaluate(terminalOperation: ReduceTerminalOperation(identity: identity, accumulator: accumulator))
     }
 
     public func parallel() -> Stream<T> {
@@ -64,6 +64,13 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     }
     
     func evaluate<R, TerminalOperation: TerminalOperationProtocol>(terminalOperation: TerminalOperation) -> R where TerminalOperation.Result == R {
-        return isParallel ? terminalOperation.evaluateParallel(forPipelineStage: self, spliterator: nil) :  terminalOperation.evaluateSequential(forPipelineStage: self, spliterator: nil)
+        return isParallel ? terminalOperation.evaluateParallel(forPipelineStage: self, spliterator: spliterator()) :  terminalOperation.evaluateSequential(forPipelineStage: self, spliterator: spliterator())
+    }
+    
+    private func spliterator() -> UntypedSpliteratorProtocol {
+        if let spliterator = sourceSpliterator {
+            return spliterator
+        }
+        fatalError()
     }
 }

@@ -47,13 +47,12 @@ final class ReduceTerminalOperation<T> : TerminalOperationProtocol {
         self.accumulator = accumulator
     }
     
-    func evaluateParallel(forPipelineStage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol?) -> T {
+    func evaluateParallel(forPipelineStage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> T {
         _abstract()
     }
     
-    func evaluateSequential(forPipelineStage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol?) -> T {
-        guard var spliterator = spliterator else { fatalError() }
-        
+    func evaluateSequential(forPipelineStage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> T {
+        var spliterator = spliterator
         let reduceSink = makeSink()
         let sink = forPipelineStage.wrap(sink: UntypedSink(reduceSink))
         spliterator.forEachRemaining {
