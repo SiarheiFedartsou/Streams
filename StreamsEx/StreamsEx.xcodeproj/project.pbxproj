@@ -11,6 +11,7 @@
 		47959B711E2B96F5007E0DFB /* Collection+Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B701E2B96F5007E0DFB /* Collection+Stream.swift */; };
 		47959B761E2BE447007E0DFB /* SlicePipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B751E2BE447007E0DFB /* SlicePipelineStage.swift */; };
 		47959B781E2BE62B007E0DFB /* SliceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B771E2BE62B007E0DFB /* SliceTests.swift */; };
+		47959B7A1E2E86CA007E0DFB /* ReduceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B791E2E86CA007E0DFB /* ReduceTests.swift */; };
 		B3A0CCA31E28F95600E36037 /* StreamsEx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A0CC991E28F95600E36037 /* StreamsEx.framework */; };
 		B3A0CCA81E28F95600E36037 /* StreamsExTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCA71E28F95600E36037 /* StreamsExTests.swift */; };
 		B3A0CCAA1E28F95600E36037 /* StreamsEx.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A0CC9C1E28F95600E36037 /* StreamsEx.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -54,6 +55,7 @@
 		47959B701E2B96F5007E0DFB /* Collection+Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Stream.swift"; sourceTree = "<group>"; };
 		47959B751E2BE447007E0DFB /* SlicePipelineStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlicePipelineStage.swift; sourceTree = "<group>"; };
 		47959B771E2BE62B007E0DFB /* SliceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceTests.swift; sourceTree = "<group>"; };
+		47959B791E2E86CA007E0DFB /* ReduceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReduceTests.swift; sourceTree = "<group>"; };
 		B3A0CC991E28F95600E36037 /* StreamsEx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StreamsEx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A0CC9C1E28F95600E36037 /* StreamsEx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StreamsEx.h; sourceTree = "<group>"; };
 		B3A0CC9D1E28F95600E36037 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				B3A0CCF51E290EFA00E36037 /* ReduceTerminalOperation.swift */,
+				47959B791E2E86CA007E0DFB /* ReduceTests.swift */,
 			);
 			path = Reduce;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				B3A0CCD51E28F9DD00E36037 /* RandomAccessCollectionSpliteratorTests.swift in Sources */,
 				47959B781E2BE62B007E0DFB /* SliceTests.swift in Sources */,
 				B3A0CCA81E28F95600E36037 /* StreamsExTests.swift in Sources */,
+				47959B7A1E2E86CA007E0DFB /* ReduceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

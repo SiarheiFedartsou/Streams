@@ -35,6 +35,7 @@ final class PipelineHead<T> : PipelineStage<T, T>
         super.init(previousStage: nil)
         self.sourceSpliterator = UntypedSpliterator(source)
         self.sourceStage = self
+        self.isParallel = parallel
     }
     
     override func makeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {

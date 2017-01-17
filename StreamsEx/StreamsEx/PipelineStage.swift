@@ -13,5 +13,8 @@ class PipelineStage<In, Out> : Stream<Out> {
         self.previousStage = previousStage
         self.sourceStage = previousStage?.sourceStage
         self.sourceSpliterator = previousStage?.sourceSpliterator
+        if let previousStage = previousStage {
+            self.isParallel = previousStage.isParallel
+        }
     }
 }

@@ -36,7 +36,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
         return self
     }
     
-    private(set) public var isParallel: Bool = false
+    internal(set) public var isParallel: Bool = false
     
     var nextStage: UntypedPipelineStageProtocol? = nil
     var previousStage: UntypedPipelineStageProtocol? = nil

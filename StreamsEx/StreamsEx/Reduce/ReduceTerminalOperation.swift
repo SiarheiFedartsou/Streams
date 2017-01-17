@@ -37,6 +37,43 @@ final class ReduceSink<T> : SinkProtocol {
     }
 }
 
+final class ReduceTask<T> {
+    
+    let operation: ReduceTerminalOperation<T>
+    let stage: UntypedPipelineStageProtocol
+    var spliterator: UntypedSpliteratorProtocol
+    
+    init(operation: ReduceTerminalOperation<T>, stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) {
+        self.operation = operation
+        self.stage = stage
+        self.spliterator = spliterator
+    }
+    
+    func invoke() -> T {
+        if let splitted = spliterator.split() {
+            var result1: T? = nil
+            var result2: T? = nil
+
+            DispatchQueue.concurrentPerform(iterations: 2, execute: { iteration in
+                if iteration == 0 {
+                    result1 = ReduceTask<T>(operation: self.operation, stage: self.stage, spliterator: splitted).invoke()
+                } else {
+                    result2 = ReduceTask<T>(operation: self.operation, stage: self.stage, spliterator: spliterator).invoke()
+                }
+            })
+            
+            return operation.accumulator(result1!, result2!)
+        } else {
+            let reduceSink = operation.makeSink()
+            let sink = stage.wrap(sink: UntypedSink(reduceSink))
+            spliterator.forEachRemaining { element in
+                sink.consume(element)
+            }
+            return reduceSink.result
+        }
+    }
+}
+
 final class ReduceTerminalOperation<T> : TerminalOperationProtocol {
     
     let identity: T
@@ -47,8 +84,8 @@ final class ReduceTerminalOperation<T> : TerminalOperationProtocol {
         self.accumulator = accumulator
     }
     
-    func evaluateParallel(forPipelineStage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> T {
-        _abstract()
+    func evaluateParallel(forPipelineStage stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> T {
+        return ReduceTask(operation: self, stage: stage, spliterator: spliterator).invoke()
     }
     
     func evaluateSequential(forPipelineStage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> T {
@@ -61,7 +98,7 @@ final class ReduceTerminalOperation<T> : TerminalOperationProtocol {
         return reduceSink.result
     }
     
-    private func makeSink() -> ReduceSink<T> {
+    fileprivate func makeSink() -> ReduceSink<T> {
         return ReduceSink(identity: identity, accumulator: accumulator)
     }
 }
