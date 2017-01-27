@@ -11,6 +11,8 @@
 		47959B711E2B96F5007E0DFB /* Collection+Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B701E2B96F5007E0DFB /* Collection+Stream.swift */; };
 		47959B761E2BE447007E0DFB /* SlicePipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B751E2BE447007E0DFB /* SlicePipelineStage.swift */; };
 		47959B781E2BE62B007E0DFB /* SliceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B771E2BE62B007E0DFB /* SliceTests.swift */; };
+		B3196C911E3B6B9A00BFE883 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3196C901E3B6B9A00BFE883 /* Node.swift */; };
+		B3196C931E3B6CF300BFE883 /* CollectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3196C921E3B6CF300BFE883 /* CollectionNode.swift */; };
 		B3A0CCA31E28F95600E36037 /* StreamsEx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A0CC991E28F95600E36037 /* StreamsEx.framework */; };
 		B3A0CCA81E28F95600E36037 /* StreamsExTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCA71E28F95600E36037 /* StreamsExTests.swift */; };
 		B3A0CCAA1E28F95600E36037 /* StreamsEx.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A0CC9C1E28F95600E36037 /* StreamsEx.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -54,6 +56,8 @@
 		47959B701E2B96F5007E0DFB /* Collection+Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Stream.swift"; sourceTree = "<group>"; };
 		47959B751E2BE447007E0DFB /* SlicePipelineStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlicePipelineStage.swift; sourceTree = "<group>"; };
 		47959B771E2BE62B007E0DFB /* SliceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceTests.swift; sourceTree = "<group>"; };
+		B3196C901E3B6B9A00BFE883 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		B3196C921E3B6CF300BFE883 /* CollectionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionNode.swift; sourceTree = "<group>"; };
 		B3A0CC991E28F95600E36037 /* StreamsEx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StreamsEx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A0CC9C1E28F95600E36037 /* StreamsEx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StreamsEx.h; sourceTree = "<group>"; };
 		B3A0CC9D1E28F95600E36037 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -132,6 +136,15 @@
 			path = Slice;
 			sourceTree = "<group>";
 		};
+		B3196C8F1E3B6B8D00BFE883 /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				B3196C901E3B6B9A00BFE883 /* Node.swift */,
+				B3196C921E3B6CF300BFE883 /* CollectionNode.swift */,
+			);
+			path = Node;
+			sourceTree = "<group>";
+		};
 		B3A0CC8F1E28F95600E36037 = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +168,7 @@
 		B3A0CC9B1E28F95600E36037 /* StreamsEx */ = {
 			isa = PBXGroup;
 			children = (
+				B3196C8F1E3B6B8D00BFE883 /* Node */,
 				47959B741E2BE42B007E0DFB /* Slice */,
 				47959B701E2B96F5007E0DFB /* Collection+Stream.swift */,
 				B3A0CCF41E290EE700E36037 /* Reduce */,
@@ -389,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3A0CCCD1E28F9D900E36037 /* ConcatSpliterator.swift in Sources */,
+				B3196C931E3B6CF300BFE883 /* CollectionNode.swift in Sources */,
 				B3A0CCEF1E29067E00E36037 /* PipelineHead.swift in Sources */,
 				B3A0CCF31E290D2800E36037 /* TerminalOperation.swift in Sources */,
 				B3A0CCD11E28F9D900E36037 /* RandomAccessCollectionSpliterator.swift in Sources */,
@@ -397,6 +412,7 @@
 				B3A0CCE81E28FE7A00E36037 /* UntypedSinkFactory.swift in Sources */,
 				B3A0CCEA1E28FEBD00E36037 /* Consumer.swift in Sources */,
 				B3A0CCCF1E28F9D900E36037 /* IteratorSpliterator.swift in Sources */,
+				B3196C911E3B6B9A00BFE883 /* Node.swift in Sources */,
 				B3A0CCDF1E28FD3800E36037 /* PipelineStage.swift in Sources */,
 				B3A0CCD41E28F9D900E36037 /* UntypedSpliterator.swift in Sources */,
 				B3A0CCD31E28F9D900E36037 /* Spliterator.swift in Sources */,
