@@ -95,3 +95,11 @@ public class Stream<T> : UntypedPipelineStageProtocol {
         return spliterator
     }
 }
+
+extension Stream where T : Hashable {
+    
+    public func distinct() -> Stream<T> {
+        return DistinctPipelineStage(previousStage: self)
+    }
+    
+}
