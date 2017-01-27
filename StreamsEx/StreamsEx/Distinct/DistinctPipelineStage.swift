@@ -51,4 +51,8 @@ final class DistinctPipelineStage<T: Hashable> : PipelineStage<T, T>
     override var isStateful: Bool {
         return true
     }
+    
+    override func evaluateParallel(stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> UntypedNodeProtocol {
+        _abstract()
+    }
 }

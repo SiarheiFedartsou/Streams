@@ -6,7 +6,7 @@
 //  Copyright © 2017 Sergey Fedortsov. All rights reserved.
 //
 
-struct CollectionNode<T> : Node {
+struct CollectionNode<T> : NodeProtocol {
     // TODO: must be AnyCollection in the future
     private let collection: AnyRandomAccessCollection<T>
     

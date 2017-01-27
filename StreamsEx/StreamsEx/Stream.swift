@@ -64,8 +64,19 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     }
     
     func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> UntypedSpliteratorProtocol {
+        return evaluateParallel(stage: stage, spliterator: spliterator).spliterator
+    }
+    
+    func evaluateParallel(stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> UntypedNodeProtocol {
         _abstract()
     }
+    
+    
+    func wrap(spliterator: UntypedSpliteratorProtocol) -> UntypedSpliteratorProtocol {
+        
+    }
+    
+    
     
     func evaluate<R, TerminalOperation: TerminalOperationProtocol>(terminalOperation: TerminalOperation) -> R where TerminalOperation.Result == R {
         return isParallel ? terminalOperation.evaluateParallel(forPipelineStage: self, spliterator: spliterator()) :  terminalOperation.evaluateSequential(forPipelineStage: self, spliterator: spliterator())
