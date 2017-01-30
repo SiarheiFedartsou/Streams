@@ -15,6 +15,7 @@
 		47DDC50E1E3BACC50097FF81 /* SliceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B771E2BE62B007E0DFB /* SliceTests.swift */; };
 		47DDC5101E3BACF50097FF81 /* DistinctTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DDC50F1E3BACF50097FF81 /* DistinctTests.swift */; };
 		47DDC5121E3BB3350097FF81 /* UntypedNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DDC5111E3BB3350097FF81 /* UntypedNode.swift */; };
+		47DDC5131E3BB6100097FF81 /* PipelineWrappingSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCC81E28F9D900E36037 /* PipelineWrappingSpliterator.swift */; };
 		B3196C911E3B6B9A00BFE883 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3196C901E3B6B9A00BFE883 /* Node.swift */; };
 		B3196C931E3B6CF300BFE883 /* CollectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3196C921E3B6CF300BFE883 /* CollectionNode.swift */; };
 		B3A0CCA31E28F95600E36037 /* StreamsEx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A0CC991E28F95600E36037 /* StreamsEx.framework */; };
@@ -434,6 +435,7 @@
 				B3A0CCCF1E28F9D900E36037 /* IteratorSpliterator.swift in Sources */,
 				B3196C911E3B6B9A00BFE883 /* Node.swift in Sources */,
 				B3A0CCDF1E28FD3800E36037 /* PipelineStage.swift in Sources */,
+				47DDC5131E3BB6100097FF81 /* PipelineWrappingSpliterator.swift in Sources */,
 				B3A0CCD41E28F9D900E36037 /* UntypedSpliterator.swift in Sources */,
 				47DDC50D1E3BACBD0097FF81 /* DistinctPipelineStage.swift in Sources */,
 				B3A0CCD31E28F9D900E36037 /* Spliterator.swift in Sources */,

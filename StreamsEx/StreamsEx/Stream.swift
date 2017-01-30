@@ -9,6 +9,11 @@
 import Foundation
 
 public class Stream<T> : UntypedPipelineStageProtocol {
+    
+    internal var _testSpliterator: WrappingSpliterator {
+        return WrappingSpliterator(stage: self, spliterator: self.sourceSpliterator!, isParallel: true)
+    }
+    
     public func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T> {
         _abstract()
     }
@@ -73,7 +78,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     
     
     func wrap(spliterator: UntypedSpliteratorProtocol) -> UntypedSpliteratorProtocol {
-        
+        _abstract()
     }
     
     

@@ -16,6 +16,7 @@ internal protocol UntypedPipelineStageProtocol : class {
     var isStateful: Bool { get }
     var isParallel: Bool { get }
     
+    func wrap(spliterator: UntypedSpliteratorProtocol) -> UntypedSpliteratorProtocol
     func wrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol
     func makeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol
     func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> UntypedSpliteratorProtocol

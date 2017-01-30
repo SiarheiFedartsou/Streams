@@ -54,4 +54,19 @@ class StreamTests: XCTestCase {
         expect(sum).to(equal(127))
     }
     
+    func testThatWrappingSpliteratorWorks() {
+        // given 
+        let array = [42, 43, 49]
+        
+        // when
+        var spliterator = array.stream.map { $0 + 1 }._testSpliterator
+        
+        // then
+        var elements = [Int]()
+        spliterator.forEachRemaining { (element) in
+            elements.append(element as! Int)
+        }
+        expect(elements).to(equal([43, 44, 50]))
+    }
+    
 }
