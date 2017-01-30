@@ -52,7 +52,13 @@ final class DistinctPipelineStage<T: Hashable> : PipelineStage<T, T>
         return true
     }
     
+    override func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> UntypedSpliteratorProtocol {
+        let spliterator = CastingSpliterator<T>(spliterator: stage.wrap(spliterator: spliterator))
+        return UntypedSpliterator(DistinctSpliterator(spliterator: AnySpliterator(spliterator)))
+    }
+    
     override func evaluateParallel(stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> UntypedNodeProtocol {
-        _abstract()
+       _abstract()
+        //
     }
 }

@@ -78,7 +78,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     
     
     func wrap(spliterator: UntypedSpliteratorProtocol) -> UntypedSpliteratorProtocol {
-        _abstract()
+        return UntypedSpliterator(WrappingSpliterator(stage: self, spliterator: sourceSpliterator!, isParallel: isParallel))
     }
     
     

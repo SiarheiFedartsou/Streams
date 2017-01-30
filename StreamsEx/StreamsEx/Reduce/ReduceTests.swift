@@ -25,7 +25,7 @@ class ReduceTests: XCTestCase {
         expect(sum).to(equal(1807360))
     }
     
-    func disabled_testThatReduceWorksForParallelStreamsWithStatefulStages() {
+    func testThatReduceWorksForParallelStreamsWithStatefulStages() {
         // given
         let array = [Int](repeating: 42, count: 1024)
         
