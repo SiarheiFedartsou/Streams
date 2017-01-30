@@ -10,7 +10,7 @@ import Foundation
 
 protocol UntypedNodeProtocol {
     
-    var spliterator: UntypedSpliteratorProtocol { get }
+    var spliterator: AnySpliterator<Any> { get }
     
     func forEach(_ each: (Any) -> ())
     
@@ -29,8 +29,8 @@ struct UntypedNode<Node: NodeProtocol> : UntypedNodeProtocol {
         self.node = node
     }
     
-    var spliterator: UntypedSpliteratorProtocol {
-        return UntypedSpliterator(node.spliterator)
+    var spliterator: AnySpliterator<Any> {
+        return AnySpliterator(CastingSpliterator<Node.Element, Any>(spliterator: node.spliterator))
     }
     
 

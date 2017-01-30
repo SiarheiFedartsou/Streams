@@ -11,13 +11,13 @@ internal protocol UntypedPipelineStageProtocol : class {
     var previousStage: UntypedPipelineStageProtocol? { get }
     
     var sourceStage: UntypedPipelineStageProtocol? { get }
-    var sourceSpliterator: UntypedSpliteratorProtocol? { get }
+    var sourceSpliterator: AnySpliterator<Any>? { get }
     
     var isStateful: Bool { get }
     var isParallel: Bool { get }
     
-    func wrap(spliterator: UntypedSpliteratorProtocol) -> UntypedSpliteratorProtocol
+    func wrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any>
     func wrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol
     func makeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol
-    func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> UntypedSpliteratorProtocol
+    func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any>
 }

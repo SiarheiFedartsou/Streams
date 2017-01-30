@@ -33,7 +33,7 @@ fileprivate final class Buffer : SinkProtocol {
 final class WrappingSpliterator : SpliteratorProtocol {
     
     let stage: UntypedPipelineStageProtocol
-    var spliterator: UntypedSpliteratorProtocol
+    var spliterator: AnySpliterator<Any>
     let isParallel: Bool
     
     private var buffer: Buffer = Buffer()
@@ -43,7 +43,7 @@ final class WrappingSpliterator : SpliteratorProtocol {
     
     private var finished: Bool = false
     
-    init(stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol, isParallel: Bool) {
+    init(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>, isParallel: Bool) {
         self.stage = stage
         self.spliterator = spliterator
         self.isParallel = isParallel

@@ -47,7 +47,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     var previousStage: UntypedPipelineStageProtocol? = nil
     
     var sourceStage: UntypedPipelineStageProtocol? = nil
-    var sourceSpliterator: UntypedSpliteratorProtocol? = nil
+    var sourceSpliterator: AnySpliterator<Any>? = nil
     
     var isStateful: Bool {
         return false
@@ -68,17 +68,17 @@ public class Stream<T> : UntypedPipelineStageProtocol {
         _abstract()
     }
     
-    func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> UntypedSpliteratorProtocol {
+    func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
         return evaluateParallel(stage: stage, spliterator: spliterator).spliterator
     }
     
-    func evaluateParallel(stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> UntypedNodeProtocol {
+    func evaluateParallel(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> UntypedNodeProtocol {
         _abstract()
     }
     
     
-    func wrap(spliterator: UntypedSpliteratorProtocol) -> UntypedSpliteratorProtocol {
-        return UntypedSpliterator(WrappingSpliterator(stage: self, spliterator: sourceSpliterator!, isParallel: isParallel))
+    func wrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
+        return AnySpliterator(WrappingSpliterator(stage: self, spliterator: sourceSpliterator!, isParallel: isParallel))
     }
     
     
@@ -87,9 +87,9 @@ public class Stream<T> : UntypedPipelineStageProtocol {
         return isParallel ? terminalOperation.evaluateParallel(forPipelineStage: self, spliterator: spliterator()) :  terminalOperation.evaluateSequential(forPipelineStage: self, spliterator: spliterator())
     }
     
-    private func spliterator() -> UntypedSpliteratorProtocol {
+    private func spliterator() -> AnySpliterator<Any> {
         guard let sourceStage = sourceStage else { fatalError() }
-        var spliterator: UntypedSpliteratorProtocol
+        var spliterator: AnySpliterator<Any>
         if let sourceSpliterator = sourceSpliterator {
             spliterator = sourceSpliterator
         } else {

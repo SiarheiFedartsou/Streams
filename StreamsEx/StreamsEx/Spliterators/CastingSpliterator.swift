@@ -6,8 +6,8 @@
 //  Copyright © 2017 Sergey Fedortsov. All rights reserved.
 //
 
-struct CastingSpliterator<T> : SpliteratorProtocol {
-    var spliterator: UntypedSpliteratorProtocol
+struct CastingSpliterator<Origin, T> : SpliteratorProtocol {
+    var spliterator: AnySpliterator<Origin>
     
     mutating func advance() -> T? {
         return spliterator.advance() as! T?
@@ -21,7 +21,7 @@ struct CastingSpliterator<T> : SpliteratorProtocol {
     
     mutating func split() -> AnySpliterator<T>? {
         if let split = spliterator.split() {
-            return AnySpliterator(CastingSpliterator<T>(spliterator: split))
+            return AnySpliterator(CastingSpliterator<Origin, T>(spliterator: split))
         } else {
             return nil
         }

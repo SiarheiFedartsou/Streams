@@ -41,9 +41,9 @@ final class ReduceTask<T> {
     
     let operation: ReduceTerminalOperation<T>
     let stage: UntypedPipelineStageProtocol
-    var spliterator: UntypedSpliteratorProtocol
+    var spliterator: AnySpliterator<Any>
     
-    init(operation: ReduceTerminalOperation<T>, stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) {
+    init(operation: ReduceTerminalOperation<T>, stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) {
         self.operation = operation
         self.stage = stage
         self.spliterator = spliterator
@@ -84,11 +84,11 @@ final class ReduceTerminalOperation<T> : TerminalOperationProtocol {
         self.accumulator = accumulator
     }
     
-    func evaluateParallel(forPipelineStage stage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> T {
+    func evaluateParallel(forPipelineStage stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> T {
         return ReduceTask(operation: self, stage: stage, spliterator: spliterator).invoke()
     }
     
-    func evaluateSequential(forPipelineStage: UntypedPipelineStageProtocol, spliterator: UntypedSpliteratorProtocol) -> T {
+    func evaluateSequential(forPipelineStage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> T {
         var spliterator = spliterator
         let reduceSink = makeSink()
         let sink = forPipelineStage.wrap(sink: UntypedSink(reduceSink))
