@@ -6,47 +6,49 @@
 //  Copyright © 2017 Sergey Fedortsov. All rights reserved.
 //
 
+fileprivate final class SeenBox<T: Hashable> {
+    private var seen = Set<T>()
+    private let syncQueue = DispatchQueue(label: "com.streams.distinct_spliterator_queue")
+    
+    func insert(_ element: T) -> Bool {
+        var result: Bool = false
+        syncQueue.sync {
+            (result, _) = seen.insert(element)
+        }
+        return result
+    }
+    
+}
+
 final class DistinctSpliterator<T: Hashable> : SpliteratorProtocol {
     
-    var seen: Set<T> = Set<T>()
+    private var seen: SeenBox<T>
     var spliterator: AnySpliterator<T>
     
     let syncQueue: DispatchQueue = DispatchQueue(label: "com.streams.distinct_spliterator_queue")
     
     convenience init(spliterator: AnySpliterator<T>) {
-        self.init(spliterator: spliterator, seen: Set<T>())
+        self.init(spliterator: spliterator, seen: SeenBox<T>())
     }
     
-    init(spliterator: AnySpliterator<T>, seen: Set<T>) {
+    private init(spliterator: AnySpliterator<T>, seen: SeenBox<T>) {
         self.spliterator = spliterator
         self.seen = seen
     }
     
     func advance() -> T? {
         while let element = spliterator.advance() {
-            var result: T? = nil
-            syncQueue.sync {
-                if !seen.contains(element) {
-                    seen.insert(element)
-                    result = element
-               }
+            if seen.insert(element) {
+                return element
             }
-            return result
         }
         return nil
     }
     
     func forEachRemaining(_ each: (T) -> Void) {
         spliterator.forEachRemaining { (element) in
-            var result: T? = nil
-            syncQueue.sync {
-                if !seen.contains(element) {
-                    seen.insert(element)
-                    result = element
-                }
-            }
-            if let result = result {
-                each(result)
+            if seen.insert(element) {
+                each(element)
             }
         }
     }
