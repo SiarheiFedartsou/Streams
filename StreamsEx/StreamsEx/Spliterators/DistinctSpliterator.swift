@@ -20,18 +20,18 @@ fileprivate final class SeenBox<T: Hashable> {
     
 }
 
-final class DistinctSpliterator<T: Hashable> : SpliteratorProtocol {
+final class DistinctSpliterator<T: Hashable, Spliterator: SpliteratorProtocol> : SpliteratorProtocol where Spliterator.T == T {
     
     private var seen: SeenBox<T>
-    var spliterator: AnySpliterator<T>
+    var spliterator: Spliterator
     
     let syncQueue: DispatchQueue = DispatchQueue(label: "com.streams.distinct_spliterator_queue")
     
-    convenience init(spliterator: AnySpliterator<T>) {
+    convenience init(spliterator: Spliterator) {
         self.init(spliterator: spliterator, seen: SeenBox<T>())
     }
     
-    private init(spliterator: AnySpliterator<T>, seen: SeenBox<T>) {
+    private init(spliterator: Spliterator, seen: SeenBox<T>) {
         self.spliterator = spliterator
         self.seen = seen
     }
@@ -55,7 +55,7 @@ final class DistinctSpliterator<T: Hashable> : SpliteratorProtocol {
     
     func split() -> AnySpliterator<T>? {
         if let split = spliterator.split() {
-            return AnySpliterator(DistinctSpliterator(spliterator: split, seen: seen))
+            return AnySpliterator(DistinctSpliterator<T, AnySpliterator<T>>(spliterator: split, seen: seen))
         } else {
             return nil
         }
