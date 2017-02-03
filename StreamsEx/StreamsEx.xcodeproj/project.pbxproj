@@ -10,6 +10,7 @@
 		432C20F31033E58C0E669BD0 /* Pods_StreamsExTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C907ADD8E31DEC43DE4435 /* Pods_StreamsExTests.framework */; };
 		47079F5F1E44EEA3008DDAF7 /* ArraySpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47079F5E1E44EEA3008DDAF7 /* ArraySpliterator.swift */; };
 		47079F611E4501BD008DDAF7 /* SetSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47079F601E4501BD008DDAF7 /* SetSpliterator.swift */; };
+		47079F651E450A6A008DDAF7 /* SliceSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47079F641E450A6A008DDAF7 /* SliceSpliterator.swift */; };
 		47959B711E2B96F5007E0DFB /* Collection+Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B701E2B96F5007E0DFB /* Collection+Stream.swift */; };
 		47959B761E2BE447007E0DFB /* SlicePipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B751E2BE447007E0DFB /* SlicePipelineStage.swift */; };
 		47959B7A1E2E86CA007E0DFB /* ReduceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B791E2E86CA007E0DFB /* ReduceTests.swift */; };
@@ -61,6 +62,7 @@
 		3C00EDA3B46358BF9525946F /* Pods-StreamsExTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamsExTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StreamsExTests/Pods-StreamsExTests.debug.xcconfig"; sourceTree = "<group>"; };
 		47079F5E1E44EEA3008DDAF7 /* ArraySpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArraySpliterator.swift; sourceTree = "<group>"; };
 		47079F601E4501BD008DDAF7 /* SetSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetSpliterator.swift; sourceTree = "<group>"; };
+		47079F641E450A6A008DDAF7 /* SliceSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceSpliterator.swift; sourceTree = "<group>"; };
 		47959B701E2B96F5007E0DFB /* Collection+Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Stream.swift"; sourceTree = "<group>"; };
 		47959B751E2BE447007E0DFB /* SlicePipelineStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlicePipelineStage.swift; sourceTree = "<group>"; };
 		47959B771E2BE62B007E0DFB /* SliceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceTests.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				B3A0CCCC1E28F9D900E36037 /* UntypedSpliterator.swift */,
 				47DDC5141E3FB3380097FF81 /* DistinctSpliterator.swift */,
 				47DDC5161E3FB7450097FF81 /* CastingSpliterator.swift */,
+				47079F641E450A6A008DDAF7 /* SliceSpliterator.swift */,
 			);
 			path = Spliterators;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				47DDC5131E3BB6100097FF81 /* PipelineWrappingSpliterator.swift in Sources */,
 				B3A0CCD41E28F9D900E36037 /* UntypedSpliterator.swift in Sources */,
 				47079F611E4501BD008DDAF7 /* SetSpliterator.swift in Sources */,
+				47079F651E450A6A008DDAF7 /* SliceSpliterator.swift in Sources */,
 				47DDC50D1E3BACBD0097FF81 /* DistinctPipelineStage.swift in Sources */,
 				B3A0CCD31E28F9D900E36037 /* Spliterator.swift in Sources */,
 				47959B711E2B96F5007E0DFB /* Collection+Stream.swift in Sources */,

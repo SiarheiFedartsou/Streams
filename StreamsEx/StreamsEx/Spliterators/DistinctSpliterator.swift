@@ -20,7 +20,7 @@ fileprivate final class SeenBox<T: Hashable> {
     
 }
 
-final class DistinctSpliterator<T: Hashable, Spliterator: SpliteratorProtocol> : SpliteratorProtocol where Spliterator.T == T {
+final class DistinctSpliterator<T: Hashable, Spliterator: SpliteratorProtocol> : SpliteratorProtocol where Spliterator.Element == T {
     
     private var seen: SeenBox<T>
     var spliterator: Spliterator
