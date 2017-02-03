@@ -30,7 +30,7 @@ final class PipelineHead<T> : PipelineStage<T, T>
 {
 
     
-    init(source: AnySpliterator<T>, characteristics: StreamOptions, parallel: Bool)
+    init(source: AnySpliterator<T>, characteristics: SpliteratorCharacteristics, parallel: Bool)
     {
         super.init(previousStage: nil)
         self.sourceSpliterator = AnySpliterator(CastingSpliterator<T, Any>(spliterator: source))

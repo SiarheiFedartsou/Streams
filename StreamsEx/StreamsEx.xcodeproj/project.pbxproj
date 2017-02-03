@@ -30,7 +30,6 @@
 		B3A0CCD31E28F9D900E36037 /* Spliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCCB1E28F9D900E36037 /* Spliterator.swift */; };
 		B3A0CCD41E28F9D900E36037 /* UntypedSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCCC1E28F9D900E36037 /* UntypedSpliterator.swift */; };
 		B3A0CCD51E28F9DD00E36037 /* CollectionSpliteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCCA1E28F9D900E36037 /* CollectionSpliteratorTests.swift */; };
-		B3A0CCD71E28FA1200E36037 /* StreamOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCD61E28FA1200E36037 /* StreamOptions.swift */; };
 		B3A0CCD91E28FA3100E36037 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCD81E28FA3100E36037 /* Utils.swift */; };
 		B3A0CCDB1E28FC3600E36037 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCDA1E28FC3600E36037 /* Stream.swift */; };
 		B3A0CCDD1E28FCC500E36037 /* UntypedPipelineStageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCDC1E28FCC500E36037 /* UntypedPipelineStageProtocol.swift */; };
@@ -87,7 +86,6 @@
 		B3A0CCCA1E28F9D900E36037 /* CollectionSpliteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionSpliteratorTests.swift; sourceTree = "<group>"; };
 		B3A0CCCB1E28F9D900E36037 /* Spliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spliterator.swift; sourceTree = "<group>"; };
 		B3A0CCCC1E28F9D900E36037 /* UntypedSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UntypedSpliterator.swift; sourceTree = "<group>"; };
-		B3A0CCD61E28FA1200E36037 /* StreamOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamOptions.swift; sourceTree = "<group>"; };
 		B3A0CCD81E28FA3100E36037 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B3A0CCDA1E28FC3600E36037 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		B3A0CCDC1E28FCC500E36037 /* UntypedPipelineStageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UntypedPipelineStageProtocol.swift; sourceTree = "<group>"; };
@@ -202,7 +200,6 @@
 				B3A0CCEB1E28FFAF00E36037 /* Map */,
 				B3A0CCE01E28FE7A00E36037 /* Sink */,
 				B3A0CCD81E28FA3100E36037 /* Utils.swift */,
-				B3A0CCD61E28FA1200E36037 /* StreamOptions.swift */,
 				B3A0CCC41E28F9D900E36037 /* Spliterators */,
 				B3A0CC9C1E28F95600E36037 /* StreamsEx.h */,
 				B3A0CC9D1E28F95600E36037 /* Info.plist */,
@@ -439,7 +436,6 @@
 				B3A0CCF31E290D2800E36037 /* TerminalOperation.swift in Sources */,
 				47DDC5171E3FB7450097FF81 /* CastingSpliterator.swift in Sources */,
 				B3A0CCE51E28FE7A00E36037 /* Sink.swift in Sources */,
-				B3A0CCD71E28FA1200E36037 /* StreamOptions.swift in Sources */,
 				B3A0CCE81E28FE7A00E36037 /* UntypedSinkFactory.swift in Sources */,
 				B3A0CCEA1E28FEBD00E36037 /* Consumer.swift in Sources */,
 				47079F5F1E44EEA3008DDAF7 /* ArraySpliterator.swift in Sources */,

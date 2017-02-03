@@ -118,9 +118,6 @@ final class WrappingSpliterator : SpliteratorProtocol {
         return nil
     }
     
-    var options: StreamOptions {
-        return StreamOptions()
-    }
     
     var estimatedSize: IntMax {
         return spliterator.estimatedSize
