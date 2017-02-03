@@ -26,7 +26,7 @@ class StreamTests: XCTestCase {
             var consumedElements: [Int] = []
         }
         
-        let spliterator = RandomAccessCollectionSpliterator(collection: [Int](), options: StreamOptions())
+        let spliterator = ArraySpliterator(array: [Int]())
         let stream = PipelineHead(source: AnySpliterator(spliterator), characteristics: StreamOptions(), parallel: false).map { $0 * $0 }.map { $0 + 1 }
         
         let testSink = TestSink()

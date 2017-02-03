@@ -122,7 +122,17 @@ final class WrappingSpliterator : SpliteratorProtocol {
         return StreamOptions()
     }
     
-    var estimatedSize: Int {
+    var estimatedSize: IntMax {
         return spliterator.estimatedSize
+    }
+    
+    var exactSize: IntMax? {
+        // TODO: !!!
+        _abstract()
+    }
+    
+    var characteristics: SpliteratorCharacteristics {
+        // TODO: !!!
+        _abstract()
     }
 }

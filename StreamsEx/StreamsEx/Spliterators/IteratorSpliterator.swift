@@ -36,10 +36,7 @@ struct IteratorSpliterator<T, Iterator: IteratorProtocol, Count: SignedInteger> 
             each(element)
         }
     }
-    
-    var estimatedSize: Int {
-        return 0
-    }
+
     
     mutating func split() -> AnySpliterator<T>? {
 //        let size = estimatedSize
@@ -74,6 +71,13 @@ struct IteratorSpliterator<T, Iterator: IteratorProtocol, Count: SignedInteger> 
     }
     
     
+    var estimatedSize: IntMax {
+        return IntMax.max
+    }
+    
+    var characteristics: SpliteratorCharacteristics {
+        
+    }
     
     private let batchUnit = 1 << 10
     private let maxBatch = 1 << 25

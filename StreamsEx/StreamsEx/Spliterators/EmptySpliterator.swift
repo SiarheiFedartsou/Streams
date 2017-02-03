@@ -21,11 +21,11 @@ struct EmptySpliterator<T> : SpliteratorProtocol {
         return nil
     }
     
-    var options: StreamOptions {
-        return StreamOptions()
+    var estimatedSize: IntMax {
+        return 0
     }
     
-    var estimatedSize: Int {
-        return 0
+    var characteristics: SpliteratorCharacteristics {
+        return [.sized, .subsized]
     }
 }

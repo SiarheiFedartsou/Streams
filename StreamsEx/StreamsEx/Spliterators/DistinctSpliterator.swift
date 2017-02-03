@@ -61,11 +61,18 @@ final class DistinctSpliterator<T: Hashable, Spliterator: SpliteratorProtocol> :
         }
     }
     
-    var options: StreamOptions {
-        return StreamOptions()
+    var estimatedSize: IntMax {
+        return spliterator.estimatedSize
     }
     
-    var estimatedSize: Int {
-        return 0
+    var characteristics: SpliteratorCharacteristics {
+        var characteristics = spliterator.characteristics
+        characteristics.remove(.sized)
+        characteristics.remove(.subsized)
+        characteristics.remove(.sorted)
+        characteristics.remove(.ordered)
+        
+        characteristics.insert(.distinct)
+        return characteristics
     }
 }

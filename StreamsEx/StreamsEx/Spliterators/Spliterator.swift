@@ -8,16 +8,41 @@
 
 import Foundation
 
-
+struct SpliteratorCharacteristics : OptionSet {
+    let rawValue: Int
+    
+    static let ordered    = SpliteratorCharacteristics(rawValue: 1 << 0)
+    static let distinct    = SpliteratorCharacteristics(rawValue: 1 << 1)
+    static let sorted    = SpliteratorCharacteristics(rawValue: 1 << 2)
+    static let sized    = SpliteratorCharacteristics(rawValue: 1 << 3)
+    static let subsized    = SpliteratorCharacteristics(rawValue: 1 << 4)
+}
 
 protocol SpliteratorProtocol {
-    associatedtype T
-    mutating func advance() -> T?
-    mutating func forEachRemaining(_ each: (T) -> Void)
-    mutating func split() -> AnySpliterator<T>?
+    associatedtype Element
+    mutating func advance() -> Element?
+    mutating func forEachRemaining(_ each: (Element) -> ())
+    mutating func split() -> AnySpliterator<Element>?
     
-    var options: StreamOptions { get }
-    var estimatedSize: Int { get }
+    var estimatedSize: IntMax { get }
+    var exactSize: IntMax? { get }
+    var characteristics: SpliteratorCharacteristics { get }
+}
+
+extension SpliteratorProtocol {
+    mutating func forEachRemaining(_ each: (Element) -> ()) {
+        while let element = advance() {
+            each(element)
+        }
+    }
+    
+    var exactSize: IntMax? {
+        if !characteristics.contains(.sized) {
+            return nil
+        } else {
+            return estimatedSize
+        }
+    }
 }
 
 public struct AnySpliterator<T> : SpliteratorProtocol
@@ -25,7 +50,7 @@ public struct AnySpliterator<T> : SpliteratorProtocol
  
     private let box: AnySpliteratorBoxBase<T>
     
-    init<Spliterator: SpliteratorProtocol>(_ spliterator: Spliterator) where Spliterator.T == T
+    init<Spliterator: SpliteratorProtocol>(_ spliterator: Spliterator) where Spliterator.Element == T
     {
         box = AnySpliteratorBox(spliterator)
     }
@@ -45,12 +70,16 @@ public struct AnySpliterator<T> : SpliteratorProtocol
         return box.split()
     }
     
-    var options: StreamOptions {
-        return box.options
+    var estimatedSize: IntMax {
+        return box.estimatedSize
     }
     
-    var estimatedSize: Int {
-        return box.estimatedSize
+    var exactSize: IntMax? {
+        return box.exactSize
+    }
+    
+    var characteristics: SpliteratorCharacteristics {
+        return box.characteristics
     }
     
 }
@@ -68,38 +97,47 @@ class AnySpliteratorBoxBase<T>: SpliteratorProtocol {
         _abstract()
     }
     
-    var options: StreamOptions {
+    var estimatedSize: IntMax {
         _abstract()
     }
     
-    var estimatedSize: Int {
+    var exactSize: IntMax? {
+        _abstract()
+    }
+    
+    var characteristics: SpliteratorCharacteristics {
         _abstract()
     }
 }
 
-final class AnySpliteratorBox<Base: SpliteratorProtocol>: AnySpliteratorBoxBase<Base.T> {
+final class AnySpliteratorBox<Base: SpliteratorProtocol>: AnySpliteratorBoxBase<Base.Element> {
     private var base: Base
     init(_ base: Base)  {
         self.base = base
     }
     
-    override func advance() -> Base.T? {
+    override func advance() -> Base.Element? {
         return base.advance()
     }
     
-    override func forEachRemaining(_ each: (Base.T) -> Void) {
+    override func forEachRemaining(_ each: (Base.Element) -> Void) {
         base.forEachRemaining(each)
     }
     
-    override func split() -> AnySpliterator<Base.T>? {
+    override func split() -> AnySpliterator<Base.Element>? {
         return base.split()
     }
-    
-    override var options: StreamOptions {
-        return base.options
-    }
-    
-    override var estimatedSize: Int {
+
+    override var estimatedSize: IntMax {
         return base.estimatedSize
     }
+    
+    override var exactSize: IntMax? {
+        return base.exactSize
+    }
+    
+    override var characteristics: SpliteratorCharacteristics {
+        return base.characteristics
+    }
+
 }

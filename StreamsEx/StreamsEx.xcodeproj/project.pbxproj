@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		432C20F31033E58C0E669BD0 /* Pods_StreamsExTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C907ADD8E31DEC43DE4435 /* Pods_StreamsExTests.framework */; };
+		47079F5F1E44EEA3008DDAF7 /* ArraySpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47079F5E1E44EEA3008DDAF7 /* ArraySpliterator.swift */; };
+		47079F611E4501BD008DDAF7 /* SetSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47079F601E4501BD008DDAF7 /* SetSpliterator.swift */; };
 		47959B711E2B96F5007E0DFB /* Collection+Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B701E2B96F5007E0DFB /* Collection+Stream.swift */; };
 		47959B761E2BE447007E0DFB /* SlicePipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B751E2BE447007E0DFB /* SlicePipelineStage.swift */; };
 		47959B7A1E2E86CA007E0DFB /* ReduceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B791E2E86CA007E0DFB /* ReduceTests.swift */; };
@@ -24,13 +26,11 @@
 		B3A0CCA31E28F95600E36037 /* StreamsEx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A0CC991E28F95600E36037 /* StreamsEx.framework */; };
 		B3A0CCA81E28F95600E36037 /* StreamsExTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCA71E28F95600E36037 /* StreamsExTests.swift */; };
 		B3A0CCAA1E28F95600E36037 /* StreamsEx.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A0CC9C1E28F95600E36037 /* StreamsEx.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B3A0CCCD1E28F9D900E36037 /* ConcatSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCC51E28F9D900E36037 /* ConcatSpliterator.swift */; };
 		B3A0CCCE1E28F9D900E36037 /* EmptySpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCC61E28F9D900E36037 /* EmptySpliterator.swift */; };
-		B3A0CCCF1E28F9D900E36037 /* IteratorSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCC71E28F9D900E36037 /* IteratorSpliterator.swift */; };
-		B3A0CCD11E28F9D900E36037 /* RandomAccessCollectionSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCC91E28F9D900E36037 /* RandomAccessCollectionSpliterator.swift */; };
+		B3A0CCD11E28F9D900E36037 /* CollectionSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCC91E28F9D900E36037 /* CollectionSpliterator.swift */; };
 		B3A0CCD31E28F9D900E36037 /* Spliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCCB1E28F9D900E36037 /* Spliterator.swift */; };
 		B3A0CCD41E28F9D900E36037 /* UntypedSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCCC1E28F9D900E36037 /* UntypedSpliterator.swift */; };
-		B3A0CCD51E28F9DD00E36037 /* RandomAccessCollectionSpliteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCCA1E28F9D900E36037 /* RandomAccessCollectionSpliteratorTests.swift */; };
+		B3A0CCD51E28F9DD00E36037 /* CollectionSpliteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCCA1E28F9D900E36037 /* CollectionSpliteratorTests.swift */; };
 		B3A0CCD71E28FA1200E36037 /* StreamOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCD61E28FA1200E36037 /* StreamOptions.swift */; };
 		B3A0CCD91E28FA3100E36037 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCD81E28FA3100E36037 /* Utils.swift */; };
 		B3A0CCDB1E28FC3600E36037 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCDA1E28FC3600E36037 /* Stream.swift */; };
@@ -61,6 +61,8 @@
 /* Begin PBXFileReference section */
 		092780B97B9EC761B6D1D366 /* Pods-StreamsExTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamsExTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamsExTests/Pods-StreamsExTests.release.xcconfig"; sourceTree = "<group>"; };
 		3C00EDA3B46358BF9525946F /* Pods-StreamsExTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamsExTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StreamsExTests/Pods-StreamsExTests.debug.xcconfig"; sourceTree = "<group>"; };
+		47079F5E1E44EEA3008DDAF7 /* ArraySpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArraySpliterator.swift; sourceTree = "<group>"; };
+		47079F601E4501BD008DDAF7 /* SetSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetSpliterator.swift; sourceTree = "<group>"; };
 		47959B701E2B96F5007E0DFB /* Collection+Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Stream.swift"; sourceTree = "<group>"; };
 		47959B751E2BE447007E0DFB /* SlicePipelineStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlicePipelineStage.swift; sourceTree = "<group>"; };
 		47959B771E2BE62B007E0DFB /* SliceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceTests.swift; sourceTree = "<group>"; };
@@ -83,8 +85,8 @@
 		B3A0CCC61E28F9D900E36037 /* EmptySpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptySpliterator.swift; sourceTree = "<group>"; };
 		B3A0CCC71E28F9D900E36037 /* IteratorSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IteratorSpliterator.swift; sourceTree = "<group>"; };
 		B3A0CCC81E28F9D900E36037 /* PipelineWrappingSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineWrappingSpliterator.swift; sourceTree = "<group>"; };
-		B3A0CCC91E28F9D900E36037 /* RandomAccessCollectionSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessCollectionSpliterator.swift; sourceTree = "<group>"; };
-		B3A0CCCA1E28F9D900E36037 /* RandomAccessCollectionSpliteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomAccessCollectionSpliteratorTests.swift; sourceTree = "<group>"; };
+		B3A0CCC91E28F9D900E36037 /* CollectionSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionSpliterator.swift; sourceTree = "<group>"; };
+		B3A0CCCA1E28F9D900E36037 /* CollectionSpliteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionSpliteratorTests.swift; sourceTree = "<group>"; };
 		B3A0CCCB1E28F9D900E36037 /* Spliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spliterator.swift; sourceTree = "<group>"; };
 		B3A0CCCC1E28F9D900E36037 /* UntypedSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UntypedSpliterator.swift; sourceTree = "<group>"; };
 		B3A0CCD61E28FA1200E36037 /* StreamOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamOptions.swift; sourceTree = "<group>"; };
@@ -232,8 +234,10 @@
 				B3A0CCC61E28F9D900E36037 /* EmptySpliterator.swift */,
 				B3A0CCC71E28F9D900E36037 /* IteratorSpliterator.swift */,
 				B3A0CCC81E28F9D900E36037 /* PipelineWrappingSpliterator.swift */,
-				B3A0CCC91E28F9D900E36037 /* RandomAccessCollectionSpliterator.swift */,
-				B3A0CCCA1E28F9D900E36037 /* RandomAccessCollectionSpliteratorTests.swift */,
+				B3A0CCC91E28F9D900E36037 /* CollectionSpliterator.swift */,
+				47079F601E4501BD008DDAF7 /* SetSpliterator.swift */,
+				47079F5E1E44EEA3008DDAF7 /* ArraySpliterator.swift */,
+				B3A0CCCA1E28F9D900E36037 /* CollectionSpliteratorTests.swift */,
 				B3A0CCCB1E28F9D900E36037 /* Spliterator.swift */,
 				B3A0CCCC1E28F9D900E36037 /* UntypedSpliterator.swift */,
 				47DDC5141E3FB3380097FF81 /* DistinctSpliterator.swift */,
@@ -432,22 +436,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3A0CCCD1E28F9D900E36037 /* ConcatSpliterator.swift in Sources */,
 				B3196C931E3B6CF300BFE883 /* CollectionNode.swift in Sources */,
 				B3A0CCEF1E29067E00E36037 /* PipelineHead.swift in Sources */,
 				47DDC5151E3FB3380097FF81 /* DistinctSpliterator.swift in Sources */,
 				B3A0CCF31E290D2800E36037 /* TerminalOperation.swift in Sources */,
 				47DDC5171E3FB7450097FF81 /* CastingSpliterator.swift in Sources */,
-				B3A0CCD11E28F9D900E36037 /* RandomAccessCollectionSpliterator.swift in Sources */,
+				B3A0CCD11E28F9D900E36037 /* CollectionSpliterator.swift in Sources */,
 				B3A0CCE51E28FE7A00E36037 /* Sink.swift in Sources */,
 				B3A0CCD71E28FA1200E36037 /* StreamOptions.swift in Sources */,
 				B3A0CCE81E28FE7A00E36037 /* UntypedSinkFactory.swift in Sources */,
 				B3A0CCEA1E28FEBD00E36037 /* Consumer.swift in Sources */,
-				B3A0CCCF1E28F9D900E36037 /* IteratorSpliterator.swift in Sources */,
+				47079F5F1E44EEA3008DDAF7 /* ArraySpliterator.swift in Sources */,
 				B3196C911E3B6B9A00BFE883 /* Node.swift in Sources */,
 				B3A0CCDF1E28FD3800E36037 /* PipelineStage.swift in Sources */,
 				47DDC5131E3BB6100097FF81 /* PipelineWrappingSpliterator.swift in Sources */,
 				B3A0CCD41E28F9D900E36037 /* UntypedSpliterator.swift in Sources */,
+				47079F611E4501BD008DDAF7 /* SetSpliterator.swift in Sources */,
 				47DDC50D1E3BACBD0097FF81 /* DistinctPipelineStage.swift in Sources */,
 				B3A0CCD31E28F9D900E36037 /* Spliterator.swift in Sources */,
 				47959B711E2B96F5007E0DFB /* Collection+Stream.swift in Sources */,
@@ -471,7 +475,7 @@
 				47DDC50E1E3BACC50097FF81 /* SliceTests.swift in Sources */,
 				47DDC5101E3BACF50097FF81 /* DistinctTests.swift in Sources */,
 				B3A0CCF11E29097600E36037 /* StreamTests.swift in Sources */,
-				B3A0CCD51E28F9DD00E36037 /* RandomAccessCollectionSpliteratorTests.swift in Sources */,
+				B3A0CCD51E28F9DD00E36037 /* CollectionSpliteratorTests.swift in Sources */,
 				47DDC5191E410DA00097FF81 /* DistinctBenchmarks.swift in Sources */,
 				B3A0CCA81E28F95600E36037 /* StreamsExTests.swift in Sources */,
 				47959B7A1E2E86CA007E0DFB /* ReduceTests.swift in Sources */,

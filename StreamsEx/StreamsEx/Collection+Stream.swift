@@ -8,7 +8,12 @@
 
 import Foundation
 
-public extension RandomAccessCollection {
+public protocol SplitableCollection : Collection  {
+    var spliterator: AnySpliterator<Self.Iterator.Element> { get }
+}
+
+
+public extension Collection where Self : SplitableCollection {
     var stream: Stream<Self.Iterator.Element> {
         
         return PipelineHead<Self.Iterator.Element>(source: self.spliterator, characteristics: [.ordered, .sized], parallel: false)
@@ -18,9 +23,12 @@ public extension RandomAccessCollection {
         
         return PipelineHead<Self.Iterator.Element>(source: self.spliterator, characteristics: [.ordered, .sized], parallel: true)
     }
-    
-    
-    internal var spliterator: AnySpliterator<Self.Iterator.Element> {
-        return AnySpliterator(RandomAccessCollectionSpliterator(collection: self, options: StreamOptions()))
+}
+
+extension Array : SplitableCollection {
+    public var spliterator: AnySpliterator<Element> {
+        let spliterator = ArraySpliterator<Element>(array: self)
+        return AnySpliterator(spliterator)
     }
 }
+

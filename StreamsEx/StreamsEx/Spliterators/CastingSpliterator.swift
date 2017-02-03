@@ -25,14 +25,17 @@ struct CastingSpliterator<Origin, T> : SpliteratorProtocol {
         } else {
             return nil
         }
-        
     }
     
-    var options: StreamOptions {
-        return spliterator.options
-    }
-    
-    var estimatedSize: Int {
+    var estimatedSize: IntMax {
         return spliterator.estimatedSize
+    }
+    
+    var exactSize: IntMax? {
+        return spliterator.exactSize
+    }
+    
+    var characteristics: SpliteratorCharacteristics {
+        return spliterator.characteristics
     }
 }
