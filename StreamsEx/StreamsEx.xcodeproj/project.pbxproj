@@ -27,7 +27,6 @@
 		B3A0CCA81E28F95600E36037 /* StreamsExTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCA71E28F95600E36037 /* StreamsExTests.swift */; };
 		B3A0CCAA1E28F95600E36037 /* StreamsEx.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A0CC9C1E28F95600E36037 /* StreamsEx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3A0CCCE1E28F9D900E36037 /* EmptySpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCC61E28F9D900E36037 /* EmptySpliterator.swift */; };
-		B3A0CCD11E28F9D900E36037 /* CollectionSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCC91E28F9D900E36037 /* CollectionSpliterator.swift */; };
 		B3A0CCD31E28F9D900E36037 /* Spliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCCB1E28F9D900E36037 /* Spliterator.swift */; };
 		B3A0CCD41E28F9D900E36037 /* UntypedSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCCC1E28F9D900E36037 /* UntypedSpliterator.swift */; };
 		B3A0CCD51E28F9DD00E36037 /* CollectionSpliteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCCA1E28F9D900E36037 /* CollectionSpliteratorTests.swift */; };
@@ -85,7 +84,6 @@
 		B3A0CCC61E28F9D900E36037 /* EmptySpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptySpliterator.swift; sourceTree = "<group>"; };
 		B3A0CCC71E28F9D900E36037 /* IteratorSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IteratorSpliterator.swift; sourceTree = "<group>"; };
 		B3A0CCC81E28F9D900E36037 /* PipelineWrappingSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipelineWrappingSpliterator.swift; sourceTree = "<group>"; };
-		B3A0CCC91E28F9D900E36037 /* CollectionSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionSpliterator.swift; sourceTree = "<group>"; };
 		B3A0CCCA1E28F9D900E36037 /* CollectionSpliteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionSpliteratorTests.swift; sourceTree = "<group>"; };
 		B3A0CCCB1E28F9D900E36037 /* Spliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spliterator.swift; sourceTree = "<group>"; };
 		B3A0CCCC1E28F9D900E36037 /* UntypedSpliterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UntypedSpliterator.swift; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 				B3A0CCC61E28F9D900E36037 /* EmptySpliterator.swift */,
 				B3A0CCC71E28F9D900E36037 /* IteratorSpliterator.swift */,
 				B3A0CCC81E28F9D900E36037 /* PipelineWrappingSpliterator.swift */,
-				B3A0CCC91E28F9D900E36037 /* CollectionSpliterator.swift */,
 				47079F601E4501BD008DDAF7 /* SetSpliterator.swift */,
 				47079F5E1E44EEA3008DDAF7 /* ArraySpliterator.swift */,
 				B3A0CCCA1E28F9D900E36037 /* CollectionSpliteratorTests.swift */,
@@ -441,7 +438,6 @@
 				47DDC5151E3FB3380097FF81 /* DistinctSpliterator.swift in Sources */,
 				B3A0CCF31E290D2800E36037 /* TerminalOperation.swift in Sources */,
 				47DDC5171E3FB7450097FF81 /* CastingSpliterator.swift in Sources */,
-				B3A0CCD11E28F9D900E36037 /* CollectionSpliterator.swift in Sources */,
 				B3A0CCE51E28FE7A00E36037 /* Sink.swift in Sources */,
 				B3A0CCD71E28FA1200E36037 /* StreamOptions.swift in Sources */,
 				B3A0CCE81E28FE7A00E36037 /* UntypedSinkFactory.swift in Sources */,
