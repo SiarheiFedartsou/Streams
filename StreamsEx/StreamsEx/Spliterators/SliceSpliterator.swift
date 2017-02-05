@@ -17,7 +17,7 @@ struct SliceSpliterator<T> : SpliteratorProtocol {
     
     
     init(spliterator: AnySpliterator<T>, sliceOrigin: IntMax, sliceFence: IntMax, origin: IntMax, fence: IntMax) {
-        assert(spliterator.characteristics.contains(.subsized))
+       // assert(spliterator.characteristics.contains(.subsized))
         
         self.spliterator = spliterator
         self.sliceOrigin = sliceOrigin
@@ -25,6 +25,12 @@ struct SliceSpliterator<T> : SpliteratorProtocol {
         self.index = origin
         self.fence = fence
     }
+    
+    
+    init(spliterator: AnySpliterator<T>, sliceOrigin: IntMax, sliceFence: IntMax) {
+        self.init(spliterator: spliterator, sliceOrigin: sliceOrigin, sliceFence: sliceFence, origin: 0, fence: max(spliterator.estimatedSize, sliceFence))
+    }
+    
     
     mutating func advance() -> T? {
         if sliceOrigin >= fence {

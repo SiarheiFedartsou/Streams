@@ -23,7 +23,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     }
     
     public func slice(_ bounds: ClosedRange<IntMax>) -> Stream<T> {
-        return SlicePipelineStage(previousStage: self, bounds: bounds)
+        return SlicePipelineStage(previousStage: self, skip: bounds.lowerBound, limit: bounds.upperBound - bounds.lowerBound)
     }
     
     public func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T

@@ -47,20 +47,34 @@ final class SlicePipelineStageSink<T> : SinkProtocol {
 
 final class SlicePipelineStage<T> : PipelineStage<T, T>
 {
-    private let bounds: ClosedRange<IntMax>
+    private let skip: IntMax
+    private let limit: IntMax
     
-    
-    init(previousStage: UntypedPipelineStageProtocol, bounds: ClosedRange<IntMax>)
+    init(previousStage: UntypedPipelineStageProtocol, skip: IntMax, limit: IntMax)
     {
-        self.bounds = bounds
+        self.skip = skip
+        self.limit = limit
         super.init(previousStage: previousStage)
     }
     
     override func makeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
-        return UntypedSink(SlicePipelineStageSink<T>(nextSink: nextSink, skip: bounds.lowerBound, limit: bounds.upperBound - bounds.lowerBound))
+        return UntypedSink(SlicePipelineStageSink<T>(nextSink: nextSink, skip: skip, limit: limit))
     }
     
     override var isStateful: Bool {
         return true
+    }
+    
+    private func sliceFence(fromSkip skip: IntMax, limit: IntMax) -> IntMax {
+        let sliceFence = limit >= 0 ? skip + limit : IntMax.max
+        return sliceFence >= 0 ? sliceFence : IntMax.max
+    }
+    
+    override func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
+        let spliterator = AnySpliterator(CastingSpliterator<Any, T>(spliterator: stage.wrap(spliterator: spliterator)))
+        let sliceSpliterator = SliceSpliterator(spliterator: spliterator, sliceOrigin: skip, sliceFence: sliceFence(fromSkip: skip, limit: limit))
+        
+        let castingSpliterator = CastingSpliterator<T, Any>(spliterator: AnySpliterator(sliceSpliterator))
+        return AnySpliterator(castingSpliterator)
     }
 }
