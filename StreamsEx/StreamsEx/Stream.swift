@@ -28,9 +28,15 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     
     public func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T
     {
-        return evaluate(terminalOperation: ReduceTerminalOperation(identity: identity, accumulator: accumulator))
+        return evaluate(terminalOperation: ReduceTerminalOperation(identity: identity, accumulator: accumulator, combiner: accumulator))
     }
 
+    public func reduce<U>(identity: U, accumulator: @escaping (U, T) -> U, combiner: @escaping (U, U) -> U) -> U
+    {
+        return evaluate(terminalOperation: ReduceTerminalOperation(identity: identity, accumulator: accumulator, combiner: combiner))
+    }
+
+    
     public func parallel() -> Stream<T> {
         self.isParallel = true
         return self

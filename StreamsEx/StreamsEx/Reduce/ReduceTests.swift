@@ -40,4 +40,25 @@ class ReduceTests: XCTestCase {
         expect(sum).to(equal(42 * 42 + 1))
     }
     
+    
+    func testThatReduceWithCombinerWorksInParallelStreams() {
+        // given
+        let array = [Int](repeating: 42, count: 1024)
+        
+        // when
+        let result = array.parallelStream
+            .map { $0 * $0 }
+            .reduce(identity: [Int](), accumulator: { (container, element) in
+                var result = container
+                result.append(element)
+                return result
+            }, combiner: { (containerA, containerB) in
+                var result = containerA
+                result.append(contentsOf: containerB)
+                return result
+            })
+        
+        // then
+        expect(result).to(equal([Int](repeating: 42 * 42, count: 1024)))
+    }
 }

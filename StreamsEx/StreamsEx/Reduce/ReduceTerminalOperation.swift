@@ -6,12 +6,12 @@
 //  Copyright © 2017 Sergey Fedortsov. All rights reserved.
 //
 
-final class ReduceSink<T> : SinkProtocol {
+final class ReduceSink<U, T> : SinkProtocol {
     
-    private var identity: T
-    private let accumulator: (T, T) -> T
+    private var identity: U
+    private let accumulator: (U, T) -> U
     
-    init(identity: T, accumulator: @escaping (T, T) -> T) {
+    init(identity: U, accumulator: @escaping (U, T) -> U) {
         self.identity = identity
         self.accumulator = accumulator
     }
@@ -32,37 +32,37 @@ final class ReduceSink<T> : SinkProtocol {
         identity = accumulator(identity, element)
     }
     
-    var result: T {
+    var result: U {
         return identity
     }
 }
 
-final class ReduceTask<T> {
+final class ReduceTask<U, T> {
     
-    let operation: ReduceTerminalOperation<T>
+    let operation: ReduceTerminalOperation<U, T>
     let stage: UntypedPipelineStageProtocol
     var spliterator: AnySpliterator<Any>
     
-    init(operation: ReduceTerminalOperation<T>, stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) {
+    init(operation: ReduceTerminalOperation<U, T>, stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) {
         self.operation = operation
         self.stage = stage
         self.spliterator = spliterator
     }
     
-    func invoke() -> T {
+    func invoke() -> U {
         if let splitted = spliterator.split() {
-            var result1: T? = nil
-            var result2: T? = nil
+            var result1: U? = nil
+            var result2: U? = nil
 
             DispatchQueue.concurrentPerform(iterations: 2, execute: { iteration in
                 if iteration == 0 {
-                    result1 = ReduceTask<T>(operation: self.operation, stage: self.stage, spliterator: splitted).invoke()
+                    result1 = ReduceTask<U, T>(operation: self.operation, stage: self.stage, spliterator: splitted).invoke()
                 } else {
-                    result2 = ReduceTask<T>(operation: self.operation, stage: self.stage, spliterator: spliterator).invoke()
+                    result2 = ReduceTask<U, T>(operation: self.operation, stage: self.stage, spliterator: spliterator).invoke()
                 }
             })
             
-            return operation.accumulator(result1!, result2!)
+            return operation.combiner(result1!, result2!)
         } else {
             let reduceSink = operation.makeSink()
             let sink = stage.wrap(sink: UntypedSink(reduceSink))
@@ -74,21 +74,23 @@ final class ReduceTask<T> {
     }
 }
 
-final class ReduceTerminalOperation<T> : TerminalOperationProtocol {
+final class ReduceTerminalOperation<U, T> : TerminalOperationProtocol {
     
-    let identity: T
-    let accumulator: (T, T) -> T
+    let identity: U
+    let accumulator: (U, T) -> U
+    let combiner: (U, U) -> U
     
-    init(identity: T, accumulator: @escaping (T, T) -> T) {
+    init(identity: U, accumulator: @escaping (U, T) -> U, combiner: @escaping (U, U) -> U) {
         self.identity = identity
         self.accumulator = accumulator
+        self.combiner = combiner
     }
     
-    func evaluateParallel(forPipelineStage stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> T {
+    func evaluateParallel(forPipelineStage stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> U {
         return ReduceTask(operation: self, stage: stage, spliterator: spliterator).invoke()
     }
     
-    func evaluateSequential(forPipelineStage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> T {
+    func evaluateSequential(forPipelineStage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> U {
         var spliterator = spliterator
         let reduceSink = makeSink()
         let sink = forPipelineStage.wrap(sink: UntypedSink(reduceSink))
@@ -98,7 +100,7 @@ final class ReduceTerminalOperation<T> : TerminalOperationProtocol {
         return reduceSink.result
     }
     
-    fileprivate func makeSink() -> ReduceSink<T> {
+    fileprivate func makeSink() -> ReduceSink<U, T> {
         return ReduceSink(identity: identity, accumulator: accumulator)
     }
 }
