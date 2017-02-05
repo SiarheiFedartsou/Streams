@@ -21,10 +21,10 @@ class DistinctBenchmarks: XCTestCase {
         
         var sum: Int = 0
         self.measure {
-            sum = array.stream.map {
+            sum = array.stream/*.map {
                 usleep(1)
                 return $0
-            }.distinct().reduce(identity: 0, accumulator: +)
+            }*/.distinct().reduce(identity: 0, accumulator: +)
         }
         
         expect(sum).to(equal(55))
@@ -39,10 +39,10 @@ class DistinctBenchmarks: XCTestCase {
         
         var sum: Int = 0
         self.measure {
-            sum = array.parallelStream.map {
+            sum = array.parallelStream/*.map {
                 usleep(1)
                 return $0
-            }.distinct().reduce(identity: 0, accumulator: +)
+            }*/.distinct().reduce(identity: 0, accumulator: +)
         }
         
         expect(sum).to(equal(55))

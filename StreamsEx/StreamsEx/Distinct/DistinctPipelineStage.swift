@@ -53,6 +53,22 @@ final class DistinctPipelineStage<T: Hashable> : PipelineStage<T, T>
     }
     
     override func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
+        
+//        let reduceOperation = ReduceTerminalOperation<OrderedSet<T>, T>(identity: OrderedSet<T>(), accumulator: { (set, element) in
+//            var result = set
+//            result.append(element)
+//            return result
+//        }, combiner: { (setA, setB)  in
+//            var result = setA
+//            result.append(contentsOf: setB)
+//            return result
+//        })
+//        
+//        let distinctArray = stage.evaluate(terminalOperation: reduceOperation).array
+//        let castingSpliterator = CastingSpliterator<T, Any>(spliterator: distinctArray.spliterator)
+//        return AnySpliterator(castingSpliterator)
+//        
+//
         let spliterator = CastingSpliterator<Any, T>(spliterator: stage.wrap(spliterator: spliterator))
         let distinctSpliterator = DistinctSpliterator(spliterator: spliterator)
         let castingSpliterator = CastingSpliterator<T, Any>(spliterator: AnySpliterator(distinctSpliterator))

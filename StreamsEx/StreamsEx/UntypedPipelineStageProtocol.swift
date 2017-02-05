@@ -20,4 +20,6 @@ internal protocol UntypedPipelineStageProtocol : class {
     func wrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol
     func makeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol
     func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any>
+    
+    func evaluate<R, TerminalOperation: TerminalOperationProtocol>(terminalOperation: TerminalOperation) -> R where TerminalOperation.Result == R
 }

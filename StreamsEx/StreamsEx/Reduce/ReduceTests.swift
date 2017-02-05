@@ -42,6 +42,7 @@ class ReduceTests: XCTestCase {
     
     
     func testThatReduceWithCombinerWorksInParallelStreams() {
+        
         // given
         let array = [Int](repeating: 42, count: 1024)
         
