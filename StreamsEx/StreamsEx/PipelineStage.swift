@@ -15,6 +15,7 @@ class PipelineStage<In, Out> : Stream<Out> {
         self.sourceSpliterator = previousStage?.sourceSpliterator
         if let previousStage = previousStage {
             self.isParallel = previousStage.isParallel
+            self.depth = previousStage.depth + 1
         }
     }
 }

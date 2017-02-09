@@ -79,7 +79,7 @@ struct SliceSpliterator<T> : SpliteratorProtocol {
         
         while true {
             guard let leftSplit = spliterator.split() else { return nil }
-            
+
             let leftSplitFenceUnbounded = index + leftSplit.estimatedSize
             let leftSplitFence = min(leftSplitFenceUnbounded, sliceFence)
             if sliceOrigin >= leftSplitFence {

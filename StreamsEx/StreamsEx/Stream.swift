@@ -55,6 +55,8 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     var sourceStage: UntypedPipelineStageProtocol? = nil
     var sourceSpliterator: AnySpliterator<Any>? = nil
     
+    var depth: Int = 0
+    
     var isStateful: Bool {
         return false
     }
@@ -63,7 +65,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     func wrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         var _sink = sink;
         var stage: UntypedPipelineStageProtocol? = self
-        while let currentStage = stage {
+        while let currentStage = stage, currentStage.depth > 0 {
             _sink = currentStage.makeSink(withNextSink: _sink)
             stage = currentStage.previousStage
         }
@@ -105,10 +107,17 @@ public class Stream<T> : UntypedPipelineStageProtocol {
         if isParallel {
             var currentStage: UntypedPipelineStageProtocol = sourceStage
             var nextStage: UntypedPipelineStageProtocol? = sourceStage.nextStage
+            var depth = 1
             while currentStage !== self, let next = nextStage {
                 if next.isStateful {
+                    depth = 0
                     spliterator = next.evaluateParallelLazy(stage: currentStage, spliterator: spliterator)
                 }
+                
+                nextStage?.depth = depth
+                depth += 1
+                
+                
                 currentStage = next
                 nextStage = next.nextStage
             }

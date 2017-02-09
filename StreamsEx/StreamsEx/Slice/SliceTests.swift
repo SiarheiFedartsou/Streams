@@ -27,14 +27,14 @@ class SliceTests: XCTestCase {
     
     func testThatSliceWorksInParallel() {
         // given
-        let array = [Int](repeating: 42, count: 1_000_000_000)
+        let array = [Int](repeating: 42, count: 100_000)
         
         
         // when
         let sum = array.parallelStream.slice(10000...50000).reduce(identity: 0, accumulator: +)
         
         // then
-        expect(sum).to(equal(162))
+        expect(sum).to(equal(1680000))
     }
     
 }
