@@ -41,7 +41,7 @@ struct ArraySpliterator<T> : SpliteratorProtocol  {
     }
     
     var estimatedSize: IntMax {
-        return IntMax(array.count)
+        return IntMax(fence - index)
     }
     
     mutating func split() -> AnySpliterator<T>? {
