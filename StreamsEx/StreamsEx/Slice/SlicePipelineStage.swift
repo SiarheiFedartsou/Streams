@@ -50,11 +50,11 @@ final class SlicePipelineStage<T> : PipelineStage<T, T>
     private let skip: IntMax
     private let limit: IntMax
     
-    init(previousStage: UntypedPipelineStageProtocol, skip: IntMax, limit: IntMax)
+    init(previousStage: UntypedPipelineStageProtocol, stageFlags: StreamFlags, skip: IntMax, limit: IntMax)
     {
         self.skip = skip
         self.limit = limit
-        super.init(previousStage: previousStage)
+        super.init(previousStage: previousStage, stageFlags: stageFlags)
     }
     
     override func makeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {

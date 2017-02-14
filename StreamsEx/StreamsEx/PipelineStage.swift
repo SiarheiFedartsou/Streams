@@ -7,9 +7,11 @@
 //
 
 class PipelineStage<In, Out> : Stream<Out> {
-    init(previousStage: UntypedPipelineStageProtocol?) {
+    init(previousStage: UntypedPipelineStageProtocol?, stageFlags: StreamFlags) {
         super.init()
         previousStage?.nextStage = self
+        self.stageFlags = stageFlags
+        
         self.previousStage = previousStage
         self.sourceStage = previousStage?.sourceStage
         self.sourceSpliterator = previousStage?.sourceSpliterator

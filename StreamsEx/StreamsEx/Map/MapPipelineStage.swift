@@ -34,10 +34,10 @@ class MapPipelineStage<In, Out> : PipelineStage<In, Out>
     let mapper: (In) -> Out
     
     
-    init(previousStage: UntypedPipelineStageProtocol, mapper: @escaping (In) -> Out)
+    init(previousStage: UntypedPipelineStageProtocol, stageFlags: StreamFlags, mapper: @escaping (In) -> Out)
     {
         self.mapper = mapper
-        super.init(previousStage: previousStage)
+        super.init(previousStage: previousStage, stageFlags: stageFlags)
     }
     
     override func makeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {

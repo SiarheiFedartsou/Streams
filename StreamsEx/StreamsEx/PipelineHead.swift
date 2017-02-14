@@ -30,9 +30,9 @@ final class PipelineHead<T> : PipelineStage<T, T>
 {
 
     
-    init(source: AnySpliterator<T>, characteristics: SpliteratorCharacteristics, parallel: Bool)
+    init(source: AnySpliterator<T>, flags: StreamFlags, parallel: Bool)
     {
-        super.init(previousStage: nil)
+        super.init(previousStage: nil, stageFlags: flags)
         self.sourceSpliterator = AnySpliterator(CastingSpliterator<T, Any>(spliterator: source))
         self.sourceStage = self
         self.isParallel = parallel

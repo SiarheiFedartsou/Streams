@@ -39,10 +39,6 @@ final class DistinctPipelineStageSink<T: Hashable> : SinkProtocol {
 
 final class DistinctPipelineStage<T: Hashable> : PipelineStage<T, T>
 {
-    init(previousStage: UntypedPipelineStageProtocol)
-    {
-        super.init(previousStage: previousStage)
-    }
     
     override func makeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         return UntypedSink(DistinctPipelineStageSink<T>(nextSink: nextSink))
