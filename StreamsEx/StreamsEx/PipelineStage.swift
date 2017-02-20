@@ -7,10 +7,11 @@
 //
 
 class PipelineStage<In, Out> : Stream<Out> {
-    init(previousStage: UntypedPipelineStageProtocol?, stageFlags: StreamFlags) {
+    init(previousStage: UntypedPipelineStageProtocol?, stageFlags: StreamFlagsModifiers) {
         super.init()
         previousStage?.nextStage = self
         self.stageFlags = stageFlags
+        
         
         self.previousStage = previousStage
         self.sourceStage = previousStage?.sourceStage
@@ -18,6 +19,9 @@ class PipelineStage<In, Out> : Stream<Out> {
         if let previousStage = previousStage {
             self.isParallel = previousStage.isParallel
             self.depth = previousStage.depth + 1
+            self.combinedFlags = previousStage.combinedFlags.applying(modifiers: stageFlags)
+        } else {
+            self.combinedFlags = StreamFlags(modifiers: stageFlags)
         }
     }
 }

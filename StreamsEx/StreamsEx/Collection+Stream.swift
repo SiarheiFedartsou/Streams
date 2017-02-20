@@ -16,18 +16,25 @@ public protocol SplitableCollection : Collection  {
 public extension Collection where Self : SplitableCollection {
     var stream: Stream<Self.Iterator.Element> {
         
-        return PipelineHead<Self.Iterator.Element>(source: spliterator, flags: StreamFlags(characteristics: spliterator.characteristics), parallel: false)
+        return PipelineHead<Self.Iterator.Element>(source: spliterator, flags: StreamFlagsModifiers(characteristics: spliterator.characteristics), parallel: false)
     }
     
     var parallelStream: Stream<Self.Iterator.Element> {
         
-        return PipelineHead<Self.Iterator.Element>(source: spliterator, flags: StreamFlags(characteristics: spliterator.characteristics), parallel: true)
+        return PipelineHead<Self.Iterator.Element>(source: spliterator, flags: StreamFlagsModifiers(characteristics: spliterator.characteristics), parallel: true)
     }
 }
 
 extension Array : SplitableCollection {
     public var spliterator: AnySpliterator<Element> {
         let spliterator = ArraySpliterator<Element>(array: self)
+        return AnySpliterator(spliterator)
+    }
+}
+
+extension Set : SplitableCollection {
+    public var spliterator: AnySpliterator<Element> {
+        let spliterator = SetSpliterator<Element>(set: self)
         return AnySpliterator(spliterator)
     }
 }

@@ -19,7 +19,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     }
     
     public func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R> {
-        return MapPipelineStage(previousStage: self, stageFlags: [], mapper: mapper)
+        return MapPipelineStage(previousStage: self, stageFlags: [.notSorted, .notDistinct], mapper: mapper)
     }
     
     public func slice(_ bounds: ClosedRange<IntMax>) -> Stream<T> {
@@ -34,6 +34,14 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     public func reduce<U>(identity: U, accumulator: @escaping (U, T) -> U, combiner: @escaping (U, U) -> U) -> U
     {
         return evaluate(terminalOperation: ReduceTerminalOperation(identity: identity, accumulator: accumulator, combiner: combiner))
+    }
+    
+    public func unordered() -> Stream<T> {
+        return FlagModifyingPipelineStage(previousStage: self, flags: [.notOrdered])
+    }
+    
+    public var isOrdered: Bool {
+        return self.combinedFlags.contains(.ordered)
     }
 
     
@@ -55,7 +63,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     var sourceStage: UntypedPipelineStageProtocol? = nil
     var sourceSpliterator: AnySpliterator<Any>? = nil
     
-    var stageFlags = StreamFlags()
+    var stageFlags = StreamFlagsModifiers()
     var combinedFlags = StreamFlags()
     
     var depth: Int = 0
@@ -131,9 +139,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
 }
 
 extension Stream where T : Hashable {
-    
     public func distinct() -> Stream<T> {
-        return DistinctPipelineStage(previousStage: self, stageFlags: [])
+        return DistinctPipelineStage(previousStage: self, stageFlags: [.distinct, .notSized])
     }
-    
 }

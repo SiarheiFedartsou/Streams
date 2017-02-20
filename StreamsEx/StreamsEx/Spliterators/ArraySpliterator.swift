@@ -28,7 +28,7 @@ struct ArraySpliterator<T> : SpliteratorProtocol  {
         self.index = origin
         self.fence = fence
         
-        self.characteristics = [.sized, .subsized]
+        self.characteristics = [.ordered, .sized, .subsized]
     }
     
     

@@ -27,7 +27,7 @@ class StreamTests: XCTestCase {
         }
         
         let spliterator = ArraySpliterator(array: [Int]())
-        let stream = PipelineHead(source: AnySpliterator(spliterator), flags: StreamFlags(), parallel: false).map { $0 * $0 }.map { $0 + 1 }
+        let stream = PipelineHead(source: AnySpliterator(spliterator), flags: StreamFlagsModifiers(), parallel: false).map { $0 * $0 }.map { $0 + 1 }
         
         let testSink = TestSink()
         

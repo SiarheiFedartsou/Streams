@@ -25,6 +25,8 @@ struct SetSpliterator<T: Hashable> : SpliteratorProtocol {
     }
     
     mutating func advance() -> T? {
+        if index == fence { return nil }
+        
         let element = set[index]
         set.formIndex(after: &index)
         return element

@@ -17,6 +17,8 @@
 		47959B761E2BE447007E0DFB /* SlicePipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B751E2BE447007E0DFB /* SlicePipelineStage.swift */; };
 		47959B7A1E2E86CA007E0DFB /* ReduceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B791E2E86CA007E0DFB /* ReduceTests.swift */; };
 		47D9D5F81E536D06001F23CA /* StreamFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9D5F71E536D06001F23CA /* StreamFlags.swift */; };
+		47D9D5FA1E5B640A001F23CA /* FlagModifyingStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9D5F91E5B640A001F23CA /* FlagModifyingStage.swift */; };
+		47D9D5FC1E5B64B5001F23CA /* OrderedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9D5FB1E5B64B5001F23CA /* OrderedTests.swift */; };
 		47DDC50D1E3BACBD0097FF81 /* DistinctPipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DDC50C1E3BACBD0097FF81 /* DistinctPipelineStage.swift */; };
 		47DDC50E1E3BACC50097FF81 /* SliceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B771E2BE62B007E0DFB /* SliceTests.swift */; };
 		47DDC5101E3BACF50097FF81 /* DistinctTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DDC50F1E3BACF50097FF81 /* DistinctTests.swift */; };
@@ -73,6 +75,8 @@
 		47959B771E2BE62B007E0DFB /* SliceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceTests.swift; sourceTree = "<group>"; };
 		47959B791E2E86CA007E0DFB /* ReduceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReduceTests.swift; sourceTree = "<group>"; };
 		47D9D5F71E536D06001F23CA /* StreamFlags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamFlags.swift; sourceTree = "<group>"; };
+		47D9D5F91E5B640A001F23CA /* FlagModifyingStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagModifyingStage.swift; sourceTree = "<group>"; };
+		47D9D5FB1E5B64B5001F23CA /* OrderedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderedTests.swift; sourceTree = "<group>"; };
 		47DDC50C1E3BACBD0097FF81 /* DistinctPipelineStage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistinctPipelineStage.swift; sourceTree = "<group>"; };
 		47DDC50F1E3BACF50097FF81 /* DistinctTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistinctTests.swift; sourceTree = "<group>"; };
 		47DDC5111E3BB3350097FF81 /* UntypedNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UntypedNode.swift; sourceTree = "<group>"; };
@@ -228,6 +232,8 @@
 				B3A0CCEE1E29067E00E36037 /* PipelineHead.swift */,
 				B3A0CCF01E29097600E36037 /* StreamTests.swift */,
 				B3A0CCF21E290D2800E36037 /* TerminalOperation.swift */,
+				47D9D5F91E5B640A001F23CA /* FlagModifyingStage.swift */,
+				47D9D5FB1E5B64B5001F23CA /* OrderedTests.swift */,
 			);
 			path = StreamsEx;
 			sourceTree = "<group>";
@@ -454,6 +460,7 @@
 				B3A0CCEF1E29067E00E36037 /* PipelineHead.swift in Sources */,
 				47DDC5151E3FB3380097FF81 /* DistinctSpliterator.swift in Sources */,
 				B3A0CCF31E290D2800E36037 /* TerminalOperation.swift in Sources */,
+				47D9D5FA1E5B640A001F23CA /* FlagModifyingStage.swift in Sources */,
 				47DDC5171E3FB7450097FF81 /* CastingSpliterator.swift in Sources */,
 				B3A0CCE51E28FE7A00E36037 /* Sink.swift in Sources */,
 				47079F681E474014008DDAF7 /* OrderedSet.swift in Sources */,
@@ -494,6 +501,7 @@
 				47DDC5191E410DA00097FF81 /* DistinctBenchmarks.swift in Sources */,
 				B3A0CCA81E28F95600E36037 /* StreamsExTests.swift in Sources */,
 				4781E4091E4CDD5300058303 /* SliceBenchmarks.swift in Sources */,
+				47D9D5FC1E5B64B5001F23CA /* OrderedTests.swift in Sources */,
 				47959B7A1E2E86CA007E0DFB /* ReduceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

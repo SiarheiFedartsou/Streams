@@ -18,6 +18,8 @@ internal protocol UntypedPipelineStageProtocol : class {
     
     var depth: Int { get set }
     
+    var combinedFlags: StreamFlags { get set }
+    
     func wrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any>
     func wrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol
     func makeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol

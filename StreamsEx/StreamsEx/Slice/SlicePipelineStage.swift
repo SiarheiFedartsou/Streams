@@ -50,7 +50,7 @@ final class SlicePipelineStage<T> : PipelineStage<T, T>
     private let skip: IntMax
     private let limit: IntMax
     
-    init(previousStage: UntypedPipelineStageProtocol, stageFlags: StreamFlags, skip: IntMax, limit: IntMax)
+    init(previousStage: UntypedPipelineStageProtocol, stageFlags: StreamFlagsModifiers, skip: IntMax, limit: IntMax)
     {
         self.skip = skip
         self.limit = limit
