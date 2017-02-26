@@ -74,13 +74,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     
     
     func wrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol {
-        var _sink = sink;
-        var stage: UntypedPipelineStageProtocol? = self
-        while let currentStage = stage, currentStage.depth > 0 {
-            _sink = currentStage.makeSink(withNextSink: _sink)
-            stage = currentStage.previousStage
-        }
-        return _sink;
+        _abstract()
     }
     
     func makeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
@@ -88,7 +82,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     }
     
     func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
-        return evaluateParallel(stage: stage, spliterator: spliterator).spliterator
+        _abstract()
     }
     
     func evaluateParallel(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> UntypedNodeProtocol {
@@ -97,44 +91,13 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     
     
     func wrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
-        return AnySpliterator(WrappingSpliterator(stage: self, spliterator: sourceSpliterator!, isParallel: isParallel))
+        _abstract()
     }
     
     
     
     func evaluate<R, TerminalOperation: TerminalOperationProtocol>(terminalOperation: TerminalOperation) -> R where TerminalOperation.Result == R {
-        return isParallel ? terminalOperation.evaluateParallel(forPipelineStage: self, spliterator: spliterator()) :  terminalOperation.evaluateSequential(forPipelineStage: self, spliterator: spliterator())
-    }
-    
-    private func spliterator() -> AnySpliterator<Any> {
-        guard let sourceStage = sourceStage else { fatalError() }
-        var spliterator: AnySpliterator<Any>
-        if let sourceSpliterator = sourceSpliterator {
-            spliterator = sourceSpliterator
-        } else {
-            fatalError()
-        }
-        
-        if isParallel {
-            var currentStage: UntypedPipelineStageProtocol = sourceStage
-            var nextStage: UntypedPipelineStageProtocol? = sourceStage.nextStage
-            var depth = 1
-            while currentStage !== self, let next = nextStage {
-                if next.isStateful {
-                    depth = 0
-                    spliterator = next.evaluateParallelLazy(stage: currentStage, spliterator: spliterator)
-                }
-                
-                nextStage?.depth = depth
-                depth += 1
-                
-                
-                currentStage = next
-                nextStage = next.nextStage
-            }
-        }
-        
-        return spliterator
+        _abstract()
     }
 }
 
