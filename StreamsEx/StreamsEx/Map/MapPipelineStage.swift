@@ -6,11 +6,33 @@
 //  Copyright © 2017 Sergey Fedortsov. All rights reserved.
 //
 
-final class MapPipelineStageSink<In, Out> : SinkProtocol {
+final class UnsafeMapPipelineStageSink<In, Out> : SinkProtocol {
     private let mapper: (In) -> (Out)
     private let nextSink: UntypedSinkProtocol
     
     init(nextSink: UntypedSinkProtocol, mapper: @escaping (In) -> Out) {
+        self.nextSink = nextSink
+        self.mapper = mapper
+    }
+    
+    func begin(size: Int) {
+        nextSink.begin(size: size)
+    }
+    
+    func consume(_ t: In) {
+        nextSink.consume(mapper(t))
+    }
+    
+    func end() {
+        nextSink.end()
+    }
+}
+
+final class MapPipelineStageSink<In, Out, NextSink: SinkProtocol> : SinkProtocol where NextSink.Consumable == Out {
+    private let mapper: (In) -> (Out)
+    private let nextSink: NextSink
+    
+    init(nextSink: NextSink, mapper: @escaping (In) -> Out)  {
         self.nextSink = nextSink
         self.mapper = mapper
     }
@@ -39,6 +61,10 @@ class MapPipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Pipeli
     }
     
     override func unsafeMakeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
-        return UntypedSink(MapPipelineStageSink(nextSink: nextSink, mapper: mapper))
+        return UntypedSink(UnsafeMapPipelineStageSink(nextSink: nextSink, mapper: mapper))
+    }
+    
+    override func makeSink<NextSink: SinkProtocol>(withNextSink nextSink: NextSink) -> AnySink<PipelineStageIn> where NextSink.Consumable == Out {
+        return AnySink(MapPipelineStageSink<In, Out, NextSink>(nextSink: nextSink, mapper: mapper))
     }
 }

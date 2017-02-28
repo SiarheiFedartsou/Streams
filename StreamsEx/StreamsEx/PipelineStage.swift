@@ -19,6 +19,9 @@ protocol PipelineStageProtocol {
     func wrap<Spliterator: SpliteratorProtocol>(spliterator: Spliterator) -> AnySpliterator<PipelineStageOut> where Spliterator.Element == PipelineStageIn
     func wrap<Sink: SinkProtocol>(sink: Sink) -> AnySink<PipelineStageIn> where Sink.Consumable == PipelineStageOut
     
+    func makeSink<NextSink: SinkProtocol>(withNextSink nextSink: NextSink) -> AnySink<PipelineStageIn> where NextSink.Consumable == PipelineStageOut
+    
+    
 }
 
 class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Out>, PipelineStageProtocol {
@@ -151,6 +154,10 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
     }
     
     func wrap<Sink: SinkProtocol>(sink: Sink) -> AnySink<PipelineStageIn> where Sink.Consumable == PipelineStageOut {
+        _abstract()
+    }
+    
+    func makeSink<NextSink: SinkProtocol>(withNextSink nextSink: NextSink) -> AnySink<PipelineStageIn> where NextSink.Consumable == PipelineStageOut {
         _abstract()
     }
 }
