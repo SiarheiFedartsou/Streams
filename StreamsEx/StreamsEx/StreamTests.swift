@@ -33,7 +33,7 @@ class StreamTests: XCTestCase {
         
         
         // when
-        let wrappedSink = stream.wrap(sink: testSink)
+        let wrappedSink = stream.unsafeWrap(sink: testSink)
         
         for n in 1...5 {
             wrappedSink.consume(n)

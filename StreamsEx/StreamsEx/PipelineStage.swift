@@ -16,6 +16,8 @@ protocol PipelineStageProtocol {
     
     func evaluateParallelLazy<Stage: PipelineStageProtocol, Spliterator: SpliteratorProtocol>(stage: Stage, spliterator: Spliterator) -> AnySpliterator<PipelineStageOut> where Spliterator.Element == PipelineStageIn
     
+    func wrap<Spliterator: SpliteratorProtocol>(spliterator: Spliterator) -> AnySpliterator<PipelineStageOut> where Spliterator.Element == PipelineStageIn
+    
 }
 
 class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Out>, PipelineStageProtocol {
@@ -62,7 +64,7 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
         self.combinedFlags = StreamFlags(modifiers: stageFlags)
     }
     
-    override func wrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol {
+    override func unsafeWrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         var _sink = sink;
         var stage: UntypedPipelineStageProtocol? = self
         while let currentStage = stage, currentStage.depth > 0 {
@@ -86,7 +88,7 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
     
     
     override func unsafeWrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
-        return AnySpliterator(WrappingSpliterator(stage: self, spliterator: unsafeSourceSpliterator!, isParallel: isParallel))
+        return AnySpliterator(UnsafeWrappingSpliterator(stage: self, spliterator: spliterator, isParallel: isParallel))
     }
     
     
@@ -140,6 +142,11 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
     
     func evaluateParallelLazy<Stage: PipelineStageProtocol, Spliterator: SpliteratorProtocol>(stage: Stage, spliterator: Spliterator) -> AnySpliterator<PipelineStageOut> where Spliterator.Element == PipelineStageIn {
         _abstract()
+    }
+    
+    
+    func wrap<Spliterator: SpliteratorProtocol>(spliterator: Spliterator) -> AnySpliterator<PipelineStageOut> where Spliterator.Element == PipelineStageIn {
+          return AnySpliterator(WrappingSpliterator(stage: self, spliterator: spliterator, isParallel: isParallel))
     }
 }
 

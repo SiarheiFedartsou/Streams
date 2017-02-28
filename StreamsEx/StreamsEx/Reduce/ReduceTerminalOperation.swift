@@ -65,7 +65,7 @@ final class ReduceTask<U, T> {
             return operation.combiner(result1!, result2!)
         } else {
             let reduceSink = operation.makeSink()
-            let sink = stage.wrap(sink: UntypedSink(reduceSink))
+            let sink = stage.unsafeWrap(sink: UntypedSink(reduceSink))
             spliterator.forEachRemaining { element in
                 sink.consume(element)
             }
@@ -93,7 +93,7 @@ final class ReduceTerminalOperation<U, T> : TerminalOperationProtocol {
     func evaluateSequential(forPipelineStage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> U {
         var spliterator = spliterator
         let reduceSink = makeSink()
-        let sink = forPipelineStage.wrap(sink: UntypedSink(reduceSink))
+        let sink = forPipelineStage.unsafeWrap(sink: UntypedSink(reduceSink))
         spliterator.forEachRemaining {
             sink.consume($0)
         }

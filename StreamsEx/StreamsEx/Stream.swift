@@ -10,8 +10,8 @@ import Foundation
 
 public class Stream<T> : UntypedPipelineStageProtocol {
     
-    internal var _testSpliterator: WrappingSpliterator {
-        return WrappingSpliterator(stage: self, spliterator: self.unsafeSourceSpliterator!, isParallel: true)
+    internal var _testSpliterator: UnsafeWrappingSpliterator {
+        return UnsafeWrappingSpliterator(stage: self, spliterator: self.unsafeSourceSpliterator!, isParallel: true)
     }
     
     public func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T> {
@@ -73,7 +73,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     }
     
     
-    func wrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol {
+    func unsafeWrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         _abstract()
     }
     
