@@ -57,7 +57,7 @@ final class SlicePipelineStage<T, SourceSpliterator: SpliteratorProtocol> : Pipe
         super.init(previousStage: previousStage, stageFlags: stageFlags)
     }
 
-    override func makeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
+    override func unsafeMakeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         return UntypedSink(SlicePipelineStageSink<T>(nextSink: nextSink, skip: skip, limit: limit))
     }
     

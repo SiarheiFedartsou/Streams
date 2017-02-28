@@ -38,7 +38,7 @@ class MapPipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Pipeli
         super.init(previousStage: previousStage, stageFlags: stageFlags)
     }
     
-    override func makeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
+    override func unsafeMakeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         return UntypedSink(MapPipelineStageSink(nextSink: nextSink, mapper: mapper))
     }
 }

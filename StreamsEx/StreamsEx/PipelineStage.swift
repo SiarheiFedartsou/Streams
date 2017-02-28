@@ -17,6 +17,7 @@ protocol PipelineStageProtocol {
     func evaluateParallelLazy<Stage: PipelineStageProtocol, Spliterator: SpliteratorProtocol>(stage: Stage, spliterator: Spliterator) -> AnySpliterator<PipelineStageOut> where Spliterator.Element == PipelineStageIn
     
     func wrap<Spliterator: SpliteratorProtocol>(spliterator: Spliterator) -> AnySpliterator<PipelineStageOut> where Spliterator.Element == PipelineStageIn
+    func wrap<Sink: SinkProtocol>(sink: Sink) -> AnySink<PipelineStageIn> where Sink.Consumable == PipelineStageOut
     
 }
 
@@ -68,13 +69,13 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
         var _sink = sink;
         var stage: UntypedPipelineStageProtocol? = self
         while let currentStage = stage, currentStage.depth > 0 {
-            _sink = currentStage.makeSink(withNextSink: _sink)
+            _sink = currentStage.unsafeMakeSink(withNextSink: _sink)
             stage = currentStage.previousStage
         }
         return _sink;
     }
     
-    override func makeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
+    override func unsafeMakeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         _abstract()
     }
     
@@ -147,6 +148,10 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
     
     func wrap<Spliterator: SpliteratorProtocol>(spliterator: Spliterator) -> AnySpliterator<PipelineStageOut> where Spliterator.Element == PipelineStageIn {
           return AnySpliterator(WrappingSpliterator(stage: self, spliterator: spliterator, isParallel: isParallel))
+    }
+    
+    func wrap<Sink: SinkProtocol>(sink: Sink) -> AnySink<PipelineStageIn> where Sink.Consumable == PipelineStageOut {
+        _abstract()
     }
 }
 

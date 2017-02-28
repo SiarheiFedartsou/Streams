@@ -37,7 +37,7 @@ final class PipelineHead<T, SourceSpliterator: SpliteratorProtocol> : PipelineSt
         self.isParallel = parallel
     }
     
-    override func makeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
+    override func unsafeMakeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         return UntypedSink(PipelineHeadSink<T>(nextSink: nextSink))
     }
 }

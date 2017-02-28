@@ -13,7 +13,7 @@ class FlagModifyingPipelineStage<T, SourceSpliterator: SpliteratorProtocol> : Pi
         super.init(previousStage: previousStage, stageFlags: flags)
     }
     
-    override func makeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
+    override func unsafeMakeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         return nextSink
     }
 }

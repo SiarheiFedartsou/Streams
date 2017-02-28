@@ -77,7 +77,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
         _abstract()
     }
     
-    func makeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
+    func unsafeMakeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         _abstract()
     }
     

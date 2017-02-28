@@ -22,7 +22,7 @@ internal protocol UntypedPipelineStageProtocol : class {
     
     func unsafeWrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any>
     func unsafeWrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol
-    func makeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol
+    func unsafeMakeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol
     func unsafeEvaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any>
     
     func evaluate<R, TerminalOperation: TerminalOperationProtocol>(terminalOperation: TerminalOperation) -> R where TerminalOperation.Result == R

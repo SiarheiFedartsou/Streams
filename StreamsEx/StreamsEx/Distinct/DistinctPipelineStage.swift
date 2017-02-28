@@ -40,7 +40,7 @@ final class DistinctPipelineStageSink<T: Hashable> : SinkProtocol {
 final class DistinctPipelineStage<T: Hashable, SourceSpliterator: SpliteratorProtocol> : PipelineStage<T, T, SourceSpliterator>
 {
     
-    override func makeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
+    override func unsafeMakeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         return UntypedSink(DistinctPipelineStageSink<T>(nextSink: nextSink))
     }
     
