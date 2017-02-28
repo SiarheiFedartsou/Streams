@@ -90,7 +90,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     }
     
     
-    func wrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
+    func unsafeWrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
         _abstract()
     }
     

@@ -14,6 +14,7 @@ protocol PipelineStageProtocol {
     
     var sourceSpliterator: SourceSpliterator? { get }
     
+    func evaluateParallelLazy<Stage: PipelineStageProtocol, Spliterator: SpliteratorProtocol>(stage: Stage, spliterator: Spliterator) -> AnySpliterator<PipelineStageOut> where Spliterator.Element == PipelineStageIn
     
 }
 
@@ -84,7 +85,7 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
     }
     
     
-    override func wrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
+    override func unsafeWrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
         return AnySpliterator(WrappingSpliterator(stage: self, spliterator: unsafeSourceSpliterator!, isParallel: isParallel))
     }
     
@@ -135,6 +136,10 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
     
     public override func unordered() -> Stream<Out> {
         return FlagModifyingPipelineStage(previousStage: self, flags: [.notOrdered])
+    }
+    
+    func evaluateParallelLazy<Stage: PipelineStageProtocol, Spliterator: SpliteratorProtocol>(stage: Stage, spliterator: Spliterator) -> AnySpliterator<PipelineStageOut> where Spliterator.Element == PipelineStageIn {
+        _abstract()
     }
 }
 

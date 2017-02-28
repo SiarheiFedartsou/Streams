@@ -20,7 +20,7 @@ internal protocol UntypedPipelineStageProtocol : class {
     
     var combinedFlags: StreamFlags { get set }
     
-    func wrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any>
+    func unsafeWrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any>
     func wrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol
     func makeSink(withNextSink: UntypedSinkProtocol) -> UntypedSinkProtocol
     func unsafeEvaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any>

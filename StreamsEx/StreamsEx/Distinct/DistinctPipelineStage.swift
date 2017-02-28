@@ -50,7 +50,7 @@ final class DistinctPipelineStage<T: Hashable, SourceSpliterator: SpliteratorPro
     
     override func unsafeEvaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
         if stage.combinedFlags.contains(.distinct) {
-            return stage.wrap(spliterator: spliterator)
+            return stage.unsafeWrap(spliterator: spliterator)
         } else if stage.combinedFlags.contains(.ordered) {
             let reduceOperation = ReduceTerminalOperation<OrderedSet<T>, T>(identity: OrderedSet<T>(), accumulator: { (set, element) in
                 var result = set
@@ -66,7 +66,7 @@ final class DistinctPipelineStage<T: Hashable, SourceSpliterator: SpliteratorPro
             let castingSpliterator = CastingSpliterator<T, Any>(spliterator: distinctArray.spliterator)
             return AnySpliterator(castingSpliterator)
         } else {
-            let spliterator = CastingSpliterator<Any, T>(spliterator: stage.wrap(spliterator: spliterator))
+            let spliterator = CastingSpliterator<Any, T>(spliterator: stage.unsafeWrap(spliterator: spliterator))
             let distinctSpliterator = DistinctSpliterator(spliterator: spliterator)
             let castingSpliterator = CastingSpliterator<T, Any>(spliterator: AnySpliterator(distinctSpliterator))
             return AnySpliterator(castingSpliterator)
