@@ -6,17 +6,38 @@
 //  Copyright © 2017 Sergey Fedortsov. All rights reserved.
 //
 
-class PipelineStage<In, Out> : Stream<Out> {
+
+protocol PipelineStageProtocol {
+    associatedtype SourceSpliterator : SpliteratorProtocol
+    associatedtype PipelineStageIn
+    associatedtype PipelineStageOut
     
-    init(previousStage: UntypedPipelineStageProtocol?, stageFlags: StreamFlagsModifiers) {
+    var sourceSpliterator: SourceSpliterator? { get }
+    
+    
+}
+
+class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Out>, PipelineStageProtocol {
+    typealias PipelineStageOut = Out
+    typealias PipelineStageIn = In
+
+
+    let sourceSpliterator: SourceSpliterator?
+    
+    
+    init<PreviousStage: PipelineStageProtocol & UntypedPipelineStageProtocol>(previousStage: PreviousStage?, stageFlags: StreamFlagsModifiers) where PreviousStage.SourceSpliterator == SourceSpliterator {
+        self.sourceSpliterator = previousStage?.sourceSpliterator
+        
         super.init()
+        
+        
         previousStage?.nextStage = self
         self.stageFlags = stageFlags
         
         
         self.previousStage = previousStage
         self.sourceStage = previousStage?.sourceStage
-        self.sourceSpliterator = previousStage?.sourceSpliterator
+        self.unsafeSourceSpliterator = previousStage?.unsafeSourceSpliterator
         if let previousStage = previousStage {
             self.isParallel = previousStage.isParallel
             self.depth = previousStage.depth + 1
@@ -24,6 +45,20 @@ class PipelineStage<In, Out> : Stream<Out> {
         } else {
             self.combinedFlags = StreamFlags(modifiers: stageFlags)
         }
+    }
+    
+    init(sourceSpliterator: SourceSpliterator, stageFlags: StreamFlagsModifiers) {
+        self.sourceSpliterator = sourceSpliterator
+        
+        super.init()
+        
+        
+        self.stageFlags = stageFlags
+        
+        
+        self.previousStage = nil
+        self.sourceStage = self
+        self.combinedFlags = StreamFlags(modifiers: stageFlags)
     }
     
     override func wrap(sink: UntypedSinkProtocol) -> UntypedSinkProtocol {
@@ -50,7 +85,7 @@ class PipelineStage<In, Out> : Stream<Out> {
     
     
     override func wrap(spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
-        return AnySpliterator(WrappingSpliterator(stage: self, spliterator: sourceSpliterator!, isParallel: isParallel))
+        return AnySpliterator(WrappingSpliterator(stage: self, spliterator: unsafeSourceSpliterator!, isParallel: isParallel))
     }
     
     
@@ -62,8 +97,8 @@ class PipelineStage<In, Out> : Stream<Out> {
     private func spliterator() -> AnySpliterator<Any> {
         guard let sourceStage = sourceStage else { fatalError() }
         var spliterator: AnySpliterator<Any>
-        if let sourceSpliterator = sourceSpliterator {
-            spliterator = sourceSpliterator
+        if let unsafeSourceSpliterator = unsafeSourceSpliterator {
+            spliterator = unsafeSourceSpliterator
         } else {
             fatalError()
         }
@@ -89,4 +124,20 @@ class PipelineStage<In, Out> : Stream<Out> {
         
         return spliterator
     }
+    
+    public override func map<R>(_ mapper: @escaping (Out) -> R) -> Stream<R> {
+        return MapPipelineStage(previousStage: self, stageFlags: [.notSorted, .notDistinct], mapper: mapper)
+    }
+    
+    public override func slice(_ bounds: ClosedRange<IntMax>) -> Stream<Out> {
+        return SlicePipelineStage(previousStage: self, stageFlags: [], skip: bounds.lowerBound, limit: bounds.upperBound - bounds.lowerBound)
+    }
+    
+    public override func unordered() -> Stream<T> {
+        return FlagModifyingPipelineStage(previousStage: self, flags: [.notOrdered])
+    }
+}
+
+extension PipelineStage {
+
 }

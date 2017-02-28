@@ -11,7 +11,7 @@ import Foundation
 public class Stream<T> : UntypedPipelineStageProtocol {
     
     internal var _testSpliterator: WrappingSpliterator {
-        return WrappingSpliterator(stage: self, spliterator: self.sourceSpliterator!, isParallel: true)
+        return WrappingSpliterator(stage: self, spliterator: self.unsafeSourceSpliterator!, isParallel: true)
     }
     
     public func filter(_ predicate: @escaping (T) -> Bool) -> Stream<T> {
@@ -19,11 +19,11 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     }
     
     public func map<R>(_ mapper: @escaping (T) -> R) -> Stream<R> {
-        return MapPipelineStage(previousStage: self, stageFlags: [.notSorted, .notDistinct], mapper: mapper)
+        _abstract()
     }
     
     public func slice(_ bounds: ClosedRange<IntMax>) -> Stream<T> {
-        return SlicePipelineStage(previousStage: self, stageFlags: [], skip: bounds.lowerBound, limit: bounds.upperBound - bounds.lowerBound)
+        _abstract()
     }
     
     public func reduce(identity: T, accumulator: @escaping (T, T) -> T) -> T
@@ -37,7 +37,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     }
     
     public func unordered() -> Stream<T> {
-        return FlagModifyingPipelineStage(previousStage: self, flags: [.notOrdered])
+        _abstract()
     }
     
     public var isOrdered: Bool {
@@ -61,7 +61,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
     var previousStage: UntypedPipelineStageProtocol? = nil
     
     var sourceStage: UntypedPipelineStageProtocol? = nil
-    var sourceSpliterator: AnySpliterator<Any>? = nil
+    var unsafeSourceSpliterator: AnySpliterator<Any>? = nil
     
     var stageFlags = StreamFlagsModifiers()
     var combinedFlags = StreamFlags()
@@ -103,6 +103,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
 
 extension Stream where T : Hashable {
     public func distinct() -> Stream<T> {
-        return DistinctPipelineStage(previousStage: self, stageFlags: [.distinct, .notSized])
+        _abstract()
+        //return DistinctPipelineStage(previousStage: self, stageFlags: [.distinct, .notSized])
     }
 }

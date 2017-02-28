@@ -6,9 +6,9 @@
 //  Copyright © 2017 Sergey Fedortsov. All rights reserved.
 //
 
-class FlagModifyingPipelineStage<T> : PipelineStage<T, T>
+class FlagModifyingPipelineStage<T, SourceSpliterator: SpliteratorProtocol> : PipelineStage<T, T, SourceSpliterator>
 {
-    init(previousStage: UntypedPipelineStageProtocol, flags: StreamFlagsModifiers)
+    init<PreviousStage: PipelineStageProtocol & UntypedPipelineStageProtocol>(previousStage: PreviousStage?, flags: StreamFlagsModifiers) where PreviousStage.SourceSpliterator == SourceSpliterator
     {
         super.init(previousStage: previousStage, stageFlags: flags)
     }

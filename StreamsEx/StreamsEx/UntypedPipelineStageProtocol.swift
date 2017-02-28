@@ -11,7 +11,7 @@ internal protocol UntypedPipelineStageProtocol : class {
     var previousStage: UntypedPipelineStageProtocol? { get }
     
     var sourceStage: UntypedPipelineStageProtocol? { get }
-    var sourceSpliterator: AnySpliterator<Any>? { get }
+    var unsafeSourceSpliterator: AnySpliterator<Any>? { get }
     
     var isStateful: Bool { get }
     var isParallel: Bool { get }

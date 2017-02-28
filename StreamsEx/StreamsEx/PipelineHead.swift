@@ -26,14 +26,13 @@ fileprivate final class PipelineHeadSink<T> : SinkProtocol {
     }
 }
 
-final class PipelineHead<T> : PipelineStage<T, T>
+final class PipelineHead<T, SourceSpliterator: SpliteratorProtocol> : PipelineStage<T, T, SourceSpliterator>  where SourceSpliterator.Element == T
 {
 
-    
-    init(source: AnySpliterator<T>, flags: StreamFlagsModifiers, parallel: Bool)
+    init(source: SourceSpliterator, flags: StreamFlagsModifiers, parallel: Bool)
     {
-        super.init(previousStage: nil, stageFlags: flags)
-        self.sourceSpliterator = AnySpliterator(CastingSpliterator<T, Any>(spliterator: source))
+        super.init(sourceSpliterator: source, stageFlags: flags)
+        self.unsafeSourceSpliterator = AnySpliterator(CastingSpliterator<SourceSpliterator.Element, Any>(spliterator: AnySpliterator(source)))
         self.sourceStage = self
         self.isParallel = parallel
     }

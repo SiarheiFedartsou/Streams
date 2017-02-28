@@ -21,12 +21,10 @@
 		47D9D5FC1E5B64B5001F23CA /* OrderedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9D5FB1E5B64B5001F23CA /* OrderedTests.swift */; };
 		47DDC50D1E3BACBD0097FF81 /* DistinctPipelineStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DDC50C1E3BACBD0097FF81 /* DistinctPipelineStage.swift */; };
 		47DDC50E1E3BACC50097FF81 /* SliceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47959B771E2BE62B007E0DFB /* SliceTests.swift */; };
-		47DDC5101E3BACF50097FF81 /* DistinctTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DDC50F1E3BACF50097FF81 /* DistinctTests.swift */; };
 		47DDC5121E3BB3350097FF81 /* UntypedNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DDC5111E3BB3350097FF81 /* UntypedNode.swift */; };
 		47DDC5131E3BB6100097FF81 /* PipelineWrappingSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A0CCC81E28F9D900E36037 /* PipelineWrappingSpliterator.swift */; };
 		47DDC5151E3FB3380097FF81 /* DistinctSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DDC5141E3FB3380097FF81 /* DistinctSpliterator.swift */; };
 		47DDC5171E3FB7450097FF81 /* CastingSpliterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DDC5161E3FB7450097FF81 /* CastingSpliterator.swift */; };
-		47DDC5191E410DA00097FF81 /* DistinctBenchmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DDC5181E410DA00097FF81 /* DistinctBenchmarks.swift */; };
 		B3196C911E3B6B9A00BFE883 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3196C901E3B6B9A00BFE883 /* Node.swift */; };
 		B3196C931E3B6CF300BFE883 /* CollectionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3196C921E3B6CF300BFE883 /* CollectionNode.swift */; };
 		B3A0CCA31E28F95600E36037 /* StreamsEx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A0CC991E28F95600E36037 /* StreamsEx.framework */; };
@@ -495,10 +493,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				47DDC50E1E3BACC50097FF81 /* SliceTests.swift in Sources */,
-				47DDC5101E3BACF50097FF81 /* DistinctTests.swift in Sources */,
 				B3A0CCF11E29097600E36037 /* StreamTests.swift in Sources */,
 				B3A0CCD51E28F9DD00E36037 /* CollectionSpliteratorTests.swift in Sources */,
-				47DDC5191E410DA00097FF81 /* DistinctBenchmarks.swift in Sources */,
 				B3A0CCA81E28F95600E36037 /* StreamsExTests.swift in Sources */,
 				4781E4091E4CDD5300058303 /* SliceBenchmarks.swift in Sources */,
 				47D9D5FC1E5B64B5001F23CA /* OrderedTests.swift in Sources */,

@@ -45,18 +45,18 @@ final class SlicePipelineStageSink<T> : SinkProtocol {
 }
 
 
-final class SlicePipelineStage<T> : PipelineStage<T, T>
+final class SlicePipelineStage<T, SourceSpliterator: SpliteratorProtocol> : PipelineStage<T, T, SourceSpliterator>
 {
     private let skip: IntMax
     private let limit: IntMax
     
-    init(previousStage: UntypedPipelineStageProtocol, stageFlags: StreamFlagsModifiers, skip: IntMax, limit: IntMax)
-    {
+    
+    init<PreviousStage: PipelineStageProtocol & UntypedPipelineStageProtocol>(previousStage: PreviousStage?, stageFlags: StreamFlagsModifiers, skip: IntMax, limit: IntMax) where PreviousStage.SourceSpliterator == SourceSpliterator {
         self.skip = skip
         self.limit = limit
         super.init(previousStage: previousStage, stageFlags: stageFlags)
     }
-    
+
     override func makeSink(withNextSink nextSink: UntypedSinkProtocol) -> UntypedSinkProtocol {
         return UntypedSink(SlicePipelineStageSink<T>(nextSink: nextSink, skip: skip, limit: limit))
     }
