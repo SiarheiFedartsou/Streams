@@ -70,7 +70,7 @@ final class SlicePipelineStage<T, SourceSpliterator: SpliteratorProtocol> : Pipe
         return sliceFence >= 0 ? sliceFence : IntMax.max
     }
     
-    override func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
+    override func unsafeEvaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
         let spliterator = AnySpliterator(CastingSpliterator<Any, T>(spliterator: stage.wrap(spliterator: spliterator)))
         let sliceSpliterator = SliceSpliterator(spliterator: spliterator, sliceOrigin: skip, sliceFence: sliceFence(fromSkip: skip, limit: limit))
         

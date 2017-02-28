@@ -48,7 +48,7 @@ final class DistinctPipelineStage<T: Hashable, SourceSpliterator: SpliteratorPro
         return true
     }
     
-    override func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
+    override func unsafeEvaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
         if stage.combinedFlags.contains(.distinct) {
             return stage.wrap(spliterator: spliterator)
         } else if stage.combinedFlags.contains(.ordered) {

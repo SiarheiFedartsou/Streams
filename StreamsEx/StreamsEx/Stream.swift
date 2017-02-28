@@ -81,7 +81,7 @@ public class Stream<T> : UntypedPipelineStageProtocol {
         _abstract()
     }
     
-    func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
+    func unsafeEvaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
         _abstract()
     }
     

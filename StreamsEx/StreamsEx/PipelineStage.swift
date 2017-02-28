@@ -75,7 +75,7 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
         _abstract()
     }
     
-    override func evaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
+    override func unsafeEvaluateParallelLazy(stage: UntypedPipelineStageProtocol, spliterator: AnySpliterator<Any>) -> AnySpliterator<Any> {
         return evaluateParallel(stage: stage, spliterator: spliterator).spliterator
     }
     
@@ -110,7 +110,7 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
             while currentStage !== self, let next = nextStage {
                 if next.isStateful {
                     depth = 0
-                    spliterator = next.evaluateParallelLazy(stage: currentStage, spliterator: spliterator)
+                    spliterator = next.unsafeEvaluateParallelLazy(stage: currentStage, spliterator: spliterator)
                 }
                 
                 nextStage?.depth = depth
@@ -133,7 +133,7 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
         return SlicePipelineStage(previousStage: self, stageFlags: [], skip: bounds.lowerBound, limit: bounds.upperBound - bounds.lowerBound)
     }
     
-    public override func unordered() -> Stream<T> {
+    public override func unordered() -> Stream<Out> {
         return FlagModifyingPipelineStage(previousStage: self, flags: [.notOrdered])
     }
 }
