@@ -45,13 +45,13 @@ final class SlicePipelineStageSink<T> : SinkProtocol {
 }
 
 
-final class SlicePipelineStage<T, SourceSpliterator: SpliteratorProtocol> : PipelineStage<T, T, SourceSpliterator>
+final class SlicePipelineStage<T, SourceSpliterator: SpliteratorProtocol, PreviousStage: PipelineStageProtocol> : PipelineStage<T, T, SourceSpliterator, PreviousStage> where PreviousStage.PipelineStageOut == T
 {
     private let skip: IntMax
     private let limit: IntMax
     
     
-    init<PreviousStage: PipelineStageProtocol & UntypedPipelineStageProtocol>(previousStage: PreviousStage?, stageFlags: StreamFlagsModifiers, skip: IntMax, limit: IntMax) where PreviousStage.SourceSpliterator == SourceSpliterator {
+    init<UnsafePreviousStage: PipelineStageProtocol & UntypedPipelineStageProtocol>(previousStage: UnsafePreviousStage?, stageFlags: StreamFlagsModifiers, skip: IntMax, limit: IntMax) where UnsafePreviousStage.SourceSpliterator == SourceSpliterator {
         self.skip = skip
         self.limit = limit
         super.init(previousStage: previousStage, stageFlags: stageFlags)

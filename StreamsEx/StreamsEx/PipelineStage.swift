@@ -24,19 +24,22 @@ protocol PipelineStageProtocol {
     
 }
 
-class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Out>, PipelineStageProtocol {
+class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol, PreviousStage: PipelineStageProtocol> : Stream<Out>, PipelineStageProtocol where PreviousStage.PipelineStageOut == In {
     typealias PipelineStageOut = Out
     typealias PipelineStageIn = In
 
 
     let sourceSpliterator: SourceSpliterator?
+
+    var prevStage: PreviousStage? = nil
     
     
-    init<PreviousStage: PipelineStageProtocol & UntypedPipelineStageProtocol>(previousStage: PreviousStage?, stageFlags: StreamFlagsModifiers) where PreviousStage.SourceSpliterator == SourceSpliterator {
+    init<UnsafePreviousStage: PipelineStageProtocol & UntypedPipelineStageProtocol>(previousStage: UnsafePreviousStage?, stageFlags: StreamFlagsModifiers) where UnsafePreviousStage.SourceSpliterator == SourceSpliterator {
         self.sourceSpliterator = previousStage?.sourceSpliterator
         
         super.init()
         
+        self.prevStage = previousStage as! PreviousStage?
         
         previousStage?.nextStage = self
         self.stageFlags = stageFlags
@@ -59,7 +62,7 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
         
         super.init()
         
-        
+        self.prevStage = nil
         self.stageFlags = stageFlags
         
         
@@ -133,15 +136,15 @@ class PipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : Stream<Ou
     }
     
     public override func map<R>(_ mapper: @escaping (Out) -> R) -> Stream<R> {
-        return MapPipelineStage(previousStage: self, stageFlags: [.notSorted, .notDistinct], mapper: mapper)
+        return MapPipelineStage<Out, R, SourceSpliterator, PipelineStage>(previousStage: self, stageFlags: [.notSorted, .notDistinct], mapper: mapper)
     }
     
     public override func slice(_ bounds: ClosedRange<IntMax>) -> Stream<Out> {
-        return SlicePipelineStage(previousStage: self, stageFlags: [], skip: bounds.lowerBound, limit: bounds.upperBound - bounds.lowerBound)
+        return SlicePipelineStage<Out, SourceSpliterator, PipelineStage>(previousStage: self, stageFlags: [], skip: bounds.lowerBound, limit: bounds.upperBound - bounds.lowerBound)
     }
     
     public override func unordered() -> Stream<Out> {
-        return FlagModifyingPipelineStage(previousStage: self, flags: [.notOrdered])
+        return FlagModifyingPipelineStage<Out, SourceSpliterator, PipelineStage>(previousStage: self, flags: [.notOrdered])
     }
     
     func evaluateParallelLazy<Stage: PipelineStageProtocol, Spliterator: SpliteratorProtocol>(stage: Stage, spliterator: Spliterator) -> AnySpliterator<PipelineStageOut> where Spliterator.Element == PipelineStageIn {

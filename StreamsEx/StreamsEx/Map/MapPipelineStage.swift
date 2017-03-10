@@ -51,11 +51,11 @@ final class MapPipelineStageSink<In, Out, NextSink: SinkProtocol> : SinkProtocol
 }
 
 
-class MapPipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol> : PipelineStage<In, Out, SourceSpliterator>
+class MapPipelineStage<In, Out, SourceSpliterator: SpliteratorProtocol, PreviousStage: PipelineStageProtocol> : PipelineStage<In, Out, SourceSpliterator, PreviousStage> where PreviousStage.PipelineStageOut == In
 {
     let mapper: (In) -> Out
     
-    init<PreviousStage: PipelineStageProtocol & UntypedPipelineStageProtocol>(previousStage: PreviousStage?, stageFlags: StreamFlagsModifiers, mapper: @escaping (In) -> Out) where PreviousStage.SourceSpliterator == SourceSpliterator {
+    init<UnsafePreviousStage: PipelineStageProtocol & UntypedPipelineStageProtocol>(previousStage: UnsafePreviousStage?, stageFlags: StreamFlagsModifiers, mapper: @escaping (In) -> Out) where UnsafePreviousStage.SourceSpliterator == SourceSpliterator {
         self.mapper = mapper
         super.init(previousStage: previousStage, stageFlags: stageFlags)
     }

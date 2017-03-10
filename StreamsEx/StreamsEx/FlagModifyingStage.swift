@@ -6,9 +6,9 @@
 //  Copyright © 2017 Sergey Fedortsov. All rights reserved.
 //
 
-class FlagModifyingPipelineStage<T, SourceSpliterator: SpliteratorProtocol> : PipelineStage<T, T, SourceSpliterator>
+class FlagModifyingPipelineStage<T, SourceSpliterator: SpliteratorProtocol, PreviousStage: PipelineStageProtocol> : PipelineStage<T, T, SourceSpliterator, PreviousStage> where PreviousStage.PipelineStageOut == T
 {
-    init<PreviousStage: PipelineStageProtocol & UntypedPipelineStageProtocol>(previousStage: PreviousStage?, flags: StreamFlagsModifiers) where PreviousStage.SourceSpliterator == SourceSpliterator
+    init<UnsafePreviousStage: PipelineStageProtocol & UntypedPipelineStageProtocol>(previousStage: UnsafePreviousStage?, flags: StreamFlagsModifiers) where UnsafePreviousStage.SourceSpliterator == SourceSpliterator
     {
         super.init(previousStage: previousStage, stageFlags: flags)
     }

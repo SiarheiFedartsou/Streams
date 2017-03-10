@@ -26,7 +26,27 @@ fileprivate final class PipelineHeadSink<T> : SinkProtocol {
     }
 }
 
-final class PipelineHead<T, SourceSpliterator: SpliteratorProtocol> : PipelineStage<T, T, SourceSpliterator>  where SourceSpliterator.Element == T
+final class DummyPreviousPipelineStage<T> : PipelineStageProtocol {
+    var sourceSpliterator: AnySpliterator<T>? = nil
+    
+    func evaluateParallelLazy<Stage: PipelineStageProtocol, Spliterator: SpliteratorProtocol>(stage: Stage, spliterator: Spliterator) -> AnySpliterator<T> where Spliterator.Element == T {
+        _abstract()
+    }
+    
+    func wrap<Spliterator: SpliteratorProtocol>(spliterator: Spliterator) -> AnySpliterator<T> where Spliterator.Element == T {
+        _abstract()
+    }
+    
+    func wrap<Sink: SinkProtocol>(sink: Sink) -> AnySink<T> where Sink.Consumable == T {
+        _abstract()
+    }
+    
+    func makeSink<NextSink: SinkProtocol>(withNextSink nextSink: NextSink) -> AnySink<T> where NextSink.Consumable == T {
+        _abstract()
+    }
+}
+
+final class PipelineHead<T, SourceSpliterator: SpliteratorProtocol> : PipelineStage<T, T, SourceSpliterator, DummyPreviousPipelineStage<T>>  where SourceSpliterator.Element == T
 {
 
     init(source: SourceSpliterator, flags: StreamFlagsModifiers, parallel: Bool)
